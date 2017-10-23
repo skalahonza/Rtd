@@ -9,6 +9,7 @@ Library/
 # ===================================== #
 ExportedObj/
 obj/
+.vs/
 *.svd
 *.userprefs
 /*.csproj
@@ -18,6 +19,7 @@ obj/
 *.user
 *.unityproj
 *.booproj
+*.ide
 .vscode/
 ProjectVersion.txt
 
