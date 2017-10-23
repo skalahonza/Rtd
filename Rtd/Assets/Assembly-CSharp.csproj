@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Multiplayer\Lobby.cs" />
+     <Compile Include="Assets\Multiplayer\LobbyPlayer.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/home/mido/HrySemestralka/Rtd/Assets/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
