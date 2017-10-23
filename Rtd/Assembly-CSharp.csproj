@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{17533FA3-357A-CEC6-ED1C-9FA92629C572}</ProjectGuid>
+    <ProjectGuid>{26414003-9729-7AC7-DA4E-7940D1584481}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,10 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Mechanics\DefaultMechanics.cs" />
      <Compile Include="Assets\Multiplayer\Lobby.cs" />
      <Compile Include="Assets\Multiplayer\LobbyPlayer.cs" />
+     <None Include="Assets\ProjectSettings\ProjectVersion.txt" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/home/mido/HrySemestralka/Rtd/Assets/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/home/mido/HrySemestralka/Rtd/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/home/mido/Unity-2017.3.0b1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
