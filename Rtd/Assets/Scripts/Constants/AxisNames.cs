@@ -1,0 +1,8 @@
+﻿namespace Assets.Scripts.Constants
+{
+    public static class AxisNames
+    {
+        public const string Horizontal = "Horizontal";
+        public const string Vertical = "Vertical";
+    }
+}
