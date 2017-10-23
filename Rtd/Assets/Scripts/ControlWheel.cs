@@ -12,7 +12,7 @@ public class ControlWheel : MonoBehaviour
     public float MaxTurn = 25.0f;
 
     private float instantPower = 0.0f;
-    private float _break = 0.0f;
+    private float brake = 0.0f;
     private float wheelTurn = 0.0f;
 
     private Rigidbody carRigidbody;
@@ -28,21 +28,37 @@ public class ControlWheel : MonoBehaviour
     {
         instantPower = Input.GetAxis(AxisNames.Vertical) * MotorPower * Time.deltaTime;
         wheelTurn = Input.GetAxis(AxisNames.Horizontal) * MaxTurn;
-        _break = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
+        brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
-        for (int i = 0; i < 2; i++)
+/*        for (int i = 0; i < 2; i++)
         {
-            getCollider(i).steerAngle = wheelTurn;
+            //turn collider
+            GetCollider(i).steerAngle = wheelTurn;
 
-            
-        }
+            //turn wheel
+            Wheels[i].localEulerAngles = new Vector3(Wheels[i].localEulerAngles.x,
+                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z + 90,
+                Wheels[i].localEulerAngles.z
+                );
 
-        getCollider(0).steerAngle = wheelTurn;
-        getCollider(1).steerAngle = wheelTurn;
+            //spin wheels
+            Wheels[i].Rotate(0, -GetCollider(i).rpm/60*360*Time.deltaTime,0);
 
+            //breaks
+            if (brake > 0.0f)
+            {
+                GetCollider(i).brakeTorque = brake;
+                GetCollider(i).motorTorque = 0.0f;
+            }
+            else
+            {
+                GetCollider(i).brakeTorque = 0.0f;
+                GetCollider(i).motorTorque = instantPower;
+            }
+        }*/
     }
 
-    WheelCollider getCollider(int n)
+    WheelCollider GetCollider(int n)
     {
         return Wheels[n].gameObject.GetComponent<WheelCollider>();
     }
