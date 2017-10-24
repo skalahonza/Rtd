@@ -16,13 +16,13 @@ public class ControlWheel : MonoBehaviour
     private float wheelTurn = 0.0f;
 
     private Rigidbody carRigidbody;
-	// Use this for initialization
-	void Start ()
-	{
-	    carRigidbody = gameObject.GetComponent<Rigidbody>();
-        carRigidbody.centerOfMass = new Vector3(0,-0.5f,0.3f);
+    // Use this for initialization
+    void Start()
+    {
+        carRigidbody = gameObject.GetComponent<Rigidbody>();
+        carRigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
 
-	}
+    }
 
     void FixedUpdate()
     {
@@ -30,41 +30,52 @@ public class ControlWheel : MonoBehaviour
         wheelTurn = Input.GetAxis(AxisNames.Horizontal) * MaxTurn;
         brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
-/*        for (int i = 0; i < 2; i++)
+        //front wheels
+        for (int i = 0; i < 2; i++)
         {
             //turn collider
             GetCollider(i).steerAngle = wheelTurn;
 
-            //turn wheel
+            //turn wheels
             Wheels[i].localEulerAngles = new Vector3(Wheels[i].localEulerAngles.x,
-                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z + 90,
-                Wheels[i].localEulerAngles.z
-                );
+                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.x + 90,
+                Wheels[i].localEulerAngles.x
+            );
+        }
 
+        for (int i = 0; i < Wheels.Length; i++)
+        {
             //spin wheels
-            Wheels[i].Rotate(0, -GetCollider(i).rpm/60*360*Time.deltaTime,0);
+            Wheels[i].Rotate(0, -GetCollider(i).rpm / 60 * 360 * Time.deltaTime, 0);
 
             //breaks
             if (brake > 0.0f)
             {
                 GetCollider(i).brakeTorque = brake;
-                GetCollider(i).motorTorque = 0.0f;
+
+                //TODO refector
+                GetCollider(2).motorTorque = 0.0f;
+                GetCollider(3).motorTorque = 0.0f;
             }
             else
             {
                 GetCollider(i).brakeTorque = 0.0f;
-                GetCollider(i).motorTorque = instantPower;
+
+                //TODO refector
+                GetCollider(2).motorTorque = instantPower;
+                GetCollider(3).motorTorque = instantPower;
             }
-        }*/
+        }
     }
 
     WheelCollider GetCollider(int n)
     {
         return Wheels[n].gameObject.GetComponent<WheelCollider>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
