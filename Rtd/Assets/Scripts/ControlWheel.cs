@@ -21,7 +21,6 @@ public class ControlWheel : MonoBehaviour
     {
         carRigidbody = gameObject.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
-
     }
 
     void FixedUpdate()
@@ -48,7 +47,7 @@ public class ControlWheel : MonoBehaviour
             //spin wheels
             Wheels[i].Rotate(0, -GetCollider(i).rpm / 60 * 360 * Time.deltaTime, 0);
 
-            //breaks
+            //breaking
             if (brake > 0.0f)
             {
                 GetCollider(i).brakeTorque = brake;
@@ -57,9 +56,12 @@ public class ControlWheel : MonoBehaviour
                 GetCollider(2).motorTorque = 0.0f;
                 GetCollider(3).motorTorque = 0.0f;
             }
+
+            //not breaking
             else
             {
                 GetCollider(i).brakeTorque = 0.0f;
+                transform.position += Vector3.forward * Time.deltaTime * instantPower;
 
                 //TODO refector
                 GetCollider(2).motorTorque = instantPower;
