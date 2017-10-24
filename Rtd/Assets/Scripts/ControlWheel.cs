@@ -63,7 +63,7 @@ public class ControlWheel : MonoBehaviour
                 GetCollider(i).brakeTorque = 0.0f;
                 //TODO steer using wheelTurn
                 var vector = Vector3.forward * Time.deltaTime * instantPower;
-                vector = SteerMechanics.Steer(vector, wheelTurn);
+                transform.rotation = SteerMechanics.Steer(vector, wheelTurn);
                 transform.position += vector;                
 
                 //TODO refector
