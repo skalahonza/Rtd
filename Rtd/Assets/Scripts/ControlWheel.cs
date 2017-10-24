@@ -36,9 +36,9 @@ public class ControlWheel : MonoBehaviour
             GetCollider(i).steerAngle = wheelTurn;
 
             //turn wheels
-            Wheels[i].localEulerAngles = new Vector3(Wheels[i].localEulerAngles.x,
-                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.x + 90,
-                Wheels[i].localEulerAngles.x
+            Wheels[i].localEulerAngles = new Vector3(GetCollider(i).steerAngle, 
+                Wheels[i].localEulerAngles.y,                
+                Wheels[i].localEulerAngles.z
             );
         }
 
@@ -61,7 +61,8 @@ public class ControlWheel : MonoBehaviour
             else
             {
                 GetCollider(i).brakeTorque = 0.0f;
-                transform.position += Vector3.forward * Time.deltaTime * instantPower;
+                transform.position += Vector3.forward * Time.deltaTime * instantPower;                
+
 
                 //TODO refector
                 GetCollider(2).motorTorque = instantPower;
