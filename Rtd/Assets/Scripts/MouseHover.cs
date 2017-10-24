@@ -11,7 +11,7 @@ public class MouseHover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnMouseEnter () {
-        GetComponent<Renderer>().material.color = Color.red;
+        GetComponent<Renderer>().material.color = Color.blue;
     }
 
     private void OnMouseExit() {
