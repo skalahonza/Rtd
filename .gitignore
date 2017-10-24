@@ -12,7 +12,7 @@ obj/
 .vs/
 *.svd
 *.userprefs
-/*.csproj
+*.csproj
 *.pidb
 *.suo
 /*.sln

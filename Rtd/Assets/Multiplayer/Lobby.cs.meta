@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 7b1e1e1f873bb40d9bf9f2e23c727dc9
-timeCreated: 1508785692
+timeCreated: 1508794808
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_PlayerPrefab: {instanceID: 0}
+  - matchMaker: {instanceID: 0}
+  - m_LobbyPlayerPrefab: {instanceID: 0}
+  - m_GamePlayerPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
