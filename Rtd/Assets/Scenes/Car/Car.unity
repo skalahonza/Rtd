@@ -228,6 +228,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &524384398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 524384393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94049f0bfdddbe741b26a548f36a4d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wheels:
+  - {fileID: 1468631573}
+  - {fileID: 1682450205}
+  MotorPower: 150
+  MaxTurn: 25
 --- !u!1 &843428421
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +385,14 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a689e2f168c8a8f4c9f11fa730246477, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &1468631573 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400004, guid: a689e2f168c8a8f4c9f11fa730246477, type: 3}
+  m_PrefabInternal: {fileID: 1441579986}
+--- !u!4 &1682450205 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400006, guid: a689e2f168c8a8f4c9f11fa730246477, type: 3}
+  m_PrefabInternal: {fileID: 1441579986}
 --- !u!1 &1796515057
 GameObject:
   m_ObjectHideFlags: 0
