@@ -237,9 +237,43 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &357866818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 357866814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94049f0bfdddbe741b26a548f36a4d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wheels:
+  - {fileID: 420967515}
+  - {fileID: 741302154}
+  - {fileID: 1332666070}
+  - {fileID: 2120352075}
+  MotorPower: 150
+  MaxTurn: 25
+--- !u!65 &357866819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 357866814}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6527786, y: 2.2646258, z: 7.7359467}
+  m_Center: {x: -0.013629913, y: 1.6961089, z: -0.46129227}
 --- !u!1 &420967514 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100010, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+  m_PrefabInternal: {fileID: 1950445892}
+--- !u!4 &420967515 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400010, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
   m_PrefabInternal: {fileID: 1950445892}
 --- !u!146 &420967516
 WheelCollider:
@@ -286,6 +320,10 @@ CapsuleCollider:
 --- !u!1 &741302153 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100012, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+  m_PrefabInternal: {fileID: 1950445892}
+--- !u!4 &741302154 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400012, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
   m_PrefabInternal: {fileID: 1950445892}
 --- !u!146 &741302155
 WheelCollider:
@@ -400,25 +438,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1311813154 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100002, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
-  m_PrefabInternal: {fileID: 1950445892}
---- !u!65 &1311813156
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1311813154}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 242.562, y: 192.73074, z: 655.9243}
-  m_Center: {x: 0, y: 158.14508, z: 1.9846039}
 --- !u!1 &1332666069 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100014, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+  m_PrefabInternal: {fileID: 1950445892}
+--- !u!4 &1332666070 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400014, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
   m_PrefabInternal: {fileID: 1950445892}
 --- !u!146 &1332666071
 WheelCollider:
@@ -566,12 +592,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+      propertyPath: m_Name
+      value: frontLeftWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+      propertyPath: m_Name
+      value: frontRightWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+      propertyPath: m_Name
+      value: backLeftWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+      propertyPath: m_Name
+      value: backRightWheel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
   m_IsPrefabParent: 0
 --- !u!1 &2120352074 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100016, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
+  m_PrefabInternal: {fileID: 1950445892}
+--- !u!4 &2120352075 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400016, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
   m_PrefabInternal: {fileID: 1950445892}
 --- !u!146 &2120352076
 WheelCollider:
