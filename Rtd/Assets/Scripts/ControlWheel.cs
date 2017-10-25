@@ -12,7 +12,7 @@ public class ControlWheel : MonoBehaviour
     public float MaxTurn = 25.0f;
     public float SteerRadius = 10f;
     public float maxVelocity = 100f;
-    public float turnCoeficient = 0.3f;
+    public float turnCoeficient = 3f;
     private float instantPower = 0.0f;
     private float brake = 0.0f;
     private float wheelTurn = 0.0f;
