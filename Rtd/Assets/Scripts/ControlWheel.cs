@@ -8,12 +8,13 @@ public class ControlWheel : MonoBehaviour
 
     public Transform[] Wheels;
 
-    public float MotorPower = 150.0f;
+    public float MotorPower = 70.0f;
     public float MaxTurn = 25.0f;
-
+    public float maxVelocity = 50f;
     private float instantPower = 0.0f;
     private float brake = 0.0f;
     private float wheelTurn = 0.0f;
+    
 
     private Rigidbody carRigidbody;
     // Use this for initialization
@@ -25,8 +26,8 @@ public class ControlWheel : MonoBehaviour
 
     void FixedUpdate()
     {
-        instantPower = Input.GetAxis(AxisNames.Vertical) * MotorPower * Time.deltaTime;
-        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * MaxTurn;
+        instantPower = Input.GetAxis(AxisNames.Vertical) * MotorPower*carRigidbody.mass;
+        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * MaxTurn*carRigidbody.mass;
         brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
         //front wheels
@@ -36,8 +37,8 @@ public class ControlWheel : MonoBehaviour
             GetCollider(i).steerAngle = wheelTurn;
 
             //turn wheels
-            Wheels[i].localEulerAngles = new Vector3(GetCollider(i).steerAngle, 
-                Wheels[i].localEulerAngles.y,                
+            Wheels[i].localEulerAngles = new Vector3(Wheels[i].localEulerAngles.x, 
+                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z,                
                 Wheels[i].localEulerAngles.z
             );
         }
@@ -45,7 +46,7 @@ public class ControlWheel : MonoBehaviour
         for (int i = 0; i < Wheels.Length; i++)
         {
             //spin wheels
-            Wheels[i].Rotate(0, -GetCollider(i).rpm / 60 * 360 * Time.deltaTime, 0);
+            Wheels[i].Rotate(0, carRigidbody.velocity.magnitude, 0);
 
             //breaking
             if (brake > 0.0f)
@@ -53,6 +54,8 @@ public class ControlWheel : MonoBehaviour
                 GetCollider(i).brakeTorque = brake;
 
                 //TODO refector
+                GetCollider(0).motorTorque = 0.0f;
+                GetCollider(1).motorTorque = 0.0f;
                 GetCollider(2).motorTorque = 0.0f;
                 GetCollider(3).motorTorque = 0.0f;
             }
@@ -62,11 +65,17 @@ public class ControlWheel : MonoBehaviour
             {
                 GetCollider(i).brakeTorque = 0.0f;
                 //TODO steer using wheelTurn
-                var vector = Vector3.forward * Time.deltaTime * instantPower;
-                transform.rotation = SteerMechanics.Steer(vector, wheelTurn);
-                transform.position += vector;                
+                //transform.rotation = SteerMechanics.Steer(vector, wheelTurn);
+                carRigidbody.AddRelativeTorque(0f, wheelTurn * 2, 0f);
+                if(carRigidbody.velocity.magnitude < maxVelocity)
+                carRigidbody.AddRelativeForce(0f, 0f, instantPower );
+
+                //transform.position += vector;                
+
 
                 //TODO refector
+                GetCollider(0).motorTorque = instantPower;
+                GetCollider(1).motorTorque = instantPower;
                 GetCollider(2).motorTorque = instantPower;
                 GetCollider(3).motorTorque = instantPower;
             }
