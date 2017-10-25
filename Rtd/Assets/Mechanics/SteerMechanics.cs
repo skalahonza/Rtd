@@ -2,15 +2,15 @@
 
 public static class SteerMechanics
 {
+    public const float MinimumSteeringSpeed = 5f;
+
     /// <summary>
     /// Steers vector using given angle
     /// </summary>
-    /// <param name="vector">Vector to be steered</param>
-    /// <param name="angle">Angle of steering</param>
     /// <returns>New instance of vector</returns>
-    public static Quaternion Steer(Vector3 vector, float angle)
+    public static Vector3 Steer(Vector3 velocity, float wheelTurn, float steerRadius)
     {
-        var quat = new Quaternion(vector.x, vector.y, vector.z, 1);
-        return Quaternion.Euler(0, angle, 0) * quat;        
+        var magnitude = velocity.magnitude;
+        return new Vector3(0f, wheelTurn * magnitude / (steerRadius * 1), 0f);
     }
 }
