@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
-  m_ServerBindAddress: 
+  m_ServerBindAddress: 0.0.0.0
   m_NetworkAddress: 0.0.0.0
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
@@ -466,7 +466,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -485,9 +485,10 @@ MonoBehaviour:
   m_MinPlayers: 0
   m_LobbyPlayerPrefab: {fileID: 114677406973668216, guid: e67e75dbe74d44ce098633b36d78f675,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 0}
+  m_GamePlayerPrefab: {fileID: 1334815945393570, guid: 8e64fd2856201430e8311a3fbef19156,
+    type: 2}
   m_LobbyScene: Lobby
-  m_PlayScene: 
+  m_PlayScene: Car
   lobbySlots: []
 --- !u!4 &2040341350
 Transform:

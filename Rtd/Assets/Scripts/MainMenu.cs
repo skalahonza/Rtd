@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour {
             SceneManager.LoadScene(1);
         }
         else if (isMulti) {
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene(0);
         }
         else if (isQuit) {
             Application.Quit();
