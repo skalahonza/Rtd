@@ -10,14 +10,14 @@ public class MainMenu : MonoBehaviour {
     public bool isQuit;
 
 	void OnMouseUp() {
-        GetComponent<Renderer>().material.color = Color.yellow;
+        GetComponent<Renderer>().material.color = Color.cyan;
 
         if (isSingle)
         {
             SceneManager.LoadScene(1);
         }
         else if (isMulti) {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("Lobby");
         }
         else if (isQuit) {
             Application.Quit();
