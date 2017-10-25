@@ -11,6 +11,6 @@ public static class SteerMechanics
     public static Vector3 Steer(Vector3 velocity, float wheelTurn, float steerRadius)
     {
         var magnitude = velocity.magnitude;
-        return new Vector3(0f, wheelTurn * magnitude / (steerRadius * 1), 0f);
+        return new Vector3(0f, wheelTurn * magnitude / (steerRadius * 3), 0f);
     }
 }
