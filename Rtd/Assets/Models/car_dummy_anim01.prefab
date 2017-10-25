@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 54726779762809564}
   - component: {fileID: 65782490625636556}
   - component: {fileID: 114731215453841728}
+  - component: {fileID: 114865252169720142}
   m_Layer: 0
   m_Name: car_dummy_anim01
   m_TagString: Untagged
@@ -649,6 +650,38 @@ MonoBehaviour:
   SteerRadius: 10
   maxVelocity: 50
   turnCoeficient: 0.3
+--- !u!114 &114865252169720142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891761794077632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 190
+    i1: 155
+    i2: 103
+    i3: 177
+    i4: 104
+    i5: 207
+    i6: 180
+    i7: 81
+    i8: 201
+    i9: 112
+    i10: 158
+    i11: 95
+    i12: 82
+    i13: 108
+    i14: 42
+    i15: 142
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!136 &136016568765858458
 CapsuleCollider:
   m_ObjectHideFlags: 1
