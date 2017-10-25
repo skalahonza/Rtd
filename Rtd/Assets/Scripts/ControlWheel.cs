@@ -32,7 +32,7 @@ public class ControlWheel : MonoBehaviour
         carRigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
     }
 
-    protected void Move()
+    public void Move()
     {
         motorTorque = Input.GetAxis(AxisNames.Vertical) * MotorPower * carRigidbody.mass;
         wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxSteeringAngle * carRigidbody.mass * Math.Sign(motorTorque);
@@ -61,15 +61,19 @@ public class ControlWheel : MonoBehaviour
             else
             {
                 GetCollider(i).brakeTorque = 0.0f;
-
-                //steer if not standing
-                carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity, wheelTurn, TurningRadius));
-
-                //accelerate if bellow maxVelocity
-                if (carRigidbody.velocity.magnitude < maxVelocity)
-                    carRigidbody.AddRelativeForce(0f, 0f, motorTorque);
-
                 GetCollider(i).motorTorque = motorTorque;
+            }
+        }
+        Ray ray = new Ray (transform.position, -transform.up);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1))
+        {
+            if( hit.distance < 0.3f){
+                if (carRigidbody.velocity.magnitude < maxVelocity){
+                    carRigidbody.AddRelativeForce(0f, 0f, 4*motorTorque);
+                }
+                carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity, wheelTurn, TurningRadius)*4);
             }
         }
     }
