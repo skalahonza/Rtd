@@ -9,11 +9,12 @@ public class ControlWheel : MonoBehaviour
     public Transform[] Wheels;
 
     public float MotorPower = 5.0f;
-    public float MaxTurn = 25.0f;
-    public float SteerRadius = 10f;
-    public float maxVelocity = 100f;
+    public float MaxMotorTorque = 400;
+    public float MaxSteeringAngle = 10f;
+    public float maxVelocity = 150f;
     public float turnCoeficient = 3f;
-    private float instantPower = 0.0f;
+
+    private float motorTorque = 0.0f;
     private float brake = 0.0f;
     private float wheelTurn = 0.0f;
 
@@ -26,10 +27,10 @@ public class ControlWheel : MonoBehaviour
         carRigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
     }
 
-    void FixedUpdate()
+    protected void Move()
     {
-        instantPower = Input.GetAxis(AxisNames.Vertical) * MotorPower * carRigidbody.mass;
-        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxTurn * carRigidbody.mass;
+        motorTorque = Input.GetAxis(AxisNames.Vertical) * MotorPower * carRigidbody.mass;
+        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxSteeringAngle * carRigidbody.mass;
         brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
         //front wheels visual steering
@@ -59,26 +60,25 @@ public class ControlWheel : MonoBehaviour
                 //steer if not standing
                 if (carRigidbody.velocity.magnitude > SteerMechanics.MinimumSteeringSpeed)
                 {
-                    carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity,wheelTurn,SteerRadius));
-                }                
+                    carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity, wheelTurn, MaxSteeringAngle));
+                }
 
                 //accelerate if bellow maxVelocity
                 if (carRigidbody.velocity.magnitude < maxVelocity)
-                    carRigidbody.AddRelativeForce(0f, 0f, instantPower);
+                    carRigidbody.AddRelativeForce(0f, 0f, motorTorque);
 
-                GetCollider(i).motorTorque = instantPower;
+                GetCollider(i).motorTorque = motorTorque;
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
     WheelCollider GetCollider(int n)
     {
         return Wheels[n].gameObject.GetComponent<WheelCollider>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
