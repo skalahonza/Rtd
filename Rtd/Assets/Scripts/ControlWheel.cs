@@ -11,6 +11,7 @@ public class ControlWheel : MonoBehaviour
     public float MotorPower = 5.0f;
     public float MaxMotorTorque = 400;
     public float MaxSteeringAngle = 10f;
+    public float TurningRadius = 3.5f;
     public float maxVelocity = 150f;
     public float turnCoeficient = 3f;
 
@@ -58,10 +59,7 @@ public class ControlWheel : MonoBehaviour
                 GetCollider(i).brakeTorque = 0.0f;
 
                 //steer if not standing
-                if (carRigidbody.velocity.magnitude > SteerMechanics.MinimumSteeringSpeed)
-                {
-                    carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity, wheelTurn, MaxSteeringAngle));
-                }
+                carRigidbody.AddRelativeTorque(SteerMechanics.Steer(carRigidbody.velocity, wheelTurn, TurningRadius));
 
                 //accelerate if bellow maxVelocity
                 if (carRigidbody.velocity.magnitude < maxVelocity)
