@@ -37,8 +37,8 @@ public class ControlWheel : MonoBehaviour
             GetCollider(i).steerAngle = wheelTurn;
 
             //turn wheels
-            Wheels[i].localEulerAngles = new Vector3(Wheels[i].localEulerAngles.x, 
-                GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z,                
+            Wheels[i].localEulerAngles = new Vector3(GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z, 
+                Wheels[i].localEulerAngles.x,                 
                 Wheels[i].localEulerAngles.z
             );
         }
