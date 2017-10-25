@@ -255,6 +255,7 @@ MonoBehaviour:
   - {fileID: 2120352075}
   MotorPower: 150
   MaxTurn: 25
+  maxVelocity: 50
 --- !u!65 &357866819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -265,8 +266,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.6527786, y: 2.2646258, z: 7.7359467}
-  m_Center: {x: -0.013629913, y: 1.6961089, z: -0.46129227}
+  m_Size: {x: 2.6527786, y: 1.8794565, z: 6.7297707}
+  m_Center: {x: -0.013629913, y: 1.6556461, z: 0.04179573}
 --- !u!1 &420967514 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100010, guid: dc090f666b084cf42a71aa9c6ba997f6, type: 3}
