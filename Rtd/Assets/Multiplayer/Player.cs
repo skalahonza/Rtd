@@ -25,6 +25,10 @@ public class Player : NetworkBehaviour {
     {
         carRigidbody = gameObject.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
+        if (isLocalPlayer)
+        {
+            Camera.main.GetComponent<SmoothFollow>().target = gameObject.transform;
+        } 
     }
 
     void FixedUpdate()
