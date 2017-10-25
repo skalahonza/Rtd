@@ -9,7 +9,7 @@ public class ControlWheel : MonoBehaviour
     public Transform[] Wheels;
 
     public float MotorPower = 5.0f;
-    public float MaxTurn = 15.0f;
+    public float MaxTurn = 25.0f;
     public float SteerRadius = 10f;
     public float maxVelocity = 100f;
     public float turnCoeficient = 0.3f;
@@ -37,12 +37,6 @@ public class ControlWheel : MonoBehaviour
         {
             //turn collider
             GetCollider(i).steerAngle = wheelTurn;
-
-            //turn wheels
-            Wheels[i].localEulerAngles = new Vector3(GetCollider(i).steerAngle - Wheels[i].localEulerAngles.z,
-                Wheels[i].rotation.y,
-                Wheels[i].rotation.z
-            );
         }
 
         for (int i = 0; i < Wheels.Length; i++)

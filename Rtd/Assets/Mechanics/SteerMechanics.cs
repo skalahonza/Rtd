@@ -2,7 +2,7 @@
 
 public static class SteerMechanics
 {
-    public const float MinimumSteeringSpeed = 5f;
+    public const float MinimumSteeringSpeed = 0.5f;
 
     /// <summary>
     /// Steers vector using given angle
