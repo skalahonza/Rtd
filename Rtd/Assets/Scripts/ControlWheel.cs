@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Assets.Scripts.Constants;
 using UnityEngine;
 
@@ -15,6 +18,7 @@ public class ControlWheel : MonoBehaviour
     public float maxVelocity = 150f;
     public float turnCoeficient = 3f;
 
+    [SerializeField]
     private float motorTorque = 0.0f;
     private float brake = 0.0f;
     private float wheelTurn = 0.0f;
@@ -31,7 +35,7 @@ public class ControlWheel : MonoBehaviour
     protected void Move()
     {
         motorTorque = Input.GetAxis(AxisNames.Vertical) * MotorPower * carRigidbody.mass;
-        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxSteeringAngle * carRigidbody.mass;
+        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxSteeringAngle * carRigidbody.mass * Math.Sign(motorTorque);
         brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
         //front wheels visual steering
@@ -78,5 +82,10 @@ public class ControlWheel : MonoBehaviour
     WheelCollider GetCollider(int n)
     {
         return Wheels[n].gameObject.GetComponent<WheelCollider>();
+    }
+
+    WheelCollider GetCollider(Transform wheel)
+    {
+        return wheel.gameObject.GetComponent<WheelCollider>();
     }
 }
