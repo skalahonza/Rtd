@@ -9,7 +9,7 @@ public class ControlWheel : MonoBehaviour
     public Transform[] Wheels;
 
     public float MotorPower = 20.0f;
-    public float MaxTurn = 25.0f;
+    public float MaxTurn = 20.0f;
     public float SteerRadius = 10f;
     public float maxVelocity = 100f;
     private float instantPower = 0.0f;
