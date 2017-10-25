@@ -8,10 +8,11 @@ public class ControlWheel : MonoBehaviour
 
     public Transform[] Wheels;
 
-    public float MotorPower = 20.0f;
-    public float MaxTurn = 20.0f;
+    public float MotorPower = 5.0f;
+    public float MaxTurn = 15.0f;
     public float SteerRadius = 10f;
     public float maxVelocity = 100f;
+    public float turnCoeficient = 0.3f;
     private float instantPower = 0.0f;
     private float brake = 0.0f;
     private float wheelTurn = 0.0f;
@@ -28,7 +29,7 @@ public class ControlWheel : MonoBehaviour
     void FixedUpdate()
     {
         instantPower = Input.GetAxis(AxisNames.Vertical) * MotorPower * carRigidbody.mass;
-        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * MaxTurn * carRigidbody.mass;
+        wheelTurn = Input.GetAxis(AxisNames.Horizontal) * turnCoeficient * MaxTurn * carRigidbody.mass;
         brake = Input.GetKey(KeyCode.Space) ? carRigidbody.mass * 0.1f : 0.0f;
 
         //front wheels visual steering
