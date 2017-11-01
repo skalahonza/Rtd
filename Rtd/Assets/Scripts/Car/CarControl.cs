@@ -62,7 +62,9 @@ public class CarControl : MonoBehaviour
             //steering wheels
             if (wheelPair.steering)
             {
-                wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = Math.Sign(motorTorque) * steerAngle;
+                wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
+                if (motorTorque != 0)
+                    wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
             }
 
             // motored wheel pair

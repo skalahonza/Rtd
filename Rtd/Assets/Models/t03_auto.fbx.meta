@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: dc090f666b084cf42a71aa9c6ba997f6
-timeCreated: 1508873339
+guid: f554027cd5dda8644b7668c013249888
+timeCreated: 1509552441
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: pCube1
-    100004: pCylinder1
-    100006: pCylinder2
-    100008: pCylinder3
-    100010: polySurface1
-    100012: polySurface2
-    100014: polySurface3
-    100016: polySurface4
-    400000: //RootNode
-    400002: pCube1
-    400004: pCylinder1
-    400006: pCylinder2
-    400008: pCylinder3
-    400010: polySurface1
-    400012: polySurface2
-    400014: polySurface3
-    400016: polySurface4
+    100000: pCube1
+    100002: pCylinder1
+    100004: pCylinder2
+    100006: pCylinder3
+    100008: polySurface1
+    100010: polySurface2
+    100012: polySurface3
+    100014: polySurface4
+    100016: //RootNode
+    400000: pCube1
+    400002: pCylinder1
+    400004: pCylinder2
+    400006: pCylinder3
+    400008: polySurface1
+    400010: polySurface2
+    400012: polySurface3
+    400014: polySurface4
+    400016: //RootNode
     2300000: pCube1
     2300002: pCylinder2
     2300004: pCylinder3
@@ -44,9 +44,13 @@ ModelImporter:
     4300008: polySurface4
     4300010: pCylinder2
     4300012: pCylinder3
-    7400000: Take 001
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 6b17f4a6056bba145ae67b5333d75633, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -99,7 +103,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
