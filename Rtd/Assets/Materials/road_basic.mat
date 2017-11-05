@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 9777788bcf9c21c49904ab2c73219a2b, type: 3}
+        m_Texture: {fileID: 2800000, guid: b1764958497831a44839a458951d0ed6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -35,15 +35,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 42c92e4ec251b064e933af329a792fde, type: 3}
+        m_Texture: {fileID: 2800000, guid: 42a4d3b7911a45541a224bf0e571b74f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3aa03307da8aaff479bb2421fdf91f8b, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb8cefeb33ba9854098824b36bef6f4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 7eb338eb168c37444a713a65e38ef05e, type: 3}
+        m_Texture: {fileID: 2800000, guid: c728ad5178c6a1f4aa420d6510d36592, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -51,11 +51,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: f294fd48f52975043869b50d6cec85f7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1eb7bf8f3affb414abb74189d69396d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: b8c9d8212a684974998079d316022f68, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6b1051e7b52e9d94988ed6f64fd4bc3b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -77,4 +77,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1.892, g: 1.892, b: 1.892, a: 1}
+    - _EmissionColor: {r: 1.795, g: 1.795, b: 1.795, a: 1}
