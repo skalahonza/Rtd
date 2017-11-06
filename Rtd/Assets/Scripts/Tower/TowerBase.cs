@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class TowerBase : MonoBehaviour
 {
     public float TimeBetweenAttack;
-    public int AttackDamage;
     public float Radius;
 
     protected float _timer;

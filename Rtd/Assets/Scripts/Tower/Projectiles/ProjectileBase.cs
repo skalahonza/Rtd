@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower.Projectiles
 {
+    [RequireComponent(typeof(SphereCollider))]
     public abstract class ProjectileBase:MouseHover
     {
         public float Speed;
@@ -16,7 +17,8 @@ namespace Assets.Scripts.Tower.Projectiles
         }
 
         public virtual void Start()
-        {            
+        {
+            GetComponent<SphereCollider>().isTrigger = true;
         }
 
         public virtual void Update()
@@ -24,16 +26,15 @@ namespace Assets.Scripts.Tower.Projectiles
         }
 
         public virtual void OnTriggerEnter(Collider other)
-        {            
-            //OnDestroy
-            if(!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
-                OnHit();
-
-            
+        {
             if (other.CompareTag(GameTag.Player.ToString()))
             {
                 //TODO Deal damage
             }
+
+            //OnDestroy
+            if (!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
+                OnHit();                       
         }
     }
 }

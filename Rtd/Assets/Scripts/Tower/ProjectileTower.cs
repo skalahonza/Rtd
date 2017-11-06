@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Mechanics;
 using Assets.Scripts.Tower.Projectiles;
 
 public class ProjectileTower : TowerBase
@@ -45,14 +46,7 @@ public class ProjectileTower : TowerBase
 
     protected Vector3 CalculateAimVector(Transform enemy)
     {
-        var rb = enemy.GetComponent<Rigidbody>();
-        var veloity = new Vector3(0,0,0);
-        if (rb != null)
-        {
-            veloity = rb.velocity;
-        }
-
-        return (_enemy.position - MuzzlePosition.position).normalized * TowerProjectile.Speed + veloity;
+        return TargetingMechanis.CalculateAimVector(enemy, MuzzlePosition.position, TowerProjectile.Speed);
     }
 
     /// <summary>
