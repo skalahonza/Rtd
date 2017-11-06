@@ -18,7 +18,7 @@ namespace Assets.Mechanics
             var direct = (enemy.position - shooterPosition + velocity).normalized * projectileSpeed;
             // add velocity, if the angle between them is not too small
             float scalar = direct.x * velocity.x + direct.y * velocity.y + direct.z * velocity.z;
-            if (Math.Acos(scalar / (direct.magnitude + velocity.magnitude)) > 30*Math.PI / 180)
+            if (Math.Acos(scalar / (direct.magnitude + velocity.magnitude)) > 45 * 180 / Math.PI)
             {
                 direct += velocity;
             }

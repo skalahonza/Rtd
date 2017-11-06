@@ -34,12 +34,12 @@ public class CarControl : MonoBehaviour
     public void VisualizeWheel(CarInfo wheelPair)
     {        
         wheelPair.leftWheelColider.GetWorldPose(out pos, out rot);
-        wheelPair.leftWheelMesh.transform.position = pos;
-        wheelPair.leftWheelMesh.transform.rotation = rot;
+        //wheelPair.leftWheelMesh.transform.position = pos;
+        //wheelPair.leftWheelMesh.transform.rotation = rot;
 
         wheelPair.rightWheelColider.GetWorldPose(out pos, out rot);
-        wheelPair.rightWheelMesh.transform.position = pos;
-        wheelPair.rightWheelMesh.transform.rotation = rot;
+        //wheelPair.rightWheelMesh.transform.position = pos;
+        //wheelPair.rightWheelMesh.transform.rotation = rot;
     }
 
     public void Update()
