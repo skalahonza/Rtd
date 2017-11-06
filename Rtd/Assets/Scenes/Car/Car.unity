@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1412163233}
   distance: 10
-  height: 6
+  height: 4
   rotationDamping: 10
   heightDamping: 10
 --- !u!1 &615994977
@@ -470,6 +470,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &995426164
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 157.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 6.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 88.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952640367694406, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: bab496943b2637b4db71e202d2a3630d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1133106655
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +600,7 @@ GameObject:
   - component: {fileID: 1246117648}
   m_Layer: 0
   m_Name: car_dummy_anim01
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dbd0b7cad1b9c429da34766d31f8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMotorTorque: 500
+  maxMotorTorque: 1500
   maxSteeringAngle: 15
   motorTorque: 0
   steerAngle: 0
