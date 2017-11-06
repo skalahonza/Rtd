@@ -7,6 +7,8 @@
         EditorOnly,
         MainCamera,
         Player,
-        GameController
+        GameController,
+        Muzzle,
+        Tower,
     }
 }

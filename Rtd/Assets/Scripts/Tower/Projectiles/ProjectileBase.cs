@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Constants;
+using UnityEngine;
 
 namespace Assets.Scripts.Tower.Projectiles
 {
@@ -8,7 +9,11 @@ namespace Assets.Scripts.Tower.Projectiles
         public float Damage;
 
         public abstract GameObject GetPrefab();
-        
+
+        public virtual void OnHit()
+        {
+            Destroy(gameObject);
+        }
 
         public virtual void Start()
         {            
@@ -17,5 +22,14 @@ namespace Assets.Scripts.Tower.Projectiles
         public virtual void Update()
         {            
         }
+
+        public virtual void OnTriggerEnter(Collider other)
+        {
+            //TODO Deal damage
+
+            //OnDestroy
+            if(!other.CompareTag(GameTag.Tower.ToString()))
+                OnHit();
+        }        
     }
 }

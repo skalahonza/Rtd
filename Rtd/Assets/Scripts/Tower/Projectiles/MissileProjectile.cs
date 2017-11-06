@@ -12,8 +12,8 @@ namespace Assets.Scripts.Tower.Projectiles
         public override void Start()
         {                        
             base.Start();
-            Speed = 1;
-            Damage = 10;
+            Speed = 10;
+            Damage = 20;
         }
     }
 }
