@@ -6,7 +6,7 @@ namespace Assets.Scripts.Tower.Projectiles
     {
         public override GameObject GetPrefab()
         {
-            return Resources.Load<GameObject>("missile_projectil");
+            return Resources.Load<GameObject>("missile_projectile");
         }
 
         public override void Start()
