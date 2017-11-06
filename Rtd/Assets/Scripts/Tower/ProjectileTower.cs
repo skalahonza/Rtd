@@ -31,8 +31,7 @@ public class ProjectileTower : TowerBase
 
         //spawn and fire projectile
         var projectile =  Instantiate(TowerProjectile.GetPrefab(), MuzzlePosition.position, CalculateAimRotation(_enemy.position));
-        projectile.GetComponent<Rigidbody>().velocity =
-            (_enemy.position - projectile.transform.position).normalized * TowerProjectile.Speed;
+        projectile.GetComponent<Rigidbody>().velocity = CalculateAimVector(_enemy);            
         // TODO audio.Play();
     }
 
@@ -42,7 +41,19 @@ public class ProjectileTower : TowerBase
         // TargetPosition substracting towerPosition creates a vector pointing from the tower to the targetPosition. 
         var aimPoint = new Vector3(targetPosition.x, 0, targetPosition.z) - transform.position;
         return Quaternion.LookRotation(aimPoint);
-    }    
+    }
+
+    protected Vector3 CalculateAimVector(Transform enemy)
+    {
+        var rb = enemy.GetComponent<Rigidbody>();
+        var veloity = new Vector3(0,0,0);
+        if (rb != null)
+        {
+            veloity = rb.velocity;
+        }
+
+        return (_enemy.position - MuzzlePosition.position).normalized * TowerProjectile.Speed + veloity;
+    }
 
     /// <summary>
     /// Get closest enemy from collection of enemies
