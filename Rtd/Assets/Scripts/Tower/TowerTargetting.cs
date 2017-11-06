@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Tower.Projectiles;
 
 public class TowerTargetting : MonoBehaviour
 {
@@ -9,82 +10,76 @@ public class TowerTargetting : MonoBehaviour
     public float timeBetweenAttack = 0.5f;
     public int attackDamage = 10;
     public float turretTurnSpeed = 3.5f;
-    public float firePauseTime = 0.25f;
-    public float errorAmount = 2f;
-    public float reloadTime = 2f;
+    public float errorAmount = 0f;
 
     public Transform turretPivot;
     public Transform muzzlePosition;
-    public GameObject towerProjectile;
+    public ProjectileBase towerProjectile;
 
     float aimError;
     float timer;
 
-    private List<Transform> EnemiesInRange = new List<Transform>();
-    public Transform enemy;
-    private Quaternion desiredRotation;
+    private readonly List<Transform> _enemiesInRange = new List<Transform>();
+    private Transform enemy;    
 
-
-    void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// When object enters the tower radius
+    /// </summary>
+    /// <param name="other">Other object</param>
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == GameTag.Player.ToString())
         {
             // Add object which enters collider to List
-            EnemiesInRange.Add(other.transform);
+            _enemiesInRange.Add(other.transform);
 
             // If there is only one item in the List set it as target
-            if (EnemiesInRange.Any())
+            if (_enemiesInRange.Any())
             {
-                enemy = GetClosestEnemy(EnemiesInRange);
+                enemy = GetClosestEnemy(_enemiesInRange);
             }
         }
     }
 
-    void OnTriggerExit(Collider other)
+    /// <summary>
+    /// When game object leaves tower radius
+    /// </summary>
+    /// <param name="other">Other object</param>
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == GameTag.Player.ToString())
         {
 
             // Remove object which leaves the collider from List
-            EnemiesInRange.Remove(other.transform);
+            _enemiesInRange.Remove(other.transform);
 
             // If the List has objects in it set the closest as target
-            if (EnemiesInRange.Any())
+            if (_enemiesInRange.Any())
             {
                 // TO-DO Turret turn delay
-                enemy = GetClosestEnemy(EnemiesInRange);
+                enemy = GetClosestEnemy(_enemiesInRange);
             }
             else
             {
                 enemy = null;
-                EnemiesInRange.Clear();
+                _enemiesInRange.Clear();
             }
         }
     }
 
 
-    void Update()
+    public virtual void Update()
     {
         timer += Time.deltaTime;
 
-        // Aim
-        if (EnemiesInRange.Count != 0)
-        {
-            // Where to aim
-            CalculateAimPosition(enemy.position);
-            // Rotate the turrent towards the target
-            turretPivot.rotation = Quaternion.Lerp(turretPivot.rotation, desiredRotation, Time.deltaTime * turretTurnSpeed);
-        }
-
         // FIRE
-
-        if (timer >= timeBetweenAttack && EnemiesInRange.Count != 0)
+        if (timer >= timeBetweenAttack && _enemiesInRange.Any())
         {
             Attack();
         }
     }
 
-    void Attack()
+    public virtual void Attack()
     {
         // Weapon delay reset
         timer = 0f;
@@ -92,24 +87,32 @@ public class TowerTargetting : MonoBehaviour
         // Fire Projectile
         CalculateAimError();
 
-        Instantiate(towerProjectile, muzzlePosition.position, muzzlePosition.rotation);
+        //spawn projectile
+        var projectile =  Instantiate(towerProjectile.GetPrefab(), muzzlePosition.position, CalculateAimRotation(enemy.position));
+        projectile.GetComponent<Rigidbody>().velocity =
+            (enemy.position - projectile.transform.position).normalized * towerProjectile.Speed;
         // TODO audio.Play();
     }
 
-    private void CalculateAimPosition(Vector3 targetPosition)
+    protected Quaternion CalculateAimRotation(Vector3 targetPosition)
     {
         // Aim at the targetPosition
         // TargetPosition substracting towerPosition creates a vector pointing from the tower to the targetPosition. 
         var aimPoint = new Vector3(targetPosition.x + aimError, 0, targetPosition.z + aimError) - transform.position;
-        desiredRotation = Quaternion.LookRotation(aimPoint);
+        return Quaternion.LookRotation(aimPoint);
     }
 
-    private void CalculateAimError()
+    protected void CalculateAimError()
     {
         aimError = Random.Range(-errorAmount, errorAmount);
     }
 
-    public Transform GetClosestEnemy(List<Transform> enemies)
+    /// <summary>
+    /// Get closest enemy from collection of enemies
+    /// </summary>
+    /// <param name="enemies">Collection of enemies</param>
+    /// <returns>Closest enemy</returns>
+    public virtual Transform GetClosestEnemy(List<Transform> enemies)
     {
         Transform target = null;
         float closestDistanceSqr = Mathf.Infinity;
