@@ -24,12 +24,16 @@ namespace Assets.Scripts.Tower.Projectiles
         }
 
         public virtual void OnTriggerEnter(Collider other)
-        {
-            //TODO Deal damage
-
+        {            
             //OnDestroy
-            if(!other.CompareTag(GameTag.Tower.ToString()))
+            if(!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
                 OnHit();
-        }        
+
+            
+            if (other.CompareTag(GameTag.Player.ToString()))
+            {
+                //TODO Deal damage
+            }
+        }
     }
 }
