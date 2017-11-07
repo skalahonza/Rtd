@@ -1,37 +1,15 @@
 fileFormatVersion: 2
-guid: b3a67348de5b1584d8a428f088150b8e
-timeCreated: 1510070328
+guid: 9e604cddc022b3846ba72bd6c9f045d5
+timeCreated: 1510007637
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: car_body
-    100004: front_left_wheel
-    100006: front_right_wheel
-    100008: rear_left_wheel
-    100010: rear_right_wheel
     400000: //RootNode
-    400002: car_body
-    400004: front_left_wheel
-    400006: front_right_wheel
-    400008: rear_left_wheel
-    400010: rear_right_wheel
-    2300000: car_body
-    2300002: front_left_wheel
-    2300004: front_right_wheel
-    2300006: rear_left_wheel
-    2300008: rear_right_wheel
-    3300000: car_body
-    3300002: front_left_wheel
-    3300004: front_right_wheel
-    3300006: rear_left_wheel
-    3300008: rear_right_wheel
-    4300000: car_body
-    4300002: front_right_wheel
-    4300004: rear_right_wheel
-    4300006: front_left_wheel
-    4300008: rear_left_wheel
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: speedy_road
   externalObjects:
   - first:
       type: UnityEngine:Material
