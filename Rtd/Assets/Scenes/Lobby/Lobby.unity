@@ -485,10 +485,10 @@ MonoBehaviour:
   m_MinPlayers: 0
   m_LobbyPlayerPrefab: {fileID: 114677406973668216, guid: e67e75dbe74d44ce098633b36d78f675,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1987717100750748, guid: 97284764f5a614774800dd1ef1cc0149,
+  m_GamePlayerPrefab: {fileID: 1115398939907216, guid: 0f4c6c24751c79e4b8a28dbb54742c09,
     type: 2}
   m_LobbyScene: Lobby
-  m_PlayScene: Car
+  m_PlayScene: map01
   lobbySlots: []
 --- !u!4 &2040341350
 Transform:
