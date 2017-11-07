@@ -44,9 +44,14 @@ public class ProjectileTower : TowerBase
         return Quaternion.LookRotation(aimPoint);
     }
 
+    /// <summary>
+    /// Calculate vector that should be used for projectile velocity
+    /// </summary>
+    /// <param name="enemy">Enemy to shoot</param>
+    /// <returns>Vector used for proejctile velocity</returns>
     protected Vector3 CalculateAimVector(Transform enemy)
     {
-        return TargetingMechanis.CalculateAimVector(enemy, MuzzlePosition.position, TowerProjectile.Speed);
+        return TargetingMechanis.CalculateAimVelocityVector(enemy, MuzzlePosition.position, TowerProjectile.Speed);
     }
 
     /// <summary>
@@ -60,8 +65,16 @@ public class ProjectileTower : TowerBase
         float closestDistanceSqr = Mathf.Infinity;
         var currentPosition = transform.position;
 
-        foreach (var potentialTarget in enemies)
+        for (var i = 0; i < enemies.Count; i++)
         {
+            var potentialTarget = enemies[i];
+            if (potentialTarget == null)
+            {
+                enemies.RemoveAt(i);
+                continue;
+            }
+            
+
             var directionTotarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionTotarget.sqrMagnitude;
 
@@ -71,7 +84,7 @@ public class ProjectileTower : TowerBase
                 target = potentialTarget;
             }
         }
-        
+
         return target;
     }
 }

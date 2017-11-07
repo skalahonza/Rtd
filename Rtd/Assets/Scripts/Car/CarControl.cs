@@ -15,10 +15,9 @@ public class CarInfo
     public bool steering;
 }
 
+[RequireComponent(typeof(CarSpirit))]
 public class CarControl : MonoBehaviour
 {
-    public float maxMotorTorque;
-    public float maxSteeringAngle;
     [SerializeField]
     private float motorTorque;
     [SerializeField]
@@ -34,16 +33,20 @@ public class CarControl : MonoBehaviour
     public void VisualizeWheel(CarInfo wheelPair)
     {        
         wheelPair.leftWheelColider.GetWorldPose(out pos, out rot);
-        wheelPair.leftWheelMesh.transform.position = pos;
-        wheelPair.leftWheelMesh.transform.rotation = rot;
+        //wheelPair.leftWheelMesh.transform.position = pos;
+        //wheelPair.leftWheelMesh.transform.rotation = rot;
 
         wheelPair.rightWheelColider.GetWorldPose(out pos, out rot);
-        wheelPair.rightWheelMesh.transform.position = pos;
-        wheelPair.rightWheelMesh.transform.rotation = rot;
+        //wheelPair.rightWheelMesh.transform.position = pos;
+        //wheelPair.rightWheelMesh.transform.rotation = rot;
     }
 
     public void Update()
     {
+        var spirit = GetComponent<CarSpirit>();
+        var maxMotorTorque = spirit.maxMotorTorque;
+        var maxSteeringAngle = spirit.maxSteeringAngle;
+
         motorTorque = maxMotorTorque * Input.GetAxis(AxisNames.Vertical);
         steerAngle = maxSteeringAngle * Input.GetAxis(AxisNames.Horizontal);
         float brakeTorque = Mathf.Abs(Input.GetAxis(AxisNames.Jump));
@@ -63,8 +66,12 @@ public class CarControl : MonoBehaviour
             if (wheelPair.steering)
             {
                 wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
-                if (motorTorque != 0)
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                // Check if the car is reversing
+                if ((transform.forward.normalized - GetComponent<Rigidbody>().velocity.normalized).magnitude == 0)
+                {
                     wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
+                }
             }
 
             // motored wheel pair
