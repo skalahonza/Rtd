@@ -44,9 +44,14 @@ public class ProjectileTower : TowerBase
         return Quaternion.LookRotation(aimPoint);
     }
 
+    /// <summary>
+    /// Calculate vector that should be used for projectile velocity
+    /// </summary>
+    /// <param name="enemy">Enemy to shoot</param>
+    /// <returns>Vector used for proejctile velocity</returns>
     protected Vector3 CalculateAimVector(Transform enemy)
     {
-        return TargetingMechanis.CalculateAimVector(enemy, MuzzlePosition.position, TowerProjectile.Speed);
+        return TargetingMechanis.CalculateAimVelocityVector(enemy, MuzzlePosition.position, TowerProjectile.Speed);
     }
 
     /// <summary>

@@ -1,40 +1,45 @@
 ﻿using Assets.Scripts.Constants;
 using UnityEngine;
 
-namespace Assets.Scripts.Tower.Projectiles
+[RequireComponent(typeof(SphereCollider))]
+public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
 {
-    [RequireComponent(typeof(SphereCollider))]
-    public abstract class ProjectileBase:MouseHover
+    public float Speed;
+    public float Damage;
+
+    /// <summary>
+    /// Every projectile should return it's own prefab from resources
+    /// </summary>
+    /// <returns>Prefab from resources</returns>
+    public abstract GameObject GetPrefab();
+
+    public virtual void OnHit(Collider other)
     {
-        public float Speed;
-        public float Damage;
-
-        public abstract GameObject GetPrefab();
-
-        public virtual void OnHit()
+        var parent = other.transform.gameObject;
+        IDamagable target;
+        if ((target = parent.GetComponent<IDamagable>()) != null)
         {
-            Destroy(gameObject);
+            target.SufferDamage(this);
         }
 
-        public virtual void Start()
-        {
-            GetComponent<SphereCollider>().isTrigger = true;
-        }
+        Destroy(gameObject);
+    }
 
-        public virtual void Update()
-        {            
-        }
+    public virtual void Start()
+    {
+        GetComponent<SphereCollider>().isTrigger = true;
+    }
 
-        public virtual void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(GameTag.Player.ToString()))
-            {
-                //TODO Deal damage
-            }
+    public  void OnTriggerEnter(Collider other)
+    {
+        // ignore tower and muzzle, hit other stuff
+        if (!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
+            OnHit(other);
+    }
 
-            //OnDestroy
-            if (!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
-                OnHit();                       
-        }
+
+    public virtual void DealDamage(CarSpirit car)
+    {
+        car.HP -= Damage;
     }
 }

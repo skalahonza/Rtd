@@ -15,6 +15,7 @@ public class CarInfo
     public bool steering;
 }
 
+[RequireComponent(typeof(CarSpirit))]
 public class CarControl : MonoBehaviour
 {
     public float maxMotorTorque;
@@ -63,8 +64,12 @@ public class CarControl : MonoBehaviour
             if (wheelPair.steering)
             {
                 wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
-                if (motorTorque != 0)
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                // Check if the car is reversing
+                if ((transform.forward.normalized - GetComponent<Rigidbody>().velocity.normalized).magnitude == 0)
+                {
                     wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
+                }
             }
 
             // motored wheel pair
