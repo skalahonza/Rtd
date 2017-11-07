@@ -18,8 +18,6 @@ public class CarInfo
 [RequireComponent(typeof(CarSpirit))]
 public class CarControl : MonoBehaviour
 {
-    public float maxMotorTorque;
-    public float maxSteeringAngle;
     [SerializeField]
     private float motorTorque;
     [SerializeField]
@@ -45,6 +43,10 @@ public class CarControl : MonoBehaviour
 
     public void Update()
     {
+        var spirit = GetComponent<CarSpirit>();
+        var maxMotorTorque = spirit.maxMotorTorque;
+        var maxSteeringAngle = spirit.maxSteeringAngle;
+
         motorTorque = maxMotorTorque * Input.GetAxis(AxisNames.Vertical);
         steerAngle = maxSteeringAngle * Input.GetAxis(AxisNames.Horizontal);
         float brakeTorque = Mathf.Abs(Input.GetAxis(AxisNames.Jump));
