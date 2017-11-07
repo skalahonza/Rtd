@@ -4,22 +4,26 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityStandardAssets.Utility;
 using Assets.Scripts.Constants;
-[RequireComponent(typeof(ControlWheel))]
+
+[RequireComponent(typeof(CarControl))]
 public class Player : NetworkBehaviour {
 
 
-    ControlWheel cw;
+    CarControl cw;
     
     void Start() 
     {
-        cw = gameObject.GetComponent<ControlWheel>();
+        cw = gameObject.GetComponent<CarControl>();
+        if (!isLocalPlayer && cw != null)
+        {
+            Destroy(cw);
+        }else if(isLocalPlayer) {
+            Camera.main.GetComponent<SmoothFollow>().target = this.transform;
+        }
     }
 
     void FixedUpdate()
     {
-        if (isLocalPlayer && cw != null)
-        {
-            cw.Move();
-        } 
+
     }
 }
