@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4294520424909610}
   - component: {fileID: 146464292322334728}
   m_Layer: 0
-  m_Name: LRW_COLLIER
+  m_Name: RRW_COLLIER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -615,9 +615,9 @@ MonoBehaviour:
     rightWheelMesh: {fileID: 1980839148817916}
     motor: 1
     steering: 1
-  - leftWheelColider: {fileID: 146464292322334728}
+  - leftWheelColider: {fileID: 146733434525863976}
     leftWheelMesh: {fileID: 1244958155799286}
-    rightWheelColider: {fileID: 146733434525863976}
+    rightWheelColider: {fileID: 146464292322334728}
     rightWheelMesh: {fileID: 1303446712424948}
     motor: 1
     steering: 0
@@ -627,7 +627,7 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290865005784268}
-  m_Center: {x: 1.45, y: -0.3, z: 2.22}
+  m_Center: {x: 1.35, y: -0.3, z: 2.22}
   m_Radius: 0.62
   m_SuspensionSpring:
     spring: 35000
@@ -656,7 +656,7 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785984806288240}
-  m_Center: {x: -1.45, y: -0.3, z: 2.22}
+  m_Center: {x: -1.35, y: -0.3, z: 2.22}
   m_Radius: 0.62
   m_SuspensionSpring:
     spring: 35000
@@ -685,7 +685,7 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1677702775425886}
-  m_Center: {x: 1.45, y: -0.3, z: -2.52}
+  m_Center: {x: 1.35, y: -0.3, z: -2.52}
   m_Radius: 0.62
   m_SuspensionSpring:
     spring: 35000
@@ -714,7 +714,7 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1679623437263064}
-  m_Center: {x: -1.45, y: -0.3, z: -2.52}
+  m_Center: {x: -1.35, y: -0.3, z: -2.52}
   m_Radius: 0.62
   m_SuspensionSpring:
     spring: 35000
