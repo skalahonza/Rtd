@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c67f4ee652d1d3f40befa944613f69be
-timeCreated: 1509923443
+guid: 7c5d83fed1bbb4e249d7323df5930d3f
+timeCreated: 1510139412
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -17,6 +17,7 @@ ModelImporter:
     400006: front_right_wheel
     400008: rear_left_wheel
     400010: rear_right_wheel
+    2100000: lambert1
     2300000: car_body
     2300002: front_left_wheel
     2300004: front_right_wheel
@@ -32,17 +33,12 @@ ModelImporter:
     4300004: rear_right_wheel
     4300006: front_left_wheel
     4300008: rear_left_wheel
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -80,6 +76,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
