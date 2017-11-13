@@ -1,6 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Mechanics
 {
@@ -20,29 +18,29 @@ namespace Assets.Mechanics
         private static Vector3 CalculateAimVelocityVector(Vector3 aTargetPos, Vector3 aTargetSpeed, Vector3 projectilePosition, float projectileSpeed)
         {
             var targetDir = aTargetPos - projectilePosition;
-            float iSpeed2 = projectileSpeed * projectileSpeed;
-            float tSpeed2 = aTargetSpeed.sqrMagnitude;
-            float fDot1 = Vector3.Dot(targetDir, aTargetSpeed);
-            float targetDist2 = targetDir.sqrMagnitude;
-            float d = (fDot1 * fDot1) - targetDist2 * (tSpeed2 - iSpeed2);
+            var iSpeed2 = projectileSpeed * projectileSpeed;
+            var tSpeed2 = aTargetSpeed.sqrMagnitude;
+            var fDot1 = Vector3.Dot(targetDir, aTargetSpeed);
+            var targetDist2 = targetDir.sqrMagnitude;
+            var d = fDot1 * fDot1 - targetDist2 * (tSpeed2 - iSpeed2);
 
             if (d < 0.1f)  // negative == no possible course because the interceptor isn't fast enough
                 return Vector3.zero;
 
-            float sqrt = Mathf.Sqrt(d);
-            float S1 = (-fDot1 - sqrt) / targetDist2;
-            float S2 = (-fDot1 + sqrt) / targetDist2;
-            if (S1 < 0.0001f)
+            var sqrt = Mathf.Sqrt(d);
+            var s1 = (-fDot1 - sqrt) / targetDist2;
+            var s2 = (-fDot1 + sqrt) / targetDist2;
+            if (s1 < 0.0001f)
             {
-                if (S2 < 0.0001f)
+                if (s2 < 0.0001f)
                     return Vector3.zero;
-                return (S2) * targetDir + aTargetSpeed;
+                return s2 * targetDir + aTargetSpeed;
             }
-            if (S2 < 0.0001f)
-                return (S1) * targetDir + aTargetSpeed;
-            if (S1 < S2)
-                return (S2) * targetDir + aTargetSpeed;
-            return (S1) * targetDir + aTargetSpeed;
+            if (s2 < 0.0001f)
+                return s1 * targetDir + aTargetSpeed;
+            if (s1 < s2)
+                return s2 * targetDir + aTargetSpeed;
+            return s1 * targetDir + aTargetSpeed;
         }
     }
 }
