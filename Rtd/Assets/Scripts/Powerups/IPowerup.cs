@@ -5,7 +5,7 @@
         /// <summary>
         /// When the powerup is used by the player
         /// </summary>
-        void Use(CarSpirit car);
+        bool Use(CarSpirit car);
         /// <summary>
         /// Update powerup data, 
         /// </summary>

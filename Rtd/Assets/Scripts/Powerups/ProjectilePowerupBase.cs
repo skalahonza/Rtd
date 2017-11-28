@@ -14,16 +14,29 @@ namespace Assets.Scripts.Powerups
 
         public ProjectileBase Projectile;
 
-        public void Use(CarSpirit car)
+        /// <summary>
+        /// Use the powerup and apply it'S damage or debuff upon target/s
+        /// </summary>
+        /// <param name="car">Owner of the powerup</param>
+        /// <returns>True if action performed successfully</returns>
+        public bool Use(CarSpirit car)
         {
+            if (Target == null) return false;
+            
             // create projectile instance
             //spawn and fire projectile
             var projectile = GameObject.Instantiate(Projectile.GetPrefab(), car.transform.position,
                 TargetingMechanis.CalculateAimRotation(Target.transform.position, car.transform.position));
-            projectile.GetComponent<Rigidbody>().velocity =
-                TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, Projectile.Speed);
+
+            var projBase = projectile.GetComponent<ProjectileBase>();
+            projBase.Owner = car.gameObject;
+
+            var velocity =
+                TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
+            projectile.GetComponent<Rigidbody>().velocity = velocity;
             // shoot projectile
-            // TODO audio play            
+            // TODO audio play 
+            return true;
         }
 
         /// <summary>
