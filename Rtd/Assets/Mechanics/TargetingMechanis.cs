@@ -4,9 +4,16 @@ namespace Assets.Mechanics
 {
     public static class TargetingMechanis
     {
+        /// <summary>
+        /// Calculates aim velocity vector from shooter position to moving target, counts with target speed
+        /// </summary>
+        /// <param name="enemy">Enemy transform</param>
+        /// <param name="shooterPosition">Shooter position, the projectile muzzle</param>
+        /// <param name="projectileSpeed">Projectile speed</param>
+        /// <returns></returns>
         public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 shooterPosition, float projectileSpeed)
         {
-            var targetVelocity = new Vector3(0,0,0);
+            var targetVelocity = new Vector3(0, 0, 0);
             var rb = enemy.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -41,6 +48,36 @@ namespace Assets.Mechanics
             if (s1 < s2)
                 return s2 * targetDir + aTargetSpeed;
             return s1 * targetDir + aTargetSpeed;
+        }
+
+        /// <summary>
+        /// Locks on target in certain direction
+        /// </summary>
+        /// <param name="direction">Direction to aim</param>
+        /// <param name="center">Aiming position</param>
+        /// <param name="rotation">Aiming rotation</param>
+        /// <returns></returns>
+        public static GameObject LockTarget(Vector3 direction, Vector3 center, Quaternion rotation, float maxDistance)
+        {
+            RaycastHit info;
+            var dir = rotation * direction;
+            if (Physics.Raycast(center, dir, out info))
+            {       
+                var target = info.transform.gameObject;
+
+                // check distance
+                var distance = (target.transform.position - center).magnitude;
+                if (distance > maxDistance)
+                    return null;
+
+                // target is damagable
+                if (target.GetComponent<IDamagable>() != null)
+                {
+                    Debug.DrawRay(center,target.transform.position - center,Color.red);
+                    return target;
+                }
+            }
+            return null;
         }
     }
 }

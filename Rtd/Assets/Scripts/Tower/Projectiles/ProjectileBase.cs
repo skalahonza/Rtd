@@ -13,6 +13,12 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
     /// <returns>Prefab from resources</returns>
     public abstract GameObject GetPrefab();
 
+    public GameObject Owner;
+
+    /// <summary>
+    /// Triggers when hit with other collider, except tower colliders. If the object hit by the projectile is damagable, the damage will be dealt.
+    /// </summary>
+    /// <param name="other">Collider that was hit</param>
     public virtual void OnHit(Collider other)
     {
         var parent = other.transform.gameObject;
@@ -30,16 +36,15 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
         GetComponent<SphereCollider>().isTrigger = true;
     }
 
-    public  void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         // ignore tower and muzzle, hit other stuff
         if (!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
             OnHit(other);
     }
 
-
     public virtual void DealDamage(CarSpirit car)
     {
-        car.HP -= Damage;
+        car.Hp -= Damage;
     }
 }
