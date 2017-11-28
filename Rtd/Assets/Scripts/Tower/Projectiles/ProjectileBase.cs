@@ -38,8 +38,11 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
 
     public void OnTriggerEnter(Collider other)
     {
-        // ignore tower and muzzle, hit other stuff
-        if (!other.CompareTag(GameTag.Tower.ToString()) && !other.CompareTag(GameTag.Muzzle.ToString()))
+        // ignore tower and muzzle, and projectile owner, hit other stuff
+        if (!other.CompareTag(GameTag.Tower.ToString()) 
+            && !other.CompareTag(GameTag.Muzzle.ToString())
+            && other.gameObject != Owner
+            )
             OnHit(other);
     }
 

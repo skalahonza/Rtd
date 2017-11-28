@@ -79,5 +79,19 @@ namespace Assets.Mechanics
             }
             return null;
         }
+
+        /// <summary>
+        /// Calculate aim and rotation for projectile 
+        /// </summary>
+        /// <param name="targetPosition">Position of the target</param>
+        /// <param name="shooterPosition">Position of the shooter</param>
+        /// <returns></returns>
+        public static Quaternion CalculateAimRotation(Vector3 targetPosition, Vector3 shooterPosition)
+        {
+            // Aim at the targetPosition
+            // TargetPosition substracting towerPosition creates a vector pointing from the tower to the targetPosition. 
+            var aimPoint = new Vector3(targetPosition.x, 0, targetPosition.z) - shooterPosition;
+            return Quaternion.LookRotation(aimPoint);
+        }
     }
 }

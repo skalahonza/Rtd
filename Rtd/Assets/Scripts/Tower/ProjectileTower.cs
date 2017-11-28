@@ -38,10 +38,7 @@ public class ProjectileTower : TowerBase
 
     protected Quaternion CalculateAimRotation(Vector3 targetPosition)
     {
-        // Aim at the targetPosition
-        // TargetPosition substracting towerPosition creates a vector pointing from the tower to the targetPosition. 
-        var aimPoint = new Vector3(targetPosition.x, 0, targetPosition.z) - transform.position;
-        return Quaternion.LookRotation(aimPoint);
+        return TargetingMechanis.CalculateAimRotation(targetPosition, transform.position);
     }
 
     /// <summary>
