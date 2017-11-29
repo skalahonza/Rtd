@@ -1,7 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 96823531d90afca40b880bfa70a1e3f6
 timeCreated: 1511624212
+=======
+guid: 7c5d83fed1bbb4e249d7323df5930d3f
+timeCreated: 1510139412
+>>>>>>> master
 =======
 guid: 7c5d83fed1bbb4e249d7323df5930d3f
 timeCreated: 1510139412
@@ -12,6 +17,7 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: car_body
+<<<<<<< HEAD
 <<<<<<< HEAD
     100004: wheel_front_left
     100006: wheel_front_right
@@ -45,6 +51,8 @@ ModelImporter:
       name: lambert1
     second: {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
 =======
+=======
+>>>>>>> master
     100004: front_left_wheel
     100006: front_right_wheel
     100008: rear_left_wheel
@@ -72,13 +80,20 @@ ModelImporter:
     4300006: front_left_wheel
     4300008: rear_left_wheel
   externalObjects: {}
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
     materialLocation: 0
+=======
+    materialLocation: 1
+>>>>>>> master
 =======
     materialLocation: 1
 >>>>>>> master
@@ -120,6 +135,11 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    preserveHierarchy: 0
+    indexFormat: 0
+>>>>>>> master
 =======
     preserveHierarchy: 0
     indexFormat: 0
