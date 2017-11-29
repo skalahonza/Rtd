@@ -73,7 +73,6 @@ namespace Assets.Mechanics
                 // target is damagable
                 if (target.GetComponent<IDamagable>() != null)
                 {
-                    Debug.DrawRay(center,target.transform.position - center,Color.red);
                     return target;
                 }
             }

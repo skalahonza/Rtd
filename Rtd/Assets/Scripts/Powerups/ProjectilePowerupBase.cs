@@ -14,8 +14,9 @@ namespace Assets.Scripts.Powerups
 
         public ProjectileBase Projectile;
 
+        /// <inheritdoc />
         /// <summary>
-        /// Use the powerup and apply it'S damage or debuff upon target/s
+        /// Use the powerup and apply it's damage or debuff upon target/s
         /// </summary>
         /// <param name="car">Owner of the powerup</param>
         /// <returns>True if action performed successfully</returns>
@@ -34,7 +35,6 @@ namespace Assets.Scripts.Powerups
             var velocity =
                 TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
             projectile.GetComponent<Rigidbody>().velocity = velocity;
-            // shoot projectile
             // TODO audio play 
             return true;
         }
@@ -46,15 +46,7 @@ namespace Assets.Scripts.Powerups
         public void UpdatePowerup(CarSpirit car)
         {
             Projectile.Owner = car.gameObject;
-            LockTarget(car.gameObject.transform.position, car.transform.rotation);
-
-            if (Target != null && (Target.transform.position - car.transform.position).magnitude <= Range)
-            {
-                // shooting and drawing target
-                // TODO draw rectangle arround locked target
-                Debug.DrawRay(car.transform.position, Target.transform.position - car.transform.position, Color.green);
-                Debug.DrawRay(car.transform.position, TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, Projectile.Speed), Color.red);
-            }
+            LockTarget(car.gameObject.transform.position, car.transform.rotation);            
         }
 
         public abstract GameObject LockTarget(Vector3 center, Quaternion rotation);
