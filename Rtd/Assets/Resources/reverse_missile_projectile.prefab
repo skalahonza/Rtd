@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 135703346379865932}
   - component: {fileID: 23470132206809344}
   - component: {fileID: 54202198257900832}
-  - component: {fileID: 114402264092178906}
+  - component: {fileID: 114167573776988554}
   m_Layer: 0
-  m_Name: missile_projectile
+  m_Name: reverse_missile_projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114402264092178906
+--- !u!114 &114167573776988554
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,11 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1515089955954162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc9c678ca8e236489ff182fc5650d1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 79eed80311a6a1d449147c44c285877b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 60
-  Damage: 10
+  Damage: 25
+  Owner: {fileID: 0}
 --- !u!135 &135703346379865932
 SphereCollider:
   m_ObjectHideFlags: 1

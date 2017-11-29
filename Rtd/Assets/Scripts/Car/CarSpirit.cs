@@ -9,7 +9,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private ProjectilePowerupBase _powerUp = new MissilePowerup();
+    private ProjectilePowerupBase _powerUp = new ReverseMissilePowerup();
+    //private ProjectilePowerupBase _powerUp = new ReverseMissilePowerup();
 
     void Update()
     {
