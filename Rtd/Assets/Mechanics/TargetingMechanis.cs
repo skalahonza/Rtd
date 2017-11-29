@@ -51,24 +51,22 @@ namespace Assets.Mechanics
         }
 
         /// <summary>
-        /// Locks on target in certain direction
+        /// Locks on target in certain direction, target must be IDamagable
         /// </summary>
-        /// <param name="direction">Direction to aim</param>
+        /// <param name="direction">Direction of aming, typically rotation*Vector3.forward</param>
         /// <param name="center">Aiming position</param>
-        /// <param name="rotation">Aiming rotation</param>
-        /// <returns></returns>
-        public static GameObject LockTarget(Vector3 direction, Vector3 center, Quaternion rotation, float maxDistance)
+        /// <param name="maxDistance">Max distance for adminig</param>
+        /// <param name="maxAngle">Max angle for aiming</param>
+        /// <returns>Null if no damagable target found in given direction, otherwise return the gameobject to shoot on.</returns>
+        public static GameObject LockTarget(Vector3 direction, Vector3 center, float maxDistance, float maxAngle)
         {
             RaycastHit info;
-            var dir = rotation * direction;
-            if (Physics.Raycast(center, dir, out info))
+            if (Physics.Raycast(center, direction, out info))
             {       
                 var target = info.transform.gameObject;
 
-                // check distance
-                var distance = (target.transform.position - center).magnitude;
-                if (distance > maxDistance)
-                    return null;
+                if(!IsTargetInRange(target,direction,center,maxDistance,maxAngle))
+                    return null;                
 
                 // target is damagable
                 if (target.GetComponent<IDamagable>() != null)
@@ -77,6 +75,24 @@ namespace Assets.Mechanics
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Verify if the target is in range for shooting
+        /// </summary>
+        /// <param name="target">Target I want to shoot</param>
+        /// <param name="direction">Direction of aim</param>
+        /// <param name="position">Shooter's position</param>
+        /// <param name="maxDistance">Max distance for shooting</param>
+        /// <param name="maxAngle">Max angle for detection</param>
+        /// <returns>True if I can lock on target</returns>
+        public static bool IsTargetInRange(GameObject target, Vector3 direction, Vector3 position, float maxDistance, float maxAngle)
+        {
+            // check distance and angle
+            var distance = (target.transform.position - position).magnitude;
+            var angle = Vector3.Angle(direction, target.transform.position - position);
+
+            return !(distance > maxDistance) && !(angle > maxAngle);
         }
 
         /// <summary>
