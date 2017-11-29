@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
+=======
 ﻿using UnityEngine;
+>>>>>>> master
 
 namespace Assets.Mechanics
 {
@@ -6,6 +12,19 @@ namespace Assets.Mechanics
     {
         public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 shooterPosition, float projectileSpeed)
         {
+<<<<<<< HEAD
+            var rb = enemy.GetComponent<Rigidbody>();
+            var velocity = new Vector3(0, 0, 0);
+            if (rb != null)
+            {
+                velocity = rb.velocity;
+            }
+
+            var direct = (enemy.position - shooterPosition + velocity).normalized * projectileSpeed;
+            direct += velocity;
+
+            return direct;
+=======
             var targetVelocity = new Vector3(0,0,0);
             var rb = enemy.GetComponent<Rigidbody>();
             if (rb != null)
@@ -41,6 +60,7 @@ namespace Assets.Mechanics
             if (s1 < s2)
                 return s2 * targetDir + aTargetSpeed;
             return s1 * targetDir + aTargetSpeed;
+>>>>>>> master
         }
     }
 }
