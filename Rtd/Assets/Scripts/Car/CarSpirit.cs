@@ -3,30 +3,18 @@ using UnityEngine;
 
 public class CarSpirit : MonoBehaviour, IDamagable
 {
-
     public float Hp;
     public float MaxMotorTorque;
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private ProjectilePowerupBase _powerUp = new ReverseMissilePowerup();
-    //private ProjectilePowerupBase _powerUp = new ReverseMissilePowerup();
+    private IPowerup _powerUp = new MissilePowerup();
 
     void Update()
     {
-        if (_powerUp == null)
-            return;
-
         // update powerup, retarget cars etc
-        _powerUp.UpdatePowerup(this);
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if (_powerUp.Use(this))
-            {
-                //TODO clear powerup upon successfull action
-            }
-        }
+        if (_powerUp != null)
+            _powerUp.UpdatePowerup(this);
     }
 
     /// <summary>
@@ -42,5 +30,14 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
         if (Hp <= 0)
             Destroy(gameObject);
+    }
+
+    public void UsePowerUp()
+    {
+        if (_powerUp.Use(this))
+        {
+            //TODO clear powerup upon successfull action
+            _powerUp = null;
+        }
     }
 }

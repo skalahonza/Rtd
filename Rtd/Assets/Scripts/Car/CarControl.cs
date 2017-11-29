@@ -28,6 +28,8 @@ public class CarControl : MonoBehaviour
     [SerializeField]
     private Vector3 pos;
 
+    private CarSpirit spirit;
+
     public List<CarInfo> wheelPairs;
 
     public void VisualizeWheel(CarInfo wheelPair)
@@ -41,9 +43,18 @@ public class CarControl : MonoBehaviour
         wheelPair.rightWheelMesh.transform.rotation = rot;
     }
 
+    void Start()
+    {
+        spirit = GetComponent<CarSpirit>();
+    }
+
     public void Update()
     {
-        var spirit = GetComponent<CarSpirit>();
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            spirit.UsePowerUp();
+        }
+
         var maxMotorTorque = spirit.MaxMotorTorque;
         var maxSteeringAngle = spirit.MaxSteeringAngle;
 
