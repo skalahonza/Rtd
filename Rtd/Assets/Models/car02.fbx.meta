@@ -1,12 +1,18 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 96823531d90afca40b880bfa70a1e3f6
 timeCreated: 1511624212
+=======
+guid: 7c5d83fed1bbb4e249d7323df5930d3f
+timeCreated: 1510139412
+>>>>>>> master
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: car_body
+<<<<<<< HEAD
     100004: wheel_front_left
     100006: wheel_front_right
     100008: wheel_rear_left
@@ -38,11 +44,44 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+=======
+    100004: front_left_wheel
+    100006: front_right_wheel
+    100008: rear_left_wheel
+    100010: rear_right_wheel
+    400000: //RootNode
+    400002: car_body
+    400004: front_left_wheel
+    400006: front_right_wheel
+    400008: rear_left_wheel
+    400010: rear_right_wheel
+    2100000: lambert1
+    2300000: car_body
+    2300002: front_left_wheel
+    2300004: front_right_wheel
+    2300006: rear_left_wheel
+    2300008: rear_right_wheel
+    3300000: car_body
+    3300002: front_left_wheel
+    3300004: front_right_wheel
+    3300006: rear_left_wheel
+    3300008: rear_right_wheel
+    4300000: car_body
+    4300002: front_right_wheel
+    4300004: rear_right_wheel
+    4300006: front_left_wheel
+    4300008: rear_left_wheel
+  externalObjects: {}
+>>>>>>> master
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+<<<<<<< HEAD
     materialLocation: 0
+=======
+    materialLocation: 1
+>>>>>>> master
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -80,6 +119,11 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+<<<<<<< HEAD
+=======
+    preserveHierarchy: 0
+    indexFormat: 0
+>>>>>>> master
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
