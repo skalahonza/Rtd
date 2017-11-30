@@ -1,5 +1,3 @@
-﻿using System;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Mechanics
