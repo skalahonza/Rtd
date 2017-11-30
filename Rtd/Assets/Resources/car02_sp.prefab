@@ -73,11 +73,8 @@ GameObject:
   - component: {fileID: 114821755747930382}
   - component: {fileID: 54849757323587204}
   - component: {fileID: 65711299539084616}
-  - component: {fileID: 114414032856637700}
-  - component: {fileID: 114063400212233488}
-  - component: {fileID: 114697640449371912}
   m_Layer: 0
-  m_Name: car02
+  m_Name: car02_sp
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,70 +579,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.1, y: 1.869504, z: 8.105652}
   m_Center: {x: 0, y: 0.2, z: 0}
---- !u!114 &114063400212233488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1537262031943720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
---- !u!114 &114414032856637700
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1537262031943720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 179
-    i1: 215
-    i2: 132
-    i3: 223
-    i4: 5
-    i5: 209
-    i6: 113
-    i7: 244
-    i8: 187
-    i9: 20
-    i10: 72
-    i11: 253
-    i12: 115
-    i13: 129
-    i14: 116
-    i15: 230
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114697640449371912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1537262031943720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adedd6766e41f4634a14a6f191fa18ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114821755747930382
 MonoBehaviour:
   m_ObjectHideFlags: 1

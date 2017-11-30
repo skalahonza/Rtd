@@ -1,31 +1,19 @@
-<<<<<<< HEAD
-﻿using System;
-using JetBrains.Annotations;
 using UnityEngine;
-=======
-﻿using UnityEngine;
->>>>>>> master
 
 namespace Assets.Mechanics
 {
     public static class TargetingMechanis
     {
+        /// <summary>
+        /// Calculates aim velocity vector from shooter position to moving target, counts with target speed
+        /// </summary>
+        /// <param name="enemy">Enemy transform</param>
+        /// <param name="shooterPosition">Shooter position, the projectile muzzle</param>
+        /// <param name="projectileSpeed">Projectile speed</param>
+        /// <returns></returns>
         public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 shooterPosition, float projectileSpeed)
         {
-<<<<<<< HEAD
-            var rb = enemy.GetComponent<Rigidbody>();
-            var velocity = new Vector3(0, 0, 0);
-            if (rb != null)
-            {
-                velocity = rb.velocity;
-            }
-
-            var direct = (enemy.position - shooterPosition + velocity).normalized * projectileSpeed;
-            direct += velocity;
-
-            return direct;
-=======
-            var targetVelocity = new Vector3(0,0,0);
+            var targetVelocity = new Vector3(0, 0, 0);
             var rb = enemy.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -60,7 +48,65 @@ namespace Assets.Mechanics
             if (s1 < s2)
                 return s2 * targetDir + aTargetSpeed;
             return s1 * targetDir + aTargetSpeed;
->>>>>>> master
+        }
+
+        /// <summary>
+        /// Locks on target in certain direction, target must be IDamagable
+        /// </summary>
+        /// <param name="direction">Direction of aming, typically rotation*Vector3.forward</param>
+        /// <param name="center">Aiming position</param>
+        /// <param name="maxDistance">Max distance for adminig</param>
+        /// <param name="maxAngle">Max angle for aiming</param>
+        /// <returns>Null if no damagable target found in given direction, otherwise return the gameobject to shoot on.</returns>
+        public static GameObject LockTarget(Vector3 direction, Vector3 center, float maxDistance, float maxAngle)
+        {
+            RaycastHit info;
+            if (Physics.Raycast(center, direction, out info))
+            {       
+                var target = info.transform.gameObject;
+
+                if(!IsTargetInRange(target,direction,center,maxDistance,maxAngle))
+                    return null;                
+
+                // target is damagable
+                if (target.GetComponent<IDamagable>() != null)
+                {
+                    return target;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Verify if the target is in range for shooting
+        /// </summary>
+        /// <param name="target">Target I want to shoot</param>
+        /// <param name="direction">Direction of aim</param>
+        /// <param name="position">Shooter's position</param>
+        /// <param name="maxDistance">Max distance for shooting</param>
+        /// <param name="maxAngle">Max angle for detection</param>
+        /// <returns>True if I can lock on target</returns>
+        public static bool IsTargetInRange(GameObject target, Vector3 direction, Vector3 position, float maxDistance, float maxAngle)
+        {
+            // check distance and angle
+            var distance = (target.transform.position - position).magnitude;
+            var angle = Vector3.Angle(direction, target.transform.position - position);
+
+            return !(distance > maxDistance) && !(angle > maxAngle);
+        }
+
+        /// <summary>
+        /// Calculate aim and rotation for projectile 
+        /// </summary>
+        /// <param name="targetPosition">Position of the target</param>
+        /// <param name="shooterPosition">Position of the shooter</param>
+        /// <returns></returns>
+        public static Quaternion CalculateAimRotation(Vector3 targetPosition, Vector3 shooterPosition)
+        {
+            // Aim at the targetPosition
+            // TargetPosition substracting towerPosition creates a vector pointing from the tower to the targetPosition. 
+            var aimPoint = new Vector3(targetPosition.x, 0, targetPosition.z) - shooterPosition;
+            return Quaternion.LookRotation(aimPoint);
         }
     }
 }
