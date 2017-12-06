@@ -23,9 +23,7 @@ public class CarControl : MonoBehaviour
     [SerializeField]
     private float steerAngle;
 
-    [SerializeField]
     private Quaternion rot;
-    [SerializeField]
     private Vector3 pos;
 
     private CarSpirit spirit;
