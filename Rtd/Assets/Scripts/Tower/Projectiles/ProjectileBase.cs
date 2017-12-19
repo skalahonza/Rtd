@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
 {
     public float Speed;
@@ -34,6 +35,9 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
     public virtual void Start()
     {
         GetComponent<SphereCollider>().isTrigger = true;
+        var rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = false;
     }
 
     public void OnTriggerEnter(Collider other)
