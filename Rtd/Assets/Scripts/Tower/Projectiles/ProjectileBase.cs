@@ -21,14 +21,7 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
     /// </summary>
     /// <param name="other">Collider that was hit</param>
     public virtual void OnHit(Collider other)
-    {
-        var parent = other.transform.gameObject;
-        IDamagable target;
-        if ((target = parent.GetComponent<IDamagable>()) != null)
-        {
-            target.SufferDamage(this);
-        }
-
+    {       
         Destroy(gameObject);
     }
 
