@@ -42,6 +42,7 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
         if (!other.CompareTag(GameTag.Tower.ToString()) 
             && !other.CompareTag(GameTag.Muzzle.ToString())
             && other.gameObject != Owner
+            && other.gameObject.GetComponent<ProjectileTower>() == null
             )
             OnHit(other);
     }
