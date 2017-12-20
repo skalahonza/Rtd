@@ -2,7 +2,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
+[RequireComponent(typeof(Rigidbody))]
+public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
 {
     public float Speed;
     public float Damage;
@@ -20,20 +21,16 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
     /// </summary>
     /// <param name="other">Collider that was hit</param>
     public virtual void OnHit(Collider other)
-    {
-        var parent = other.transform.gameObject;
-        IDamagable target;
-        if ((target = parent.GetComponent<IDamagable>()) != null)
-        {
-            target.SufferDamage(this);
-        }
-
+    {       
         Destroy(gameObject);
     }
 
     public virtual void Start()
     {
         GetComponent<SphereCollider>().isTrigger = true;
+        var rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = false;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -42,6 +39,7 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
         if (!other.CompareTag(GameTag.Tower.ToString()) 
             && !other.CompareTag(GameTag.Muzzle.ToString())
             && other.gameObject != Owner
+            && other.gameObject.GetComponent<ProjectileTower>() == null
             )
             OnHit(other);
     }

@@ -12,6 +12,9 @@ public abstract class TowerBase : MonoBehaviour
 
     protected readonly List<Transform> _enemiesInRange = new List<Transform>();    
 
+    /// <summary>
+    /// Execute attack on one or more enemiesInRange
+    /// </summary>
     public abstract void Attack();
 
     public void Start()
@@ -20,6 +23,19 @@ public abstract class TowerBase : MonoBehaviour
         colider.isTrigger = true;
         colider.radius = Radius;
         colider.height = 5;
+    }
+
+    public virtual void Update()
+    {
+        _timer += Time.deltaTime;
+
+        // FIRE
+        if (_timer >= TimeBetweenAttack)
+        {
+            // Weapon delay reset
+            _timer = 0f;
+            Attack();
+        }
     }
 
     /// <summary>
