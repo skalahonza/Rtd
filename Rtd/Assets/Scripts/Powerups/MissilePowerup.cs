@@ -7,9 +7,9 @@ namespace Assets.Scripts.Powerups
 {
     public class MissilePowerup : ProjectilePowerupBase
     {
-        public MissilePowerup()
+        protected override GameObject GetProjectilePrefab()
         {
-            Projectile = new MissilePowerupProjectile();
+            return Resources.Load<GameObject>("missile_projectile");
         }
 
         /// <summary>

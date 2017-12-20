@@ -1,15 +1,14 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
-using Assets.Scripts.Powerups.Projectiles;
 using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
     public class ReverseMissilePowerup : ProjectilePowerupBase
     {
-        public ReverseMissilePowerup()
+        protected override GameObject GetProjectilePrefab()
         {
-            Projectile = new ReverseMissilePowerupProjectile();
+            return Resources.Load<GameObject>("reverse_missile_projectile");
         }
 
         public override GameObject LockTarget(Vector3 center, Quaternion rotation)

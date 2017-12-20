@@ -24,9 +24,10 @@ namespace Assets.Scripts.Constants
         /// </summary>
         public const float TowerMineVanishTime = 7.5f;
 
-        public static float MineSpawnHeight(Vector3 spawnPosition)
+        public static Vector3 MineSpawnHeight(Vector3 spawnPosition)
         {
-            return spawnPosition.y + 2;
+            spawnPosition.y += 1;
+            return spawnPosition;
         }
     }
 }

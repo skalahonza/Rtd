@@ -47,7 +47,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
     public void UsePowerUp()
     {
-        if (_powerUp.Use(this))
+        if (_powerUp != null && _powerUp.Use(this))
         {
             //TODO clear powerup upon successfull action
             _powerUp = null;

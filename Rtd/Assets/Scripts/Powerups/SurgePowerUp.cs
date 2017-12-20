@@ -1,14 +1,13 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
-using Assets.Scripts.Powerups.Projectiles;
 using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
     public class SurgePowerUp : ProjectilePowerupBase {
-        public SurgePowerUp()
+        protected override GameObject GetProjectilePrefab()
         {
-            Projectile = new SurgePowerupProjectile();
+            return Resources.Load<GameObject>("surge_powerup_projectile");
         }
 
         public override GameObject LockTarget(Vector3 center, Quaternion rotation)
