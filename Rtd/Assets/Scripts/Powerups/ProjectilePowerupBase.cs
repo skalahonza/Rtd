@@ -13,7 +13,7 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         public float Range = 75;
 
-        public ProjectileBase Projectile;
+        protected abstract GameObject GetProjectilePrefab();
 
         /// <inheritdoc />
         /// <summary>
@@ -27,7 +27,9 @@ namespace Assets.Scripts.Powerups
             
             // create projectile instance
             //spawn and fire projectile
-            var projectile = GameObject.Instantiate(Projectile.GetPrefab(), car.transform.position,
+            var prefab = GetProjectilePrefab();
+            var position = NumberConstants.MineSpawnHeight(car.transform.position);
+            var projectile = GameObject.Instantiate(prefab, position,
                 TargetingMechanis.CalculateAimRotation(Target.transform.position, car.transform.position));
 
             var projBase = projectile.GetComponent<ProjectileBase>();
@@ -46,7 +48,6 @@ namespace Assets.Scripts.Powerups
         /// <param name="car">Powerup owner</param>
         public void UpdatePowerup(CarSpirit car)
         {
-            Projectile.Owner = car.gameObject;
             LockTarget(car.gameObject.transform.position, car.transform.rotation);            
         }
 

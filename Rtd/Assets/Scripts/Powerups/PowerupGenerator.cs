@@ -14,6 +14,8 @@ namespace Assets.Scripts.Powerups
             {
                 typeof(MissilePowerup),
                 typeof(ReverseMissilePowerup),
+                typeof(MinePowerup),
+                typeof(SurgePowerUp),
             };
         }
         public IPowerup GetPowerUp()

@@ -9,7 +9,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private IPowerup _powerUp = new MissilePowerup();
+    private IPowerup _powerUp = new SurgePowerUp();
     private PowerupGenerator powerupGenerator = new PowerupGenerator();
     private float period = 0.0f;
 
@@ -20,7 +20,10 @@ public class CarSpirit : MonoBehaviour, IDamagable
         {
             //Do Stuff
             if (_powerUp == null)
+            {
                 _powerUp = powerupGenerator.GetPowerUp();
+                Debug.Log("Power up spawned " + _powerUp);
+            }
 
             period = 0;
         }        
@@ -47,10 +50,11 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
     public void UsePowerUp()
     {
-        if (_powerUp.Use(this))
+        if (_powerUp != null && _powerUp.Use(this))
         {
             //TODO clear powerup upon successfull action
             _powerUp = null;
+            period = 0;
         }
     }
 }

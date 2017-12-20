@@ -16,7 +16,7 @@ public class MineTower : TowerBase
         {
             var v = spirit.GetComponent<Rigidbody>().velocity;
             var spawnPosition = spirit.transform.position + NumberConstants.SpawningDiretionMultiplier * v;
-            spawnPosition.y = 2.6f;
+            spawnPosition = NumberConstants.MineSpawnHeight(spawnPosition);
             //spawn mine
             Instantiate(Mine.GetPrefab(), spawnPosition, new Quaternion());
         }

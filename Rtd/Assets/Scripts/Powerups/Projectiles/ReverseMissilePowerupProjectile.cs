@@ -7,5 +7,17 @@ namespace Assets.Scripts.Powerups.Projectiles
         {
             return Resources.Load<GameObject>("reverse_missile_projectile");
         }
+
+        public override void OnHit(Collider other)
+        {
+            var parent = other.gameObject;
+            if (parent.Equals(Owner)) return;
+            IDamagable target;
+            if ((target = parent.GetComponent<IDamagable>()) != null)
+            {
+                target.SufferDamage(this);
+            }
+            base.OnHit(other);
+        }
     }
 }

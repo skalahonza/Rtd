@@ -7,7 +7,7 @@
         /// </summary>
         bool Use(CarSpirit car);
         /// <summary>
-        /// Update powerup data, 
+        /// Update powerup data, retarget or verify that the powerup can be used
         /// </summary>
         /// <param name="car">Onwer of the powerup</param>
         void UpdatePowerup(CarSpirit car);
