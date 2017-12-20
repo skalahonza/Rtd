@@ -6,6 +6,7 @@
         /// Angle for targeting mechanics, while aiming a projectile powerup
         /// </summary>
         public const float DetetionAngle = 30f;
+
         /// <summary>
         /// Number of seconds between each powerup spawn
         /// </summary>
@@ -16,6 +17,9 @@
         /// </summary>
         public const float SpawningDiretionMultiplier = 2.5f;
 
+        /// <summary>
+        /// Tower mine will vanish after this time pass
+        /// </summary>
         public const float TowerMineVanishTime = 7.5f;
     }
 }
