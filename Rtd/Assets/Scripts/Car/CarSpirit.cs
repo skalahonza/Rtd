@@ -20,7 +20,10 @@ public class CarSpirit : MonoBehaviour, IDamagable
         {
             //Do Stuff
             if (_powerUp == null)
+            {
                 _powerUp = powerupGenerator.GetPowerUp();
+                Debug.Log("Power up spawned " + _powerUp);
+            }
 
             period = 0;
         }        
@@ -51,6 +54,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
         {
             //TODO clear powerup upon successfull action
             _powerUp = null;
+            period = 0;
         }
     }
 }
