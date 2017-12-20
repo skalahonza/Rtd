@@ -91,9 +91,9 @@ GameObject:
   - component: {fileID: 122017928675219074}
   - component: {fileID: 135461172723856856}
   - component: {fileID: 54478593931364662}
-  - component: {fileID: 114052697598079132}
+  - component: {fileID: 114602211935581176}
   m_Layer: 0
-  m_Name: tower_projectile_orange
+  m_Name: tower_mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385470541510194}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 195.05612, y: 17.4, z: 146.48816}
+  m_LocalPosition: {x: 114.9, y: 7.86, z: 41.3}
   m_LocalScale: {x: 24.157993, y: 24.157993, z: 24.157993}
   m_Children:
   - {fileID: 4574990361729516}
@@ -414,7 +414,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -436,7 +436,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114052697598079132
+--- !u!114 &114602211935581176
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -444,12 +444,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1385470541510194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc9c678ca8e236489ff182fc5650d1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1caaf86ee16936646b8e7e821f32070f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 60
-  Damage: 10
-  Owner: {fileID: 0}
+  Damage: 50
+  Reach: 25
 --- !u!122 &122017928675219074
 Halo:
   m_ObjectHideFlags: 1
@@ -471,5 +470,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}

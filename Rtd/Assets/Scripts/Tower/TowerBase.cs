@@ -12,6 +12,9 @@ public abstract class TowerBase : MonoBehaviour
 
     protected readonly List<Transform> _enemiesInRange = new List<Transform>();    
 
+    /// <summary>
+    /// Execute attack on one or more enemiesInRange
+    /// </summary>
     public abstract void Attack();
 
     public void Start()
