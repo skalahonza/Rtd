@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
-public abstract class ProjectileBase : MonoBehaviour, IDamageDealer
+public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
 {
     public float Speed;
     public float Damage;

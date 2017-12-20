@@ -25,6 +25,19 @@ public abstract class TowerBase : MonoBehaviour
         colider.height = 5;
     }
 
+    public virtual void Update()
+    {
+        _timer += Time.deltaTime;
+
+        // FIRE
+        if (_timer >= TimeBetweenAttack)
+        {
+            // Weapon delay reset
+            _timer = 0f;
+            Attack();
+        }
+    }
+
     /// <summary>
     /// When object enters the tower radius
     /// </summary>

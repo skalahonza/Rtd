@@ -8,27 +8,16 @@ public class ProjectileTower : TowerBase
 {
     public Transform MuzzlePosition;
     public ProjectileBase TowerProjectile;
-    protected Transform _enemy;
-
-    public virtual void Update()
-    {
-        _timer += Time.deltaTime;
-
-        // FIRE
-        if (_timer >= TimeBetweenAttack && _enemiesInRange.Any())
-        {
-            _enemy = GetClosestEnemy(_enemiesInRange);
-            Attack();
-        }
-    }
+    protected Transform _enemy;    
 
     /// <summary>
     /// Shoot projectile on the closest harget
     /// </summary>
     public override void Attack()
-    {
-        // Weapon delay reset
-        _timer = 0f;
+    {        
+        if (!_enemiesInRange.Any()) return;
+
+        _enemy = GetClosestEnemy(_enemiesInRange);
 
         //spawn and fire projectile
         var projectile =  Instantiate(TowerProjectile.GetPrefab(), MuzzlePosition.position, CalculateAimRotation(_enemy.position));

@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Mine : MonoBehaviour,IDamageDealer
+public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
 {
     public float Damage = 50f;
-    public float Reach = 25f;
     void Start()
     {
-        GetComponent<SphereCollider>().isTrigger = true;
+        var sphere = GetComponent<SphereCollider>();
+        sphere.isTrigger = true;
     }
 
     void Update()
@@ -29,4 +29,6 @@ public class Mine : MonoBehaviour,IDamageDealer
     {
         car.Hp -= Damage;
     }
+
+    public abstract GameObject GetPrefab();
 }

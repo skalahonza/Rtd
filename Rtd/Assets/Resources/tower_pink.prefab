@@ -180,6 +180,8 @@ GameObject:
   - component: {fileID: 4955019702644610}
   - component: {fileID: 95264172327124752}
   - component: {fileID: 64629257942791742}
+  - component: {fileID: 136061659127468546}
+  - component: {fileID: 114385950147283538}
   m_Layer: 0
   m_Name: tower_pink
   m_TagString: Untagged
@@ -2194,7 +2196,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1209771239385708}
   m_LocalRotation: {x: -0, y: -0.901942, z: -0, w: 0.43185717}
-  m_LocalPosition: {x: 56.19, y: -0.37152004, z: -16.91}
+  m_LocalPosition: {x: 63.220306, y: 0, z: 352.85577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4859266020325104}
@@ -4019,6 +4021,33 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114385950147283538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209771239385708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160947bb40e3df544aba1c9c6f4a5999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeBetweenAttack: 10
+  Radius: 200
+  Mine: {fileID: 114850641841223456, guid: bc94beea1ad68a54090e94395bb67d27, type: 2}
+--- !u!136 &136061659127468546
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209771239385708}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137771744166442332
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -14,6 +14,6 @@
         /// <summary>
         /// Multiply direction vector of moving cars and spawn mine on this position
         /// </summary>
-        public const float SpawningDiretionMultiplier = 10f;
+        public const float SpawningDiretionMultiplier = 2.5f;
     }
 }
