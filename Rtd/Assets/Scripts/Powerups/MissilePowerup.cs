@@ -1,6 +1,5 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
-using Assets.Scripts.Powerups.Projectiles;
 using UnityEngine;
 
 namespace Assets.Scripts.Powerups

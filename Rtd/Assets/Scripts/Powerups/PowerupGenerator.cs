@@ -13,8 +13,8 @@ namespace Assets.Scripts.Powerups
             _allowedPowerups = new List<Type>
             {
                 typeof(MissilePowerup),
-                //typeof(ReverseMissilePowerup),
-                //typeof(MinePowerup),
+                typeof(ReverseMissilePowerup),
+                typeof(MinePowerup),
             };
         }
         public IPowerup GetPowerUp()

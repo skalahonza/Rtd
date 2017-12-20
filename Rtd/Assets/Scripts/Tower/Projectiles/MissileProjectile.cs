@@ -11,7 +11,8 @@ namespace Assets.Scripts.Tower.Projectiles
 
         public override void OnHit(Collider other)
         {
-            var parent = other.transform.gameObject;
+            var parent = other.gameObject;
+            if (parent.Equals(Owner)) return;
             IDamagable target;
             if ((target = parent.GetComponent<IDamagable>()) != null)
             {
