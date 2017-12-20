@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Constants
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Constants
 {
     public static class NumberConstants
     {
@@ -10,7 +12,7 @@
         /// <summary>
         /// Number of seconds between each powerup spawn
         /// </summary>
-        public const float PowerUpSpawn = 10f;
+        public const float PowerUpSpawn = 5f;
 
         /// <summary>
         /// Multiply direction vector of moving cars and spawn mine on this position
@@ -21,5 +23,10 @@
         /// Tower mine will vanish after this time pass
         /// </summary>
         public const float TowerMineVanishTime = 7.5f;
+
+        public static float MineSpawnHeight(Vector3 spawnPosition)
+        {
+            return spawnPosition.y + 2;
+        }
     }
 }

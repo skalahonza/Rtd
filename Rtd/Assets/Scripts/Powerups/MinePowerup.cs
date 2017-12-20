@@ -8,7 +8,8 @@ namespace Assets.Scripts.Powerups
         private  MineBase Mine = new CarMine();
         public bool Use(CarSpirit car)
         {
-            var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier;
+            var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
+            postion.y = NumberConstants.MineSpawnHeight(postion);
             GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
             return true;
         }
