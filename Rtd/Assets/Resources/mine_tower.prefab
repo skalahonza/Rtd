@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 136061659127468546}
   - component: {fileID: 114385950147283538}
   m_Layer: 0
-  m_Name: tower_pink
+  m_Name: mine_tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

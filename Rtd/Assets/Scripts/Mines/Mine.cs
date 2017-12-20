@@ -4,7 +4,7 @@
 public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
 {
     public float Damage = 50f;
-    void Start()
+    public virtual void Start()
     {
         var sphere = GetComponent<SphereCollider>();
         sphere.isTrigger = true;
