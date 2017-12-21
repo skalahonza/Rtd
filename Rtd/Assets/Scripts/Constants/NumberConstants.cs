@@ -29,5 +29,9 @@ namespace Assets.Scripts.Constants
             spawnPosition.y += 1;
             return spawnPosition;
         }
+
+        public const int NormalShieldSeconds = 50;
+
+        public const int PaybackShieldSeconds = 25;
     }
 }

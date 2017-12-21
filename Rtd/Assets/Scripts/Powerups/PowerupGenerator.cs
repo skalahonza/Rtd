@@ -1,5 +1,5 @@
 ﻿using System;
-using Boo.Lang;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Powerups
 {
@@ -8,16 +8,22 @@ namespace Assets.Scripts.Powerups
         private readonly List<Type> _allowedPowerups;
         private readonly Random _rand = new Random();
 
-        public PowerupGenerator()
+        public PowerupGenerator():this(new List<Type>
         {
-            _allowedPowerups = new List<Type>
-            {
-                typeof(MissilePowerup),
-                typeof(ReverseMissilePowerup),
-                typeof(MinePowerup),
-                typeof(SurgePowerUp),
-            };
+            typeof(MissilePowerup),
+            typeof(ReverseMissilePowerup),
+            typeof(MinePowerup),
+            typeof(SurgePowerUp),
+            typeof(NormalShieldPowerup),
+        })
+        {         
         }
+
+        public PowerupGenerator(List<Type> allowedPowerups)
+        {
+            _allowedPowerups = allowedPowerups;
+        }
+
         public IPowerup GetPowerUp()
         {
             var type = _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
