@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Powerups.Shields;
 
 namespace Assets.Scripts.Powerups
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Powerups
             typeof(ReverseMissilePowerup),
             typeof(MinePowerup),
             typeof(SurgePowerUp),
-            typeof(NormalShieldPowerup),
+            typeof(ShieldPowerup<NormalShield>),
         })
         {         
         }

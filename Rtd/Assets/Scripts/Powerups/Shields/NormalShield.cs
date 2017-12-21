@@ -14,5 +14,5 @@ namespace Assets.Scripts.Powerups.Shields
         {
             get { return TimeSpan.FromSeconds(NumberConstants.NormalShieldSeconds); }
         }
-    }
+    }    
 }

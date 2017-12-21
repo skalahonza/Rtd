@@ -1,13 +1,14 @@
 ﻿using Assets.Scripts.Powerups.Shields;
-using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
-    public class NormalShieldPowerup : IPowerup {
+    public class ShieldPowerup<T> : IPowerup
+        where T :ShieldBase, new()
+    {
         public bool Use(CarSpirit car)
         {
             //TODO SHIELD VIZUALIZATION
-            car.Shield = new NormalShield();
+            car.Shield = new T();
             return true;
         }
 
