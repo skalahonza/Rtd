@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44300318, g: 0.49219626, b: 0.57192606, a: 1}
+  m_IndirectSpecularColor: {r: 0.44300264, g: 0.492195, b: 0.571925, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ Transform:
   - {fileID: 1092952360}
   - {fileID: 934035266}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &359228516
 GameObject:
@@ -207,6 +207,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -285,9 +286,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 0
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &565705406
@@ -545,6 +546,47 @@ MonoBehaviour:
   isSingle: 0
   isMulti: 0
   isQuit: 1
+  cars: []
+--- !u!1 &1290642288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1290642290}
+  - component: {fileID: 1290642289}
+  m_Layer: 0
+  m_Name: GameConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1290642289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290642288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d01e24c228084fc28265f9eeb5cc141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1290642290
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290642288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.81, y: -1.43, z: -0.00001001358}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478286501
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +712,7 @@ MonoBehaviour:
   isSingle: 0
   isMulti: 1
   isQuit: 0
+  cars: []
 --- !u!1 &1890800806
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,3 +903,25 @@ MonoBehaviour:
   isSingle: 1
   isMulti: 0
   isQuit: 0
+  cars:
+  - car: {fileID: 1791092459031418, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
+    materials:
+    - {fileID: 2100000, guid: e1ba88d4ca9533a49857e8f07d33bebb, type: 2}
+    - {fileID: 2100000, guid: 8f048ace88303ba46990de35572bd411, type: 2}
+    - {fileID: 2100000, guid: 7bff0e0c80244424c8825bdfbab76144, type: 2}
+    - {fileID: 2100000, guid: 94b8e3481d246d64db929e3511d41005, type: 2}
+    - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
+  - car: {fileID: 0}
+    materials:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - car: {fileID: 0}
+    materials:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
