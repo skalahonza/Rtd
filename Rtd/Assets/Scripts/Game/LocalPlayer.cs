@@ -26,5 +26,7 @@ public class LocalPlayer : Player {
         control.setUpdate(spirit.MaxMotorTorque * Input.GetAxis(AxisNames.Vertical)
         , spirit.MaxSteeringAngle * Input.GetAxis(AxisNames.Horizontal)
         ,Mathf.Abs(Input.GetAxis(AxisNames.Jump)));
+        string output = "Velocity {0} Angle {1}";
+        Debug.Log(string.Format(output, spirit.MaxMotorTorque * Input.GetAxis(AxisNames.Vertical), spirit.MaxSteeringAngle * Input.GetAxis(AxisNames.Horizontal)));
     }
 }
