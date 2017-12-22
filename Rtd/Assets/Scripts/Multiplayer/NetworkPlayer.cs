@@ -6,7 +6,7 @@ using UnityStandardAssets.Utility;
 using Assets.Scripts.Constants;
 
 [RequireComponent(typeof(CarControl))]
-public class Player : NetworkBehaviour {
+public class NetworkPlayer : NetworkBehaviour {
 
 
     CarControl cw;
