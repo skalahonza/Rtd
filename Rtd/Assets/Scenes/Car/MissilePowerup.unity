@@ -154,6 +154,11 @@ Prefab:
     - target: {fileID: 114449158104402032, guid: f199836f9f4439e4cba8faad40e86e55,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114036213504685252, guid: f199836f9f4439e4cba8faad40e86e55,
+        type: 2}
+      propertyPath: MaxMotorTorque
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -359,7 +364,7 @@ Prefab:
     - target: {fileID: 114496738520142006, guid: 5a9859344537a164db51adde53225edf,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a9859344537a164db51adde53225edf, type: 2}
@@ -811,6 +816,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 54963116192086430, guid: ab4bf9ee1a799914abd29ac58668f1f2,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1250
+      objectReference: {fileID: 0}
+    - target: {fileID: 54963116192086430, guid: ab4bf9ee1a799914abd29ac58668f1f2,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   m_IsPrefabParent: 0
@@ -856,7 +871,7 @@ Prefab:
     - target: {fileID: 114767673006025104, guid: b70cde61b90f89042a8018cd9700913b,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
