@@ -5,6 +5,9 @@ public abstract class Player : MonoBehaviour {
     public bool startRace = false;
     protected Map map;
     protected int checkpointOffest = 0;
+
+    
+
     void respawn(){
         
     }
