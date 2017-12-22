@@ -13,7 +13,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
     [SerializeField]
     private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(MissilePowerup)});
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     public ShieldBase Shield;
