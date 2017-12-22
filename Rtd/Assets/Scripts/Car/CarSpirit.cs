@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Shields;
@@ -11,8 +12,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private IPowerup _powerUp = new ShieldPowerup<NormalShield>();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
+    private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(MissilePowerup)});
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     public ShieldBase Shield;

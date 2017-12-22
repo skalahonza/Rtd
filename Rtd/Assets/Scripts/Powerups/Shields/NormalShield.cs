@@ -5,7 +5,7 @@ namespace Assets.Scripts.Powerups.Shields
 {
     public class NormalShield : ShieldBase
     {
-        public override bool ResolveHit(IDamageDealer dealer, CarSpirit carSpirit)
+        public override bool ResolveHit(IDamageDealer dealer, CarSpirit car)
         {
             return false;
         }
@@ -14,5 +14,5 @@ namespace Assets.Scripts.Powerups.Shields
         {
             get { return TimeSpan.FromSeconds(NumberConstants.NormalShieldSeconds); }
         }
-    }    
+    }
 }

@@ -16,6 +16,7 @@ namespace Assets.Scripts.Powerups
             typeof(MinePowerup),
             typeof(SurgePowerUp),
             typeof(ShieldPowerup<NormalShield>),
+            typeof(ShieldPowerup<PaybackShield>),
         })
         {         
         }

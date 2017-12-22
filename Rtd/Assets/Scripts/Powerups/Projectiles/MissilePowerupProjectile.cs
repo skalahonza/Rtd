@@ -6,7 +6,7 @@ namespace Assets.Scripts.Powerups.Projectiles
     {
         public override GameObject GetPrefab()
         {
-            return Resources.Load<GameObject>("missile_powerup");            
+            return Resources.Load<GameObject>("missile_projectile");
         }
 
         public override void OnHit(Collider other)

@@ -154,6 +154,11 @@ Prefab:
     - target: {fileID: 114449158104402032, guid: f199836f9f4439e4cba8faad40e86e55,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114036213504685252, guid: f199836f9f4439e4cba8faad40e86e55,
+        type: 2}
+      propertyPath: MaxMotorTorque
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

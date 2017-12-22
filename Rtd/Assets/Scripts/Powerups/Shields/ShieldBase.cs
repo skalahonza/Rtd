@@ -8,9 +8,9 @@ namespace Assets.Scripts.Powerups.Shields
         /// Resolve hit upon the shield
         /// </summary>
         /// <param name="dealer">The damage dealer</param>
-        /// <param name="carSpirit">CarSpirit that was hit</param>
+        /// <param name="car">CarSpirit that was hit</param>
         /// <returns>True if the proejctile was blocked or absorbed</returns>
-        public abstract bool ResolveHit(IDamageDealer dealer, CarSpirit carSpirit);
+        public abstract bool ResolveHit(IDamageDealer dealer, CarSpirit car);
 
         public abstract TimeSpan Duration { get; }
     }
