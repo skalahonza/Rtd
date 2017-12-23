@@ -25,8 +25,10 @@ class AIPlayer : Player{
     void FixedUpdate() {
         if(!startRace)
             return;
-        if(map.checkpoints[checkpointOffest+1] != null)
+        if(map.checkpoints[checkpointOffest+1] != null){
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
+            Debug.Log(string.Format("go to {0}",checkpointOffest));
+        }
         //float angle = Vector3.Angle(agent.velocity.normalized, this.transform.forward);
         //angle = (angle + 180.0f) % 360.0f;
         //string output = "Velocity {0} Angle {1}";

@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public abstract class Player : MonoBehaviour {
-    Checkpoint latest;
+    public Checkpoint latest;
     public bool startRace = false;
     protected Map map;
-    protected int checkpointOffest = 0;
+    public int checkpointOffest = 0;
 
     
 
