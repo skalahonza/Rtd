@@ -70,7 +70,7 @@ public class CarControl : MonoBehaviour
     void Start()
     {
         spirit = GetComponent<CarSpirit>();
-        GetComponent<Rigidbody>().centerOfMass += new Vector3(0, 0, 1);
+        //GetComponent<Rigidbody>().centerOfMass += new Vector3(0, 0, 1);
     }
 
     public void Update()
