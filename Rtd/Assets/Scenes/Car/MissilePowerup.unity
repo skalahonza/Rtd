@@ -312,7 +312,7 @@ Prefab:
     - target: {fileID: 114496738520142006, guid: 5a9859344537a164db51adde53225edf,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a9859344537a164db51adde53225edf, type: 2}
@@ -327,7 +327,6 @@ GameObject:
   - component: {fileID: 843428424}
   - component: {fileID: 843428423}
   - component: {fileID: 843428422}
-  - component: {fileID: 843428426}
   - component: {fileID: 843428425}
   m_Layer: 0
   m_Name: Terrain
@@ -342,7 +341,7 @@ TerrainCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 843428421}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 07dd9825f0df7374c8ca37dd9e5b1146, type: 2}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: f9d1fb5d1f53d5345a941329be9349ed, type: 2}
   m_EnableTreeColliders: 1
@@ -401,18 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caaf86ee16936646b8e7e821f32070f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &843428426
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 843428421}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1456031812
 Prefab:
   m_ObjectHideFlags: 0
@@ -497,7 +484,7 @@ Prefab:
     - target: {fileID: 114385950147283538, guid: eddb6727c599144498b6d703f326bd55,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eddb6727c599144498b6d703f326bd55, type: 2}
@@ -651,7 +638,7 @@ Prefab:
     - target: {fileID: 114767673006025104, guid: b70cde61b90f89042a8018cd9700913b,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
