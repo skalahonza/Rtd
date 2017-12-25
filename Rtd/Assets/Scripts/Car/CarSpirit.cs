@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
+using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 
@@ -12,11 +13,13 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
+    private IPowerup _powerUp = new NitroPowerup<SpeedyNitro>();
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
+    private float _nitroDisablePeriod = 0.0f;
     public ShieldBase Shield;
+    public NitroBase Nitro;
 
     void Update()
     {
@@ -42,6 +45,18 @@ public class CarSpirit : MonoBehaviour, IDamagable
                 Debug.Log("Turning off shield" + Shield);
                 Shield = null;
                 _shieldDisablePeriod = 0;
+            }
+        }
+
+        if (Nitro != null)
+        {
+            _nitroDisablePeriod += Time.deltaTime;
+            if (_nitroDisablePeriod > Nitro.Time)
+            {
+                Debug.Log("Turning off nitro " + Nitro);                
+                _nitroDisablePeriod = 0;
+                MaxMotorTorque = Nitro.OriginalMaxMotorTorque;
+                Nitro = null;
             }
         }
 

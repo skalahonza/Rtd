@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Shields;
 
 namespace Assets.Scripts.Powerups
@@ -16,7 +17,9 @@ namespace Assets.Scripts.Powerups
             typeof(MinePowerup),
             typeof(SurgePowerUp),
             typeof(ShieldPowerup<NormalShield>),
-            typeof(ShieldPowerup<PaybackShield>),
+            typeof(ShieldPowerup<PaybackShield>),        
+            typeof(NitroPowerup<SpeedyNitro>),        
+            typeof(NitroPowerup<TimedNitro>),           
         })
         {         
         }
