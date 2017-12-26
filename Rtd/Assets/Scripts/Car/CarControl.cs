@@ -70,6 +70,9 @@ public class CarControl : MonoBehaviour
     void Start()
     {
         spirit = GetComponent<CarSpirit>();
+        var rb = GetComponent<Rigidbody>();
+        rb.ResetCenterOfMass();
+        rb.centerOfMass += new Vector3(0,-1,0);
     }
 
     public void Update()
