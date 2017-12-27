@@ -21,7 +21,10 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
     /// </summary>
     /// <param name="other">Collider that was hit</param>
     public virtual void OnHit(Collider other)
-    {       
+    {   
+        //TODO play sound on hit
+        var prefab = Resources.Load<GameObject>("Sounds\\projectile_on_hit");
+        Instantiate(prefab);
         Destroy(gameObject);
     }
 
