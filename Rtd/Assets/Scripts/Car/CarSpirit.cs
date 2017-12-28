@@ -14,8 +14,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private IPowerup _powerUp = new MissilePowerup();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(MissilePowerup),typeof(ReverseMissilePowerup)});
+    private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(ShieldPowerup<PaybackShield>)});
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
@@ -46,6 +46,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
             if (_shieldDisablePeriod > Shield.Duration.TotalSeconds)
             {
                 Debug.Log("Turning off shield" + Shield);
+                Shield.Clean(this);
                 Shield = null;
                 _shieldDisablePeriod = 0;
             }

@@ -8,7 +8,13 @@ namespace Assets.Scripts.Powerups
         public bool Use(CarSpirit car)
         {
             //TODO SHIELD VIZUALIZATION
+            if (car.Shield != null)
+            {
+                car.Shield.Clean(car);
+            }
+
             car.Shield = new T();
+            car.Shield.PLaySound(car);
             return true;
         }
 
