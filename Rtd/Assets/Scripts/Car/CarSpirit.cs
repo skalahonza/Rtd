@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
+using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 
@@ -13,10 +15,12 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
     [SerializeField]
     private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(ShieldPowerup<PaybackShield>)});
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
+    private float _nitroDisablePeriod = 0.0f;
     public ShieldBase Shield;
+    public NitroBase Nitro;
 
     void Update()
     {
@@ -28,6 +32,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
             if (_powerUp == null)
             {
                 _powerUp = _powerupGenerator.GetPowerUp();
+                //TODO powerup SPAWN sound
+                SoundMechanics.SpawnSound("powerup_spawn");
                 Debug.Log("Power up spawned " + _powerUp);
             }
 
@@ -40,8 +46,21 @@ public class CarSpirit : MonoBehaviour, IDamagable
             if (_shieldDisablePeriod > Shield.Duration.TotalSeconds)
             {
                 Debug.Log("Turning off shield" + Shield);
+                Shield.Clean(this);
                 Shield = null;
                 _shieldDisablePeriod = 0;
+            }
+        }
+
+        if (Nitro != null)
+        {
+            _nitroDisablePeriod += Time.deltaTime;
+            if (_nitroDisablePeriod > Nitro.Time)
+            {
+                Debug.Log("Turning off nitro " + Nitro);                
+                _nitroDisablePeriod = 0;
+                MaxMotorTorque = Nitro.OriginalMaxMotorTorque;
+                Nitro = null;
             }
         }
 
@@ -83,6 +102,14 @@ public class CarSpirit : MonoBehaviour, IDamagable
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }
+            else
+            {
+                SoundMechanics.SpawnSound("error_sound");
+            }
+        }
+        else
+        {
+            SoundMechanics.SpawnSound("error_sound");
         }
     }
 }

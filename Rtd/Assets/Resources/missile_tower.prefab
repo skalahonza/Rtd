@@ -1714,7 +1714,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1455124742998872}
   m_LocalRotation: {x: -0, y: -0.901942, z: -0, w: 0.43185717}
-  m_LocalPosition: {x: 95.569244, y: 0, z: 359.3306}
+  m_LocalPosition: {x: 651.1, y: -0.37152004, z: -598}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4251928932453198}
@@ -4035,7 +4035,8 @@ MonoBehaviour:
   TimeBetweenAttack: 5
   Radius: 200
   MuzzlePosition: {fileID: 4869069044075888}
-  TowerProjectile: {fileID: 0}
+  TowerProjectile: {fileID: 114346140651235364, guid: b409a3714a0f84d4c9ddf3a994a9dc80,
+    type: 2}
 --- !u!136 &136001132364505386
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -4045,7 +4046,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 200
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
