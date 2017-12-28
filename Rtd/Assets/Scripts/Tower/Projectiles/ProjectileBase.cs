@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Mechanics;
+using Assets.Scripts.Constants;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -22,9 +23,8 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
     /// <param name="other">Collider that was hit</param>
     public virtual void OnHit(Collider other)
     {   
-        //TODO play sound on hit
-        var prefab = Resources.Load<GameObject>("Sounds\\projectile_on_hit");
-        Instantiate(prefab);
+        //TODO PLAY SOUND ON HIT
+        SoundMechanics.SpawnSound("projectile_on_hit");
         Destroy(gameObject);
     }
 
