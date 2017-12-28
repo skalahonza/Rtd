@@ -23,6 +23,7 @@ public class CarControl : MonoBehaviour
     [SerializeField]
     private float steerAngle;
 
+    float brakeTorque ;
     private Quaternion rot;
     private Vector3 pos;
 
@@ -75,22 +76,17 @@ public class CarControl : MonoBehaviour
         rb.centerOfMass += new Vector3(0,-1,0);
     }
 
+    public void setUpdate(float motorTorque, float steerAngle, float brakeTorque){
+        this.motorTorque = motorTorque;
+        this.steerAngle = steerAngle;
+        this.brakeTorque = brakeTorque;
+    }
+
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            spirit.UsePowerUp();
-        }
-
-        var maxMotorTorque = spirit.MaxMotorTorque;
-        var maxSteeringAngle = spirit.MaxSteeringAngle;
-
-        motorTorque = maxMotorTorque * Input.GetAxis(AxisNames.Vertical);
-        steerAngle = maxSteeringAngle * Input.GetAxis(AxisNames.Horizontal);
-        float brakeTorque = Mathf.Abs(Input.GetAxis(AxisNames.Jump));
         if (brakeTorque > 0.001)
         {
-            brakeTorque = maxMotorTorque;
+            brakeTorque = spirit.MaxMotorTorque;
             motorTorque = 0;
         }
         else
