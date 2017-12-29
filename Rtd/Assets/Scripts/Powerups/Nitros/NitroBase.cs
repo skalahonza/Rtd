@@ -1,9 +1,26 @@
-﻿namespace Assets.Scripts.Powerups.Nitros
+﻿using Assets.Mechanics;
+using UnityEngine;
+
+namespace Assets.Scripts.Powerups.Nitros
 {
     public abstract class NitroBase
     {
+        private GameObject nitroSoundPlayer;
         public float OriginalMaxMotorTorque { get; set; }
         public abstract int Time { get; }
         public abstract int SpeedBonus { get; }
+
+        public void Clean(CarSpirit car)
+        {
+            GameObject.Destroy(nitroSoundPlayer);
+            car.MaxMotorTorque = OriginalMaxMotorTorque;
+        }
+
+        public void PlaySound(CarSpirit car)
+        {
+            var sound = SoundMechanics.SpawnSound("nitro_sound");
+            sound.transform.parent = car.transform;
+            nitroSoundPlayer = sound;
+        }
     }
 }

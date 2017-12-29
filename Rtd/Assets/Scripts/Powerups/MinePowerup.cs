@@ -11,6 +11,7 @@ namespace Assets.Scripts.Powerups
             var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
             postion = NumberConstants.MineSpawnHeight(postion);
             GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+
             return true;
         }
 
