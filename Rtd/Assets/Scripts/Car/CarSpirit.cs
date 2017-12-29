@@ -14,7 +14,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float MaxSteeringAngle;
 
     [SerializeField]
-    private IPowerup _powerUp = new SurgePowerUp();
+    private IPowerup _powerUp = new MinePowerup();
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(SurgePowerUp) });
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;

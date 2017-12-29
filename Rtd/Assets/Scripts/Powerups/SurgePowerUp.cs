@@ -29,6 +29,8 @@ namespace Assets.Scripts.Powerups
             var colliders = Physics.OverlapSphere(car.transform.position, radius);
             foreach (var collider in colliders)
             {
+                if (collider.gameObject == car.gameObject) continue;
+
                 var damagable = collider.gameObject.GetComponent<IDamagable>();
                 if (damagable != null)
                 {
