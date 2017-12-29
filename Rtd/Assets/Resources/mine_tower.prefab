@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 4955019702644610}
   - component: {fileID: 95264172327124752}
   - component: {fileID: 64629257942791742}
-  - component: {fileID: 136061659127468546}
   - component: {fileID: 114385950147283538}
   - component: {fileID: 82572354525522678}
   - component: {fileID: 82162896021397206}
@@ -4197,19 +4196,6 @@ MonoBehaviour:
   TimeBetweenAttack: 10
   Radius: 200
   Mine: {fileID: 114850641841223456, guid: bc94beea1ad68a54090e94395bb67d27, type: 2}
---- !u!136 &136061659127468546
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1209771239385708}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 200
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137771744166442332
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

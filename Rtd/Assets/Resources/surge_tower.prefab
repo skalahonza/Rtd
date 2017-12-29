@@ -1035,7 +1035,6 @@ GameObject:
   - component: {fileID: 4182232511248698}
   - component: {fileID: 95229664026544940}
   - component: {fileID: 64287908455025992}
-  - component: {fileID: 136467851092171974}
   - component: {fileID: 114767673006025104}
   - component: {fileID: 82912981109449578}
   m_Layer: 0
@@ -4118,19 +4117,6 @@ MonoBehaviour:
   MuzzlePosition: {fileID: 4299348810757852}
   TowerProjectile: {fileID: 114047440191912452, guid: b777b54bfc4a2eb4b8d13bf8cf4b89bb,
     type: 2}
---- !u!136 &136467851092171974
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904063434479526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 200
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137207537266515924
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
