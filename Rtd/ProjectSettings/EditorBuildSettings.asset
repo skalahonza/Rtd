@@ -12,5 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/map01.unity
     guid: 88ed4ac58cfe1644594e14db43d7a349
   - enabled: 1
+    path: Assets/Scenes/Maps/map00.unity
+    guid: d53073070802b441aa4a5819e9a4ee07
+  - enabled: 1
     path: Assets/Scenes/Car/Car.unity
     guid: f14b583d3918ec14ebe626f6fbdc9c51
