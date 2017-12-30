@@ -1,3 +1,4 @@
+using Assets.Scripts.Car;
 using UnityEngine;
 using Assets.Scripts.Constants;
 using UnityStandardAssets.Utility;

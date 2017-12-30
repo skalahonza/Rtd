@@ -1,130 +1,134 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using UnityEngine;
 
-[Serializable]
-public class CarInfo
+namespace Assets.Scripts.Car
 {
-    public WheelCollider leftWheelColider;
-    public GameObject leftWheelMesh;
-    public WheelCollider rightWheelColider;
-    public GameObject rightWheelMesh;
-
-    public bool motor;
-    public bool steering;
-}
-
-[RequireComponent(typeof(CarSpirit))]
-public class CarControl : MonoBehaviour
-{
-    [SerializeField]
-    private float motorTorque;
-    [SerializeField]
-    private float steerAngle;    
-
-    float brakeTorque;
-    private Quaternion rot;
-    private Vector3 pos;
-
-    private CarSpirit spirit;
-
-    public List<CarInfo> wheelPairs;
-
-    public void VisualizeWheel(CarInfo wheelPair)
+    [RequireComponent(typeof(CarSpirit))]
+    public class CarControl : MonoBehaviour
     {
-        var WheelL = wheelPair.leftWheelColider;
-        var WheelR = wheelPair.rightWheelColider;
-        float AntiRoll = 5000.0f;
-        var rb = GetComponent<Rigidbody>();
+        [SerializeField]
+        private float motorTorque;
+        [SerializeField]
+        private float steerAngle;    
 
-        WheelHit hit;
-        var travelL = 1.0;
-        var travelR = 1.0;
+        float brakeTorque;
+        private Quaternion rot;
+        private Vector3 pos;
 
-        var groundedL = WheelL.GetGroundHit(out hit);
-        if (groundedL)
-            travelL = (-WheelL.transform.InverseTransformPoint(hit.point).y - WheelL.radius) / WheelL.suspensionDistance;
+        private CarSpirit spirit;
 
-        var groundedR = WheelR.GetGroundHit(out hit);
-        if (groundedR)
-            travelR = (-WheelR.transform.InverseTransformPoint(hit.point).y - WheelR.radius) / WheelR.suspensionDistance;
+        public List<CarInfo> wheelPairs;
 
-        float antiRollForce = (float)((travelL - travelR) * AntiRoll);
+        private Rigidbody rb;
 
-        if (groundedL)
-            rb.AddForceAtPosition(WheelL.transform.up * -antiRollForce,
-                WheelL.transform.position);
-        if (groundedR)
-            rb.AddForceAtPosition(WheelR.transform.up * antiRollForce,
-                WheelR.transform.position);
+        public float Speed { get { return rb.velocity.magnitude *3.6f; } }
 
-        WheelL.GetWorldPose(out pos, out rot);
-        wheelPair.leftWheelMesh.transform.position = pos;
-        wheelPair.leftWheelMesh.transform.rotation = rot;
-
-        WheelR.GetWorldPose(out pos, out rot);
-        wheelPair.rightWheelMesh.transform.position = pos;
-        wheelPair.rightWheelMesh.transform.rotation = rot;
-    }
-
-    void Start()
-    {
-        spirit = GetComponent<CarSpirit>();
-        var rb = GetComponent<Rigidbody>();
-        rb.ResetCenterOfMass();
-        rb.centerOfMass += new Vector3(0, -1, 0);
-    }
-
-    public void setUpdate(float motorTorque, float steerAngle, float brakeTorque)
-    {
-        this.motorTorque = motorTorque;
-        this.steerAngle = steerAngle;
-        this.brakeTorque = brakeTorque;
-    }
-
-    public void Update()
-    {
-        if (brakeTorque > 0.001)
+        public void VisualizeWheel(CarInfo wheelPair)
         {
-            brakeTorque = spirit.MaxMotorTorque;
-            motorTorque = 0;
-        }
-        else
-        {
-            brakeTorque = 0;
+            var WheelL = wheelPair.leftWheelColider;
+            var WheelR = wheelPair.rightWheelColider;
+            float AntiRoll = 5000.0f;
+            var rb = GetComponent<Rigidbody>();
+
+            WheelHit hit;
+            var travelL = 1.0;
+            var travelR = 1.0;
+
+            var groundedL = WheelL.GetGroundHit(out hit);
+            if (groundedL)
+                travelL = (-WheelL.transform.InverseTransformPoint(hit.point).y - WheelL.radius) / WheelL.suspensionDistance;
+
+            var groundedR = WheelR.GetGroundHit(out hit);
+            if (groundedR)
+                travelR = (-WheelR.transform.InverseTransformPoint(hit.point).y - WheelR.radius) / WheelR.suspensionDistance;
+
+            float antiRollForce = (float)((travelL - travelR) * AntiRoll);
+
+            if (groundedL)
+                rb.AddForceAtPosition(WheelL.transform.up * -antiRollForce,
+                    WheelL.transform.position);
+            if (groundedR)
+                rb.AddForceAtPosition(WheelR.transform.up * antiRollForce,
+                    WheelR.transform.position);
+
+            WheelL.GetWorldPose(out pos, out rot);
+            wheelPair.leftWheelMesh.transform.position = pos;
+            wheelPair.leftWheelMesh.transform.rotation = rot;
+
+            WheelR.GetWorldPose(out pos, out rot);
+            wheelPair.rightWheelMesh.transform.position = pos;
+            wheelPair.rightWheelMesh.transform.rotation = rot;
         }
 
-        foreach (CarInfo wheelPair in wheelPairs)
+        void Start()
         {
-            //steering wheels
-            if (wheelPair.steering)
+            spirit = GetComponent<CarSpirit>();
+            rb = GetComponent<Rigidbody>();
+            rb.ResetCenterOfMass();
+            rb.centerOfMass += new Vector3(0, -0.5f, 0);
+        }
+
+        public void setUpdate(float motorTorque, float steerAngle, float brakeTorque)
+        {
+            this.motorTorque = motorTorque;
+            this.steerAngle = steerAngle;
+            this.brakeTorque = brakeTorque;
+        }
+
+        public void Update()
+        {
+            if (brakeTorque > 0.001)
             {
-                wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
-                // ReSharper disable once CompareOfFloatsByEqualityOperator
-                // Check if the car is reversing
-                if ((transform.forward.normalized - GetComponent<Rigidbody>().velocity.normalized).magnitude == 0)
+                brakeTorque = spirit.MaxMotorTorque;
+                motorTorque = 0;
+            }
+            else
+            {
+                brakeTorque = 0;
+            }
+
+            foreach (var wheelPair in wheelPairs)
+            {
+                //steering wheels
+                if (wheelPair.steering)
                 {
-                    wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
+                    wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
+                    // ReSharper disable once CompareOfFloatsByEqualityOperator
+                    // Check if the car is reversing
+                    if ((transform.forward.normalized - GetComponent<Rigidbody>().velocity.normalized).magnitude == 0)
+                    {
+                        wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
+                    }
                 }
+
+                // motored wheel pair
+                if (wheelPair.motor)
+                {
+                    float scaledTorque = motorTorque;
+                    if (wheelPair.leftWheelColider.rpm < 0)//reversing
+                    {
+                        if (Speed < spirit.maxReverseSpeed)
+                            scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
+                        else
+                            scaledTorque = 0;
+                    }
+                    else
+                    {
+                        scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
+                    }
+
+                    wheelPair.leftWheelColider.motorTorque = scaledTorque;
+                    wheelPair.rightWheelColider.motorTorque = scaledTorque;
+                }
+
+                // apply breaking
+                wheelPair.leftWheelColider.brakeTorque = brakeTorque;
+                wheelPair.rightWheelColider.brakeTorque = brakeTorque;
+
+                VisualizeWheel(wheelPair);
             }
-
-            // motored wheel pair
-            if (wheelPair.motor)
-            {
-                float scaledTorque = motorTorque;
-                if(wheelPair.leftWheelColider.rpm < spirit.idealRPM)
-                    scaledTorque = Mathf.Lerp(scaledTorque / 10f, scaledTorque, wheelPair.leftWheelColider.rpm / spirit.idealRPM);
-                else
-                    scaledTorque = Mathf.Lerp(scaledTorque, 0, (wheelPair.leftWheelColider.rpm - spirit.idealRPM) / (spirit.maxRPM - spirit.idealRPM));
-
-                wheelPair.leftWheelColider.motorTorque = scaledTorque;
-                wheelPair.rightWheelColider.motorTorque = scaledTorque;
-            }
-
-            wheelPair.leftWheelColider.brakeTorque = brakeTorque;
-            wheelPair.rightWheelColider.brakeTorque = brakeTorque;
-
-            VisualizeWheel(wheelPair);
         }
     }
 }
