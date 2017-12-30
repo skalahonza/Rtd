@@ -12,6 +12,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float Hp;
     public float MaxMotorTorque;
     public float MaxSteeringAngle;
+    public float idealRPM = 500f;
+    public float maxRPM = 1000f;
 
     [SerializeField]
     private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();

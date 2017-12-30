@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,9 @@ public class CarControl : MonoBehaviour
     [SerializeField]
     private float motorTorque;
     [SerializeField]
-    private float steerAngle;
+    private float steerAngle;    
 
-    float brakeTorque ;
+    float brakeTorque;
     private Quaternion rot;
     private Vector3 pos;
 
@@ -50,7 +49,7 @@ public class CarControl : MonoBehaviour
         if (groundedR)
             travelR = (-WheelR.transform.InverseTransformPoint(hit.point).y - WheelR.radius) / WheelR.suspensionDistance;
 
-        float antiRollForce = (float) ((travelL - travelR) * AntiRoll);
+        float antiRollForce = (float)((travelL - travelR) * AntiRoll);
 
         if (groundedL)
             rb.AddForceAtPosition(WheelL.transform.up * -antiRollForce,
@@ -73,10 +72,11 @@ public class CarControl : MonoBehaviour
         spirit = GetComponent<CarSpirit>();
         var rb = GetComponent<Rigidbody>();
         rb.ResetCenterOfMass();
-        rb.centerOfMass += new Vector3(0,-1,0);
+        rb.centerOfMass += new Vector3(0, -1, 0);
     }
 
-    public void setUpdate(float motorTorque, float steerAngle, float brakeTorque){
+    public void setUpdate(float motorTorque, float steerAngle, float brakeTorque)
+    {
         this.motorTorque = motorTorque;
         this.steerAngle = steerAngle;
         this.brakeTorque = brakeTorque;
@@ -111,8 +111,14 @@ public class CarControl : MonoBehaviour
             // motored wheel pair
             if (wheelPair.motor)
             {
-                wheelPair.leftWheelColider.motorTorque = motorTorque;
-                wheelPair.rightWheelColider.motorTorque = motorTorque;
+                float scaledTorque = motorTorque;
+                if(wheelPair.leftWheelColider.rpm < spirit.idealRPM)
+                    scaledTorque = Mathf.Lerp(scaledTorque / 10f, scaledTorque, wheelPair.leftWheelColider.rpm / spirit.idealRPM);
+                else
+                    scaledTorque = Mathf.Lerp(scaledTorque, 0, (wheelPair.leftWheelColider.rpm - spirit.idealRPM) / (spirit.maxRPM - spirit.idealRPM));
+
+                wheelPair.leftWheelColider.motorTorque = scaledTorque;
+                wheelPair.rightWheelColider.motorTorque = scaledTorque;
             }
 
             wheelPair.leftWheelColider.brakeTorque = brakeTorque;
