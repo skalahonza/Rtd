@@ -1,21 +1,48 @@
-﻿using Assets.Mechanics;
-using Assets.Scripts.Constants;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Mechanics;
 using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
-    public class SurgePowerUp : ProjectilePowerupBase {
-        protected override GameObject GetProjectilePrefab()
+    public class SurgePowerUp : IPowerup, IDamageDealer {  
+        
+        private List<IDamagable> targets = new List<IDamagable>();
+        private float radius = 25;
+        private float damage = 15;
+
+        public bool Use(CarSpirit car)
         {
-            return Resources.Load<GameObject>("surge_powerup_projectile");
+            if (!targets.Any()) return false;
+
+            SoundMechanics.SpawnSound("surge_sound");
+            foreach (var target in targets)
+            {
+                target.SufferDamage(this);
+            }
+            return true;
         }
 
-        public override GameObject LockTarget(Vector3 center, Quaternion rotation)
+        public void UpdatePowerup(CarSpirit car)
         {
-            var direction = rotation * Vector3.forward;
-            var target = TargetingMechanis.LockTarget(direction, center, Range, NumberConstants.DetetionAngle);
-            NewTrgetFound(target, direction, center);
-            return Target;
+            targets.Clear();
+            var colliders = Physics.OverlapSphere(car.transform.position, radius);
+            foreach (var collider in colliders)
+            {
+                if (collider.gameObject == car.gameObject) continue;
+
+                var damagable = collider.gameObject.GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    targets.Add(damagable);
+                }
+            }
+        }
+
+        public void DealDamage(CarSpirit car)
+        {
+            car.Hp -= damage;
+            //TODO DISABLE HUD AND POWERUPS
         }
     }
 }

@@ -2,7 +2,6 @@
 using Assets.Scripts.Constants;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider))]
 public abstract class TowerBase : MonoBehaviour
 {
     public float TimeBetweenAttack;
@@ -19,15 +18,23 @@ public abstract class TowerBase : MonoBehaviour
 
     public void Start()
     {
-        var colider = GetComponent<CapsuleCollider>();
-        colider.isTrigger = true;
-        colider.radius = Radius;
-        colider.height = 5;
     }
 
     public virtual void Update()
     {
         _timer += Time.deltaTime;
+
+        //update targets
+        _enemiesInRange.Clear();
+        var colliders = Physics.OverlapSphere(transform.position, Radius);
+        foreach (var other in colliders)
+        {
+            if (other.gameObject.tag == GameTag.Player.ToString())
+            {
+                // Add object which enters collider to List
+                _enemiesInRange.Add(other.transform);
+            }
+        }
 
         // FIRE
         if (_timer >= TimeBetweenAttack)
@@ -35,32 +42,6 @@ public abstract class TowerBase : MonoBehaviour
             // Weapon delay reset
             _timer = 0f;
             Attack();
-        }
-    }
-
-    /// <summary>
-    /// When object enters the tower radius
-    /// </summary>
-    /// <param name="other">Other object</param>
-    public virtual void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == GameTag.Player.ToString())
-        {
-            // Add object which enters collider to List
-            _enemiesInRange.Add(other.transform);
-        }
-    }
-
-    /// <summary>
-    /// When game object leaves tower radius
-    /// </summary>
-    /// <param name="other">Other object</param>
-    public virtual void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == GameTag.Player.ToString())
-        {
-            // Remove object which leaves the collider from List
-            _enemiesInRange.Remove(other.transform);
         }
     }
 }
