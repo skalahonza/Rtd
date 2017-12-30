@@ -111,16 +111,25 @@ namespace Assets.Scripts.Car
                     {
                         if (Speed < spirit.maxReverseSpeed)
                             scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
-                        else
-                            scaledTorque = 0;
+                        else scaledTorque = 0;
+
+                        //TODO ENGINE SOUND
+                        var audio = GetComponent<AudioSource>();                        
+                        audio.pitch = 1 + Speed / spirit.maxReverseSpeed;
                     }
-                    else
+                    else// going forward
                     {
-                        scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
+                        if (Speed < spirit.maxSpeed)
+                            scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
+                        else scaledTorque = 0;
+
+                        //TODO ENGINE SOUND
+                        var audio = GetComponent<AudioSource>();
+                        audio.pitch = 1 + Speed / spirit.maxSpeed;
                     }
 
                     wheelPair.leftWheelColider.motorTorque = scaledTorque;
-                    wheelPair.rightWheelColider.motorTorque = scaledTorque;
+                    wheelPair.rightWheelColider.motorTorque = scaledTorque;                    
                 }
 
                 // apply breaking

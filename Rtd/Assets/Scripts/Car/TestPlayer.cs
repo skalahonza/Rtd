@@ -37,14 +37,19 @@ public class TestPlayer : MonoBehaviour
         var speed = "Speed: " + Speed().ToString("f0") + " km/h";
         Debug.Log(speed);
         if (SpeedText != null)
-            SpeedText.text = "Speed: " + Speed().ToString("f0") + " km/h";
+            SpeedText.text = "Speed: " + Speed().ToString("f0") + " km/h" + " RPM: " + Rpm();
     }
 
     private float Speed()
     {
-        //var collider = control.wheelPairs.First(x => x.motor).leftWheelColider;
-        //return collider.radius * Mathf.PI * collider.rpm * 60f / 1000f;
         var rb = GetComponent<Rigidbody>();
         return rb.velocity.magnitude * 3.6f;
+    }
+
+    private float Rpm()
+    {
+        var torque = control.wheelPairs.First(x => x.motor).rightWheelColider.motorTorque;
+        var p = 400;
+        return (30 * p) / (Mathf.PI * torque);
     }
 }
