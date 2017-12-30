@@ -1,3 +1,4 @@
+using Assets.Scripts.Car;
 using UnityEngine;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]

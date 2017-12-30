@@ -67,9 +67,11 @@ namespace Assets.Scripts.Powerups
         /// <param name="center">Shooter's position</param>
         protected virtual void NewTrgetFound(GameObject target, Vector3 direction, Vector3 center)
         {
+            bool previouslyEmptyTarget = false;
             // new target detected
             if (target != null)
             {
+                previouslyEmptyTarget = Target == null;
                 Target = target;
             }
 
@@ -83,8 +85,14 @@ namespace Assets.Scripts.Powerups
                 }
                 else
                 {
-                    // TODO draw rectangle arround locked target
+                    // TODO draw rectangle arround locked target                    
                     Debug.DrawRay(center, Target.transform.position - center, Color.green);
+
+                    if (previouslyEmptyTarget)
+                    {
+                        //TODO make sound
+                        SoundMechanics.SpawnSound("radar_sound");
+                    }
                 }
             }
         }

@@ -12,10 +12,13 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float Hp;
     public float MaxMotorTorque;
     public float MaxSteeringAngle;
+    public float maxRPM = 1000f;
+    public float maxSpeed = 207;
+    public float maxReverseSpeed = 75;
 
     [SerializeField]
-    private IPowerup _powerUp = new ShieldPowerup<PaybackShield>();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(ShieldPowerup<PaybackShield>)});
+    private IPowerup _powerUp = new MissilePowerup();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>{typeof(MissilePowerup) });
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
@@ -59,7 +62,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
             {
                 Debug.Log("Turning off nitro " + Nitro);                
                 _nitroDisablePeriod = 0;
-                MaxMotorTorque = Nitro.OriginalMaxMotorTorque;
+                Nitro.Clean(this);
                 Nitro = null;
             }
         }
