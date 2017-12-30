@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Permissions;
 using UnityEngine;
 
@@ -70,11 +71,28 @@ namespace Assets.Scripts.Car
             rb.centerOfMass += new Vector3(0, -0.5f, 0);
         }
 
+        /// <summary>
+        /// Used for driving by human player
+        /// </summary>
+        /// <param name="motorTorque">Vertical axis * MaxMotorTorque</param>
+        /// <param name="steerAngle"></param>
+        /// <param name="brakeTorque"></param>
         public void setUpdate(float motorTorque, float steerAngle, float brakeTorque)
         {
             this.motorTorque = motorTorque;
             this.steerAngle = steerAngle;
             this.brakeTorque = brakeTorque;
+        }
+
+        /// <summary>
+        /// Used for AI driving
+        /// </summary>
+        /// <param name="steerAngle">Angle the car rotated</param>
+        /// <param name="velocity">Velocity calculated by agent</param>
+        public void setUpdate(float steerAngle, Vector3 velocity)
+        {
+            rb.velocity = velocity;
+            this.steerAngle = steerAngle;
         }
 
         public void Update()
