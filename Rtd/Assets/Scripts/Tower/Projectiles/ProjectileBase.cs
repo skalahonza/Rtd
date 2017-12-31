@@ -24,6 +24,8 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
     public virtual void OnHit(Collider other)
     {   
         SoundMechanics.SpawnSound("projectile_on_hit");
+        var particle = AnimationMechanics.SpawnParticle("energy_explosion");
+        particle.transform.position = transform.position;
         Destroy(gameObject);
     }
 
