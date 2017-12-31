@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Leaderbpards))]
 public class Game : MonoBehaviour {
 
     List<string> players = new List<string>();
