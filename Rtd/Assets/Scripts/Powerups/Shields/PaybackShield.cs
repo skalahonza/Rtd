@@ -47,7 +47,7 @@ namespace Assets.Scripts.Powerups.Shields
 
         protected override GameObject GetPrefab()
         {
-            return Resources.Load<GameObject>("payback_shield");
+            return Resources.Load<GameObject>("Shields\\shield_emerald");
         }
     }
 }
