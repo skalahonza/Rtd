@@ -131,7 +131,7 @@ namespace Assets.Scripts.Car
                             scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
                         else scaledTorque = 0;
 
-                        //TODO ENGINE SOUND
+                        //ENGINE SOUND
                         var audio = GetComponent<AudioSource>();                        
                         audio.pitch = 1 + Speed / spirit.maxReverseSpeed;
                     }
@@ -141,7 +141,7 @@ namespace Assets.Scripts.Car
                             scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
                         else scaledTorque = 0;
 
-                        //TODO ENGINE SOUND
+                        //ENGINE SOUND
                         var audio = GetComponent<AudioSource>();
                         audio.pitch = 1 + Speed / spirit.maxSpeed;
                     }

@@ -36,7 +36,6 @@ public class CarSpirit : MonoBehaviour, IDamagable
             if (_powerUp == null)
             {
                 _powerUp = _powerupGenerator.GetPowerUp();
-                //TODO powerup SPAWN sound
                 SoundMechanics.SpawnSound("powerup_spawn");
                 Debug.Log("Power up spawned " + _powerUp);
             }
