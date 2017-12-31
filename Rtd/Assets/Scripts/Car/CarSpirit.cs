@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class CarSpirit : MonoBehaviour, IDamagable
 {
+    public float MaxHp;
     public float Hp;
     public float MaxMotorTorque;
     public float MaxSteeringAngle;
@@ -89,8 +90,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
         // check car destroyed
         if (Hp <= 0)
         {
-            //TODO VISUALIZE DESTROYING
-            Destroy(gameObject);
+            //TODO VISUALIZE DESTROYING waint and respawn
+            gameObject.GetComponent<Player>().respawn();
         }
     }
 
