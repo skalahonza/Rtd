@@ -21,7 +21,6 @@ namespace Assets.Scripts.Tower.Projectiles
                     damagable.SufferDamage(this);
                 }
             }
-            //TODO CONSULT WITH GAME DESIGNER THAT THE DIRECT HIT WOULD DEAL MORE DAMAGE 
             base.OnHit(other);
         }
     }

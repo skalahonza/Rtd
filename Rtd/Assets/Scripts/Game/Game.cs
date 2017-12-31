@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Leaderboards))]
 public class Game : MonoBehaviour {
 
     List<string> players = new List<string>();
@@ -49,12 +50,9 @@ public class Game : MonoBehaviour {
         }
         i = 0;
         foreach(var driver in players){
-            //TODO: Slámo koukni na to tohle mi to unity předělá - jde o ty typy
             UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(cars[i++], "Assets/Scripts/Game/Game.cs (46,13)", driver); 
         }
         Counter counter = GameObject.FindObjectOfType<Counter>();
-        //TODO: Sláma tady máš ten NULL
         counter.setDelegate(startRace);
-
     }
 }

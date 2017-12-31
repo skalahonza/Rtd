@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
+using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Shields
 {
@@ -16,11 +17,17 @@ namespace Assets.Scripts.Powerups.Shields
             get { return TimeSpan.FromSeconds(NumberConstants.NormalShieldSeconds); }
         }
 
-        public override void PLaySound(CarSpirit car)
+        public override void Apply(CarSpirit car)
         {
             var sound = SoundMechanics.SpawnSound("long_shield_sound");
             sound.transform.parent = car.transform;
             shieldSoundPlayer = sound;
+            base.Apply(car);
+        }
+
+        protected override GameObject GetPrefab()
+        {
+            return Resources.Load<GameObject>("normal_shield");
         }
     }
 }

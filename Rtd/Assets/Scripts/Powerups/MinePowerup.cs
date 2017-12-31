@@ -18,7 +18,6 @@ namespace Assets.Scripts.Powerups
 
         public void UpdatePowerup(CarSpirit car)
         {
-            //TODO CHECK IF THE MINE CAN BE SPAWNED
         }
     }
 }

@@ -17,7 +17,7 @@ class AIPlayer : Player{
         //agent.updateRotation = false;
         agent.autoBraking = false;
         //agent.acceleration = spirit.MaxMotorTorque;
-        agent.speed = spirit.MaxMotorTorque;
+        agent.speed = spirit.maxSpeed;
         agent.angularSpeed = spirit.MaxSteeringAngle;
         //set offset
         agent.baseOffset = 1.0f;
@@ -28,7 +28,6 @@ class AIPlayer : Player{
             return;
         if(map.checkpoints[checkpointOffest+1] != null){
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
-            Debug.Log(string.Format("go to {0}",checkpointOffest));
         }
         //float angle = Vector3.Angle(agent.velocity.normalized, this.transform.forward);
         //angle = (angle + 180.0f) % 360.0f;

@@ -152,9 +152,8 @@ GameObject:
   - component: {fileID: 65056311877184728}
   - component: {fileID: 114443255141721756}
   - component: {fileID: 114745044012179672}
-  - component: {fileID: 114253036202840066}
-  - component: {fileID: 114802471534164204}
   - component: {fileID: 23394678436686534}
+  - component: {fileID: 82009688519919028}
   m_Layer: 0
   m_Name: car01_prot
   m_TagString: Player
@@ -283,8 +282,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1791092459031418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.71, y: 1.07, z: 21.33}
+  m_LocalRotation: {x: -0.0000030557119, y: -0.9550008, z: -0.000006957424, w: 0.2966032}
+  m_LocalPosition: {x: 66.6, y: 1.55, z: 4.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4272145566539156}
@@ -393,7 +392,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+  - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -427,7 +426,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+  - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -495,7 +494,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 94b8e3481d246d64db929e3511d41005, type: 2}
+  - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -529,7 +528,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+  - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -563,7 +562,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d56f4e1a0d3829446b74b740f8a979e7, type: 2}
+  - {fileID: 2100000, guid: abb83dc89174ae241991a72be84730ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -645,38 +644,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.1, y: 1.8005376, z: 8.010792}
   m_Center: {x: 0, y: 0.12306285, z: -0.04743004}
---- !u!114 &114253036202840066
-MonoBehaviour:
+--- !u!82 &82009688519919028
+AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1791092459031418}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 92
-    i1: 142
-    i2: 133
-    i3: 29
-    i4: 210
-    i5: 43
-    i6: 55
-    i7: 164
-    i8: 216
-    i9: 238
-    i10: 1
-    i11: 178
-    i12: 135
-    i13: 238
-    i14: 156
-    i15: 237
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2673c667f0ae1534382d2a254686e358, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 200
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114443255141721756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,9 +735,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a915346e977a5d45952a973c53d059a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 7500
-  MaxMotorTorque: 3000
+  Hp: 75
+  MaxMotorTorque: 2100
   MaxSteeringAngle: 30
+  maxRPM: 1000
+  maxSpeed: 207
+  maxReverseSpeed: 85
 --- !u!114 &114745044012179672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -709,7 +759,7 @@ MonoBehaviour:
     leftWheelMesh: {fileID: 1105128835863640}
     rightWheelColider: {fileID: 146285602338694100}
     rightWheelMesh: {fileID: 1923442152175274}
-    motor: 0
+    motor: 1
     steering: 1
   - leftWheelColider: {fileID: 146837482904725266}
     leftWheelMesh: {fileID: 1621001347111560}
@@ -717,27 +767,6 @@ MonoBehaviour:
     rightWheelMesh: {fileID: 1849822923346304}
     motor: 1
     steering: 0
---- !u!114 &114802471534164204
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1791092459031418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!146 &146285602338694100
 WheelCollider:
   m_ObjectHideFlags: 1
