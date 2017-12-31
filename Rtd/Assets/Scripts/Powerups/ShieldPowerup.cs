@@ -14,7 +14,7 @@ namespace Assets.Scripts.Powerups
             }
 
             car.Shield = new T();
-            car.Shield.PLaySound(car);
+            car.Shield.Apply(car);
             return true;
         }
 
