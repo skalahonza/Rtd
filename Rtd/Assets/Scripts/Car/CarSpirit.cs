@@ -93,7 +93,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
         if (Hp <= 0)
         {
             //TODO VISUALIZE DESTROYING waint and respawn
-            gameObject.GetComponent<Player>().respawn();
+            gameObject.GetComponent<Player>().Respawn();
         }
     }
 
