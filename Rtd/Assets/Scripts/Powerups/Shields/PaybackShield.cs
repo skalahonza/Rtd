@@ -37,11 +37,17 @@ namespace Assets.Scripts.Powerups.Shields
             get { return TimeSpan.FromSeconds(NumberConstants.PaybackShieldSeconds); }
         }
 
-        public override void PLaySound(CarSpirit car)
+        public override void Apply(CarSpirit car)
         {
             var sound = SoundMechanics.SpawnSound("short_shield_sound");
             sound.transform.parent = car.transform;
             shieldSoundPlayer = sound;
+            base.Apply(car);
+        }
+
+        protected override GameObject GetPrefab()
+        {
+            return Resources.Load<GameObject>("payback_shield");
         }
     }
 }
