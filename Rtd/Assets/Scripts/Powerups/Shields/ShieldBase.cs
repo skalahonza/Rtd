@@ -6,6 +6,7 @@ namespace Assets.Scripts.Powerups.Shields
     public abstract class ShieldBase
     {
         protected GameObject shieldSoundPlayer;
+        protected GameObject shieldVisualization;
 
         /// <summary>
         /// Resolve hit upon the shield
@@ -21,11 +22,18 @@ namespace Assets.Scripts.Powerups.Shields
         /// Play sound on car, on which the shield was activated
         /// </summary>
         /// <param name="car">Car using the shield</param>
-        public abstract void PLaySound(CarSpirit car);         
+        public virtual void Apply(CarSpirit car)
+        {
+            var prefab = GetPrefab();
+            shieldVisualization = GameObject.Instantiate(prefab, car.transform);
+        }
 
         public void Clean(CarSpirit car)
         {
+            GameObject.Destroy(shieldVisualization);
             GameObject.Destroy(shieldSoundPlayer);
         }
+
+        protected abstract GameObject GetPrefab();
     }
 }
