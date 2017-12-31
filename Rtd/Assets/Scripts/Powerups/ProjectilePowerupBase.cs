@@ -38,7 +38,6 @@ namespace Assets.Scripts.Powerups
             var velocity =
                 TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
             projectile.GetComponent<Rigidbody>().velocity = velocity;
-            // TODO audio play 
             return true;
         }
 
@@ -90,7 +89,6 @@ namespace Assets.Scripts.Powerups
 
                     if (previouslyEmptyTarget)
                     {
-                        //TODO make sound
                         SoundMechanics.SpawnSound("radar_sound");
                     }
                 }
