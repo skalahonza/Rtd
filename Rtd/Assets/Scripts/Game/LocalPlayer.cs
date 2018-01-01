@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Constants;
 using Assets.Scripts.States.Camera;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 
 public class LocalPlayer : Player
 {
@@ -21,6 +22,9 @@ public class LocalPlayer : Player
         spirit = GetComponent<CarSpirit>();
         control = GetComponent<CarControl>();
         cameraState.SetUp(smf);
+        HUD hud = GameObject.FindObjectOfType<HUD>();
+        hud.spirit = spirit;
+        hud.control = control;
     }
 
     private void Update()

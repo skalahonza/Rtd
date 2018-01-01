@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/map02.unity
     guid: 6d78fb3bdb501bb4c8fdd8150bd11c28
+  - enabled: 1
+    path: Assets/Scenes/HUD/HUD.unity
+    guid: e7476bd0657434252aa5894d8129e983

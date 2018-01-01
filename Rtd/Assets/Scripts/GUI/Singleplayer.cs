@@ -43,6 +43,7 @@ public class Singleplayer : MonoBehaviour {
 
 	public void startGame(){
 		    Game game = GameObject.FindObjectOfType<Game>();
+			game.enabled = true;
 			int i = 0;
 			foreach (var item in dropdown)
 			{

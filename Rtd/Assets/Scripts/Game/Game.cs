@@ -31,6 +31,9 @@ public class Game : MonoBehaviour {
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        if(mode == LoadSceneMode.Additive){
+            return;
+        }
         map = GameObject.FindObjectOfType<Map>();
         //instantiate them all
         int i = 0;
@@ -53,6 +56,7 @@ public class Game : MonoBehaviour {
         foreach(var driver in players){
             UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(cars[i++], "Assets/Scripts/Game/Game.cs (46,13)", driver); 
         }
+        SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         Counter counter = GameObject.FindObjectOfType<Counter>();
         counter.setDelegate(startRace);
     }
