@@ -57,4 +57,8 @@ public class Singleplayer : MonoBehaviour {
             SceneManager.LoadScene(maps[mapIndex].scene);
             game.enabled = false;
 	}
+
+	public void Back(){
+		SceneManager.LoadScene("Menu");
+	}
 }
