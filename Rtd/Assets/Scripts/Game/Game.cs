@@ -39,6 +39,7 @@ public class Game : MonoBehaviour {
         {
             cars.Add(Instantiate(item)); 
             cars[i].transform.position = map.checkpoints[0].positions[i++].transform.position;
+            cars[i].transform.rotation = map.checkpoints[0].positions[i++].transform.rotation;
         }
         i = 0;
         foreach (var material in materials){
