@@ -16,7 +16,7 @@ public class HUD : MonoBehaviour {
         Text speed = GameObject.Find("Speed").GetComponent<Text>();
         speed.text = string.Format("{0} km/h", control.Speed.ToString("0"));
         //SET IMAGE
-        //Image pwup = GameObject.Find("Pwup").GetComponent<Image>();
-        //pwup.sprite = spirit._powerUp.GetPowerupIcon();
+        Image pwup = GameObject.Find("Pwup").GetComponent<Image>();
+        pwup.sprite = spirit._powerUp != null ? spirit._powerUp.GetPowerupIcon() : null;
     }
 }
