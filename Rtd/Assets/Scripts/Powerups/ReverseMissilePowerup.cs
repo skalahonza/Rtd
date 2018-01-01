@@ -13,8 +13,7 @@ namespace Assets.Scripts.Powerups
 
         public override Sprite GetPowerupIcon()
         {
-            var sprite = new Sprite();
-            throw new System.NotImplementedException();
+            return ImageMechanics.LoadSprite("reverse");
         }
 
         public override GameObject LockTarget(Vector3 center, Quaternion rotation)

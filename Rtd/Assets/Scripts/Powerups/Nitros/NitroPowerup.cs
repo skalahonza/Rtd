@@ -33,7 +33,7 @@ namespace Assets.Scripts.Powerups.Nitros
 
         public Sprite GetPowerupIcon()
         {
-            throw new System.NotImplementedException();
+            return Nitro.GetPowerupIcon();
         }
     }
 }

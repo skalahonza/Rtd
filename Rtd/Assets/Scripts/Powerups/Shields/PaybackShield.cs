@@ -49,5 +49,10 @@ namespace Assets.Scripts.Powerups.Shields
         {
             return Resources.Load<GameObject>("Shields\\shield_emerald");
         }
+
+        public override Sprite GetPowerupIcon()
+        {
+            return ImageMechanics.LoadSprite("payback");
+        }
     }
 }

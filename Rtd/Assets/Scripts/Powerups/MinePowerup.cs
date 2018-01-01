@@ -22,7 +22,7 @@ namespace Assets.Scripts.Powerups
 
         public Sprite GetPowerupIcon()
         {
-            throw new System.NotImplementedException();
+            return ImageMechanics.LoadSprite("mine");
         }
     }
 }
