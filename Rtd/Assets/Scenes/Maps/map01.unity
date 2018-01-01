@@ -465,10 +465,6 @@ MonoBehaviour:
   - {fileID: 832632389}
   - {fileID: 810644432}
   - {fileID: 1995997523}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   offset: 0
 --- !u!4 &25908352
 Transform:
@@ -7720,7 +7716,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1069339171}
-  m_LocalRotation: {x: -0.090497315, y: 0.8612841, z: -0.052248623, w: 0.49726254}
+  m_LocalRotation: {x: -0.09049732, y: 0.86128414, z: -0.052248627, w: 0.49726257}
   m_LocalPosition: {x: -9.39, y: -0.77, z: 5.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
