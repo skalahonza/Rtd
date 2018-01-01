@@ -40,6 +40,11 @@ namespace Assets.Scripts.Powerups
             }
         }
 
+        public Sprite GetPowerupIcon()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void DealDamage(CarSpirit car)
         {
             car.Hp -= damage;

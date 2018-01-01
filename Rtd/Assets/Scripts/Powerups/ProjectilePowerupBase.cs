@@ -50,6 +50,8 @@ namespace Assets.Scripts.Powerups
             LockTarget(car.gameObject.transform.position, car.transform.rotation);            
         }
 
+        public abstract Sprite GetPowerupIcon();
+
         /// <summary>
         /// Lock on target from current position and rotation
         /// </summary>

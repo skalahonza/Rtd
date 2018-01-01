@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Powerups
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Powerups
 {
     public interface IPowerup
     {
@@ -11,5 +13,10 @@
         /// </summary>
         /// <param name="car">Onwer of the powerup</param>
         void UpdatePowerup(CarSpirit car);
+        /// <summary>
+        /// Get powerup icon for each powerup
+        /// </summary>
+        /// <returns>Sprite of powerup</returns>
+        Sprite GetPowerupIcon();
     }
 }
