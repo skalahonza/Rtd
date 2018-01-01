@@ -13,14 +13,16 @@ class AIPlayer : Player{
         control = GetComponent<CarControl>();
 
         //set info from car
-        //agent.updatePosition = false;
-        //agent.updateRotation = false;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
         agent.autoBraking = false;
         //agent.acceleration = spirit.MaxMotorTorque;
         agent.speed = spirit.maxSpeed;
-        agent.angularSpeed = spirit.MaxSteeringAngle;
+        agent.angularSpeed = 30;
+        agent.height = 5.5f;
+        agent.radius = 8.0f;
         //set offset
-        agent.baseOffset = 1.0f;
+        agent.baseOffset = 1.2f;
     }
 
     void FixedUpdate() {
@@ -29,10 +31,7 @@ class AIPlayer : Player{
         if(map.checkpoints[checkpointOffest+1] != null){
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
         }
-        //float angle = Vector3.Angle(agent.velocity.normalized, this.transform.forward);
-        //angle = (angle + 180.0f) % 360.0f;
-        //string output = "Velocity {0} Angle {1}";
-        //Debug.Log(string.Format(output, agent.velocity.magnitude, angle));
-        //control.setUpdate(1000, angle, 0.0f);
+        float angle = Vector3.Angle(agent.velocity, this.transform.forward);
+        control.setUpdate( spirit.MaxMotorTorque*agent.velocity.normalized.magnitude,angle, 0);
     }
 }
