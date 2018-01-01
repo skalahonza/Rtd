@@ -8,16 +8,13 @@ namespace UnityStandardAssets.Utility
 		// The target we are following
 		public Transform target;
 		// The distance in the x-z plane to the target
-		[SerializeField]
-		private float distance = 10.0f;
+		public float Distance = 10.0f;
 		// the height we want the camera to be above the target
-		[SerializeField]
-		private float height = 5.0f;
+		public float Height = 5.0f;
 
-		[SerializeField]
-		private float rotationDamping;
-		[SerializeField]
-		private float heightDamping;
+		private float rotationDamping = 1;
+
+		private float heightDamping = 1;
 
 		// Use this for initialization
 		void Start() { }
@@ -31,7 +28,7 @@ namespace UnityStandardAssets.Utility
 
 			// Calculate the current rotation angles
 			var wantedRotationAngle = target.eulerAngles.y;
-			var wantedHeight = target.position.y + height;
+			var wantedHeight = target.position.y + Height;
 
 			var currentRotationAngle = transform.eulerAngles.y;
 			var currentHeight = transform.position.y;
@@ -48,7 +45,7 @@ namespace UnityStandardAssets.Utility
 			// Set the position of the camera on the x-z plane to:
 			// distance meters behind the target
 			transform.position = target.position;
-			transform.position -= currentRotation * Vector3.forward * distance;
+			transform.position -= currentRotation * Vector3.forward * Distance;
 
 			// Set the height of the camera
 			transform.position = new Vector3(transform.position.x ,currentHeight , transform.position.z);
