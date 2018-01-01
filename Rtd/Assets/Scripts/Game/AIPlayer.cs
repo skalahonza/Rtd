@@ -33,5 +33,8 @@ class AIPlayer : Player{
         }
         float angle = Vector3.Angle(agent.velocity, this.transform.forward);
         control.setUpdate( spirit.MaxMotorTorque*agent.velocity.normalized.magnitude,angle, 0);
+        if(!agent.isOnNavMesh){
+            respawn();
+        }
     }
 }
