@@ -18,7 +18,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float maxReverseSpeed = 75;
 
     [SerializeField]
-    private IPowerup _powerUp = new ShieldPowerup<NormalShield>();
+    private IPowerup _powerUp = new MissilePowerup();
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>
     {
         typeof(ShieldPowerup<PaybackShield>), typeof(ShieldPowerup<NormalShield>)
@@ -93,7 +93,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
         if (Hp <= 0)
         {
             //TODO VISUALIZE DESTROYING waint and respawn
-            gameObject.GetComponent<Player>().respawn();
+            gameObject.GetComponent<Player>().Respawn();
         }
     }
 

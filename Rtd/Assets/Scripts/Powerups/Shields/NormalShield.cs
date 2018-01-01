@@ -27,7 +27,7 @@ namespace Assets.Scripts.Powerups.Shields
 
         protected override GameObject GetPrefab()
         {
-            return Resources.Load<GameObject>("normal_shield");
+            return Resources.Load<GameObject>("Shields\\shield_blue");
         }
     }
 }
