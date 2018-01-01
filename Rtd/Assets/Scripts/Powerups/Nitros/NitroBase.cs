@@ -10,6 +10,8 @@ namespace Assets.Scripts.Powerups.Nitros
         public abstract int Time { get; }
         public abstract int SpeedBonus { get; }
 
+        public abstract Sprite GetPowerupIcon();
+
         public void Clean(CarSpirit car)
         {
             GameObject.Destroy(nitroSoundPlayer);

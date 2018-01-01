@@ -35,5 +35,7 @@ namespace Assets.Scripts.Powerups.Shields
         }
 
         protected abstract GameObject GetPrefab();
+
+        public abstract Sprite GetPowerupIcon();
     }
 }

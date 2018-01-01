@@ -42,7 +42,7 @@ namespace Assets.Scripts.Powerups
 
         public Sprite GetPowerupIcon()
         {
-            throw new System.NotImplementedException();
+            return ImageMechanics.LoadSprite("surge");
         }
 
         public void DealDamage(CarSpirit car)

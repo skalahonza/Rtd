@@ -13,7 +13,7 @@ namespace Assets.Scripts.Powerups
 
         public override Sprite GetPowerupIcon()
         {
-            throw new System.NotImplementedException();
+            return ImageMechanics.LoadSprite("missile");
         }
 
         /// <summary>
