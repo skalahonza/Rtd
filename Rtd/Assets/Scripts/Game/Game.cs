@@ -31,6 +31,11 @@ public class Game : MonoBehaviour {
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        if(mode == LoadSceneMode.Additive){
+            Counter counter = GameObject.FindObjectOfType<Counter>();
+            counter.setDelegate(startRace);
+            return;
+        }
         map = GameObject.FindObjectOfType<Map>();
         //instantiate them all
         int i = 0;
@@ -38,7 +43,8 @@ public class Game : MonoBehaviour {
         foreach (var item in prefabs)
         {
             cars.Add(Instantiate(item)); 
-            cars[i].transform.position = map.checkpoints[0].positions[i++].transform.position;
+            cars[i].transform.position = map.checkpoints[0].positions[i].transform.position;
+            cars[i].transform.rotation = map.checkpoints[0].positions[i++].transform.rotation;
         }
         i = 0;
         foreach (var material in materials){
@@ -52,7 +58,6 @@ public class Game : MonoBehaviour {
         foreach(var driver in players){
             UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(cars[i++], "Assets/Scripts/Game/Game.cs (46,13)", driver); 
         }
-        Counter counter = GameObject.FindObjectOfType<Counter>();
-        counter.setDelegate(startRace);
+        SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
     }
 }

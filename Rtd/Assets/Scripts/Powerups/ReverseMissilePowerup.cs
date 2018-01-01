@@ -11,6 +11,11 @@ namespace Assets.Scripts.Powerups
             return Resources.Load<GameObject>("reverse_missile_projectile");
         }
 
+        public override Sprite GetPowerupIcon()
+        {
+            return ImageMechanics.LoadSprite("reverse");
+        }
+
         public override GameObject LockTarget(Vector3 center, Quaternion rotation)
         {
             var direction = rotation * Vector3.back;

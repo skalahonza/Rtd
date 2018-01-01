@@ -20,6 +20,7 @@ public abstract class Player : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.velocity = Vector3.zero;
         control.setUpdate(0, Vector3.zero);
+        gameObject.transform.position = latest.positions[0].transform.position;
         gameObject.transform.rotation = latest.positions[0].transform.rotation;
 
         if (restore)

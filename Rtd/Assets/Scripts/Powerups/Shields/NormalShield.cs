@@ -29,5 +29,10 @@ namespace Assets.Scripts.Powerups.Shields
         {
             return Resources.Load<GameObject>("Shields\\shield_blue");
         }
+
+        public override Sprite GetPowerupIcon()
+        {
+            return ImageMechanics.LoadSprite("shield");
+        }
     }
 }

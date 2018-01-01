@@ -1,10 +1,12 @@
 ﻿using Assets.Scripts.Powerups.Shields;
+using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
     public class ShieldPowerup<T> : IPowerup
         where T :ShieldBase, new()
     {
+        private T shield;
         public bool Use(CarSpirit car)
         {
             //TODO SHIELD VIZUALIZATION
@@ -13,7 +15,8 @@ namespace Assets.Scripts.Powerups
                 car.Shield.Clean(car);
             }
 
-            car.Shield = new T();
+            shield = new T();
+            car.Shield = shield;
             car.Shield.Apply(car);
             return true;
         }
@@ -21,6 +24,11 @@ namespace Assets.Scripts.Powerups
         public void UpdatePowerup(CarSpirit car)
         {
             //TODO CHECK IF SHIELD CAN BE USED
+        }
+
+        public Sprite GetPowerupIcon()
+        {
+            return shield.GetPowerupIcon();
         }
     }
 }

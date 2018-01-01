@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Powerups.Nitros
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Powerups.Nitros
 {
     public class NitroPowerup<T>:IPowerup
         where T:NitroBase, new()
@@ -27,6 +29,11 @@
         public void UpdatePowerup(CarSpirit car)
         {
             
+        }
+
+        public Sprite GetPowerupIcon()
+        {
+            return Nitro.GetPowerupIcon();
         }
     }
 }
