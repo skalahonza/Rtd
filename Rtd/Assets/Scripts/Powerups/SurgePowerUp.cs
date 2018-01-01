@@ -16,6 +16,7 @@ namespace Assets.Scripts.Powerups
             if (!targets.Any()) return false;
 
             SoundMechanics.SpawnSound("surge_sound");
+            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
             foreach (var target in targets)
             {
                 target.SufferDamage(this);
