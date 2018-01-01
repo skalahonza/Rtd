@@ -13,11 +13,11 @@ class AIPlayer : Player{
         control = GetComponent<CarControl>();
 
         //set info from car
-        agent.updatePosition = false;
-        agent.updateRotation = false;
+        //agent.updatePosition = false;
+        //agent.updateRotation = false;
         agent.autoBraking = false;
         //agent.acceleration = spirit.MaxMotorTorque;
-        agent.speed = spirit.maxSpeed;
+        agent.speed = spirit.maxSpeed/2;
         agent.angularSpeed = 30;
         agent.height = 5.5f;
         agent.radius = 8.0f;
@@ -32,7 +32,7 @@ class AIPlayer : Player{
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
         }
         float angle = Vector3.Angle(agent.velocity, this.transform.forward);
-        control.setUpdate( spirit.MaxMotorTorque*agent.velocity.normalized.magnitude,angle, 0);
+        //control.setUpdate( spirit.MaxMotorTorque*agent.velocity.normalized.magnitude,angle, 0);
         if(!agent.isOnNavMesh){
             Respawn(false);
         }
