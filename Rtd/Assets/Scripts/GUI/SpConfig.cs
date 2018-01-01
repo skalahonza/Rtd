@@ -1,9 +1,11 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine;
+using UnityEditor;
 
 [System.Serializable]
 public class SpConfig
 {
-    public Scene scene;
+    public string scene;
     public RawImage image;
 }

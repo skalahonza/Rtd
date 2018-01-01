@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Singleplayer : MonoBehaviour {
 
 	public Dropdown[] dropdown;
+	public Dropdown[] cartypes;
 	public Dropdown latestplayer;
 	public Button nextmap;
 	public Button prevmap;
@@ -15,7 +17,6 @@ public class Singleplayer : MonoBehaviour {
     public _car[] cars;
 
 	public void select(Dropdown dd){
-		Debug.Log(string.Format("value {0}", dd.value));
 		if(dd.value == 0){
 			latestplayer.value = 1;
 			latestplayer = dd;		
@@ -42,17 +43,18 @@ public class Singleplayer : MonoBehaviour {
 
 	public void startGame(){
 		    Game game = GameObject.FindObjectOfType<Game>();
+			int i = 0;
 			foreach (var item in dropdown)
 			{
 				if(item.value == 0){
-					game.addPlayer( "LocalPlayer", cars[0].car, cars[0].materials[0]);
+					game.addPlayer( "LocalPlayer", cars[cartypes[i].value].car, cars[cartypes[i].value].materials[i]);
 				}else if(item.value == 1){
-					game.addPlayer( "AIPlayer", cars[0].car, cars[0].materials[1]);
+					game.addPlayer( "AIPlayer", cars[cartypes[i].value].car, cars[cartypes[i].value].materials[i]);
 				}
+				i++;
 			}
             DontDestroyOnLoad(game);
-            SceneManager.LoadScene(maps[mapIndex].scene.buildIndex);
+            SceneManager.LoadScene(maps[mapIndex].scene);
             game.enabled = false;
 	}
-	
 }
