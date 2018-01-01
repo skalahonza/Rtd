@@ -7,8 +7,6 @@ public class HUD : MonoBehaviour {
 
     public CarSpirit spirit;
     public CarControl control;
-    Image img;
-    public Image[] images;
 
     void FixedUpdate()  {
         //SET hp 
@@ -18,7 +16,7 @@ public class HUD : MonoBehaviour {
         Text speed = GameObject.Find("Speed").GetComponent<Text>();
         speed.text = string.Format("{0} km/h", control.Speed.ToString("0"));
         //SET IMAGE
-        //img.enabled = false;
-        //img = images[];
+        //Image pwup = GameObject.Find("Pwup").GetComponent<Image>();
+        //pwup.sprite = spirit._powerUp.GetPowerupIcon();
     }
 }
