@@ -7,7 +7,7 @@ public class Leaderboards : MonoBehaviour {
 	public Player[] players; 
 
 
-	public void render() {
+	public void Render() {
 		
 	}
 }
