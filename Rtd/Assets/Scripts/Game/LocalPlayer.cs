@@ -9,11 +9,12 @@ public class LocalPlayer : Player
 
     private CarSpirit spirit;
     private CarControl control;
+    private SmoothFollow smf;
 
     void Start()
     {
         //attach cam here
-        SmoothFollow smf = GameObject.FindObjectOfType<SmoothFollow>();
+        smf = GameObject.FindObjectOfType<SmoothFollow>();
         smf.target = this.transform;
         spirit = GetComponent<CarSpirit>();
         control = GetComponent<CarControl>();
