@@ -27,8 +27,8 @@ class AIPlayer : Player{
 
     void FixedUpdate() {
         if(!startRace)
-            re
-        if(map.checkpoints.Length; != checkpointOffest+1){
+            return;
+        if(map.checkpoints.Length != checkpointOffest+1){
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
         }
         float angle = Vector3.Angle(agent.velocity, this.transform.forward);

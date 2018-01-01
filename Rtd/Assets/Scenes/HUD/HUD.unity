@@ -439,7 +439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirit: {fileID: 0}
   control: {fileID: 0}
-  images: []
 --- !u!1 &2137217509
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,5 +526,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 1
-  timeDisp: 
+  timeDisp: 4
   text: {fileID: 2137217509}
