@@ -104,6 +104,8 @@ GameObject:
   - component: {fileID: 4164884190925420}
   - component: {fileID: 95867521594038628}
   - component: {fileID: 64599271712340722}
+  - component: {fileID: 114576898218833640}
+  - component: {fileID: 65191006236217672}
   m_Layer: 0
   m_Name: checkpoint
   m_TagString: Untagged
@@ -250,8 +252,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529757415153670}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30.42, y: 0.08805406, z: 2.92}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.299988, y: -3.237562, z: -5.830017}
   m_LocalScale: {x: 210, y: 210, z: 210}
   m_Children:
   - {fileID: 4817359570422326}
@@ -891,6 +893,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
+--- !u!65 &65191006236217672
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529757415153670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21493047, y: 0.08063393, z: 0.02330701}
+  m_Center: {x: -0.00827486, y: 0.029833458, z: 0.0010918073}
 --- !u!95 &95867521594038628
 Animator:
   serializedVersion: 3
@@ -908,3 +922,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114576898218833640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529757415153670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d9ecceedd084ce8b0871df649501a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions:
+  - {fileID: 0}
+  offset: 1
