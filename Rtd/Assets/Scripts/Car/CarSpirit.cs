@@ -17,12 +17,9 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float maxSpeed = 207;
     public float maxReverseSpeed = 75;
 
-    [SerializeField]
-    private IPowerup _powerUp = new SurgePowerUp();
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>
-    {
-        typeof(SurgePowerUp),
-    });
+    [SerializeField] private IPowerup _powerUp;
+
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
