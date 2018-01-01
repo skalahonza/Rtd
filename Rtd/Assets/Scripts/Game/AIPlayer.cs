@@ -17,7 +17,7 @@ class AIPlayer : Player{
         //agent.updateRotation = false;
         agent.autoBraking = false;
         //agent.acceleration = spirit.MaxMotorTorque;
-        agent.speed = spirit.maxSpeed/2;
+        agent.speed = /*spirit.maxSpeed/2*/80;
         agent.angularSpeed = 30;
         agent.height = 5.5f;
         agent.radius = 8.0f;
