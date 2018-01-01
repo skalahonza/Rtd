@@ -19,5 +19,10 @@ namespace Assets.Scripts.Powerups
         public void UpdatePowerup(CarSpirit car)
         {
         }
+
+        public Sprite GetPowerupIcon()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

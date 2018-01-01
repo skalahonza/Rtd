@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Powerups.Shields;
+using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
@@ -21,6 +22,11 @@ namespace Assets.Scripts.Powerups
         public void UpdatePowerup(CarSpirit car)
         {
             //TODO CHECK IF SHIELD CAN BE USED
+        }
+
+        public Sprite GetPowerupIcon()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -2,21 +2,29 @@ using System;
 using Assets.Scripts.Car;
 using UnityEngine;
 using Assets.Scripts.Constants;
+using Assets.Scripts.States.Camera;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 
 public class LocalPlayer : Player
 {
 
     private CarSpirit spirit;
     private CarControl control;
+    private SmoothFollow smf;
+    private CameraState cameraState = new MediumView();
 
     void Start()
     {
         //attach cam here
-        SmoothFollow smf = GameObject.FindObjectOfType<SmoothFollow>();
+        smf = GameObject.FindObjectOfType<SmoothFollow>();
         smf.target = this.transform;
         spirit = GetComponent<CarSpirit>();
         control = GetComponent<CarControl>();
+        cameraState.SetUp(smf);
+        HUD hud = GameObject.FindObjectOfType<HUD>();
+        hud.spirit = spirit;
+        hud.control = control;
     }
 
     private void Update()
@@ -31,6 +39,13 @@ public class LocalPlayer : Player
         if (Input.GetKeyDown(KeyCode.R))
         {
             Respawn(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            //change camera view
+            cameraState = cameraState.NextState();
+            cameraState.SetUp(smf);
         }
 
         control.setUpdate(spirit.MaxMotorTorque * Input.GetAxis(AxisNames.Vertical)
