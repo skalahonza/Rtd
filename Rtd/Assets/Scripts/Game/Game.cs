@@ -32,6 +32,9 @@ public class Game : MonoBehaviour {
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
+            foreach(var car in cars){
+                car.SetActive(true);
+            }   
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
             return;

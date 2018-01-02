@@ -53,6 +53,12 @@ public class Lobby : NetworkLobbyManager {
     public override void OnLobbyStartServer(){
         Debug.Log("Server Started");
     }
+    
+/*    public override void OnLobbyServerPlayersReady(){
+        string sceneName = GameObject.Find("network").GetComponent<LobbyController>().maps[MapIndex].scene;
+        Application.LoadLevel(sceneName);
+        NetworkManager.singleton.ServerChangeScene(sceneName);
+    }*/
 
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
@@ -83,8 +89,11 @@ public class Lobby : NetworkLobbyManager {
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
         go.transform.GetChild(4).GetComponent<Renderer>().material = material;
-        if(pcid == playerControllerId)
-            go.AddComponent<LocalPlayer>();
+        if(pcid == playerControllerId){
+            SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
+            LocalPlayer cc = go.AddComponent<LocalPlayer>();
+            cc.startRace = true;        
+        }
         return go;
     }
 
