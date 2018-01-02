@@ -63,11 +63,12 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public void UpdatePlayer(NetworkMessage netMsg){
+        Debug.Log("server update");
         var msg = netMsg.ReadMessage<UpdatePlayerData>();
         players[msg.data.ID -1] = msg.data;
         SendAll(msg, UpdatePlayerMsg);
     }
 
 
-    
+
 }

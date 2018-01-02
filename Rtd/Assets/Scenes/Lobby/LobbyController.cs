@@ -139,14 +139,16 @@ public class LobbyController : NetworkBehaviour {
     }
 
 	public void UpdatePlayer(NetworkMessage netMsg){
+		Debug.Log("update");
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
 		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
 	}
 
-	public void PlayerDropdownChange(Dropdown dd){
-		myData.cartype = dd.value;
+	public void PlayerDropdownChange(){
+		//myData.cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
 		msg.data = myData;
+		Debug.Log("msg");
 		nc.Send(UpdatePlayerMsg, msg);
 	}
 }
