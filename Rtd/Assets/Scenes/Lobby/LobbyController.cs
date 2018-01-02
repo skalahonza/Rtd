@@ -120,6 +120,9 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<AddPlayerData>();
 		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+		if(myData.ID != msg.data.ID){
+			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
+		}
 		playerSetupObj[msg.data.ID - 1] = go;
 	}
 
@@ -135,7 +138,8 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
-        	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname; 
+        	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname;
+			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 			playerSetupObj[plr.ID - 1] = go;
 		}
     }
