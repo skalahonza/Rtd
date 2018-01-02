@@ -592,7 +592,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2673c667f0ae1534382d2a254686e358, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -709,6 +709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorTorque: 0
   steerAngle: 0
+  brakeTorque: 0
   wheelPairs:
   - leftWheelColider: {fileID: 146096204266966066}
     leftWheelMesh: {fileID: 1419578236861906}
