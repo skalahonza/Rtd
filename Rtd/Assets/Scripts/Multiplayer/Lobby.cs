@@ -65,11 +65,13 @@ public class Lobby : NetworkLobbyManager {
     public void UpdatePlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<UpdatePlayerData>();
         players[msg.data.ID -1] = msg.data;
+        players[msg.data.ID -1].material = msg.data.material;
+        players[msg.data.ID -1].cartype = msg.data.cartype;
         SendAll(msg, UpdatePlayerMsg);
     }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        Debug.Log("INSTA");
+        Debug.Log(string.Format("PCID {0}", playerControllerId));
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
