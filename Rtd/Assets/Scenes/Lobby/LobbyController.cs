@@ -15,51 +15,64 @@ public class SetName : MessageBase{
 	public string name;
 }
 
+public class InstantiateData :MessageBase {
+	public LobbyPlayerData[] players;
+	public int mapIndex ;
+	public int ID;
+}
 
+public class AddPlayerData : MessageBase{
+	public LobbyPlayerData data;
+	public int ID;
+}
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
 	public GameObject mmaker;
 	bool host = false;
 	public SpConfig[] maps;
 	public int mapIndex = 0;
-	public string name = "Player";
+	public string cname = "Player";
     public _car[] cars;
 
 	Lobby lobby;
 	short SetMapMsg = 1024;
-	short SetNameMsg = 1025;
+	short AddPlayerMsg = 1027;
 	short InstantiateMsg = 1026;
+	NetworkClient nc;
 	
 	public void Start(){
 		lobby = GetComponent<Lobby>();
 		mmaker.SetActive(false);
 	}
 
-	NetworkClient nc;
-	// Use this for initialization
 	public void Host () {
 		host = true;
 		nc = lobby.StartHost();
-		nc.RegisterHandler(SetMapMsg, SetMap);
-		nc.RegisterHandler(SetNameMsg, SetName);
-		nc.RegisterHandler(MsgType.Connect, OnConnected);
-		//name = GameObject.Find("plrname").GetComponent<Text>().text;
+		InitializeNetworkClient(nc);
+		cname = GameObject.Find("plrname").GetComponent<Text>().text;
 		GameObject.Find("ConnectForm").SetActive(false);
 		mmaker.SetActive(true);
-		lobby.TryToAddPlayer(); 
 	}
 	
-	// Update is called once per frame
 	public void Connect () {
 		host = false;
-		nc = new NetworkClient();
-		nc.RegisterHandler(SetMapMsg, SetMap);
-		nc.RegisterHandler(SetNameMsg, SetName);
-		nc.RegisterHandler(MsgType.Connect, OnConnected);
-		int port = 8080;
-		//name = GameObject.Find("plrname").GetComponent<Text>().text;
+		int port = 7777;
+		cname = GameObject.Find("plrname").GetComponent<Text>().text;
 		Int32.TryParse(GameObject.Find("port").GetComponent<Text>().text, out port );
-		nc.Connect(GameObject.Find("addr").GetComponent<Text>().text, port);
+		lobby.networkPort = port;
+		lobby.networkAddress = GameObject.Find("addr").GetComponent<Text>().text;
+		nc = lobby.StartClient(); 
+		InitializeNetworkClient(nc);
+	}
+
+	void InitializeNetworkClient(NetworkClient nc){
+		nc.RegisterHandler(SetMapMsg, SetMap);
+		nc.RegisterHandler(AddPlayerMsg, AddPlayer);
+		nc.RegisterHandler(InstantiateMsg, OnConnected);
+	}
+
+	public void ChangeCarType(){
+		
 	}
 
 	public void nextMap(){
@@ -82,22 +95,32 @@ public class LobbyController : NetworkBehaviour {
 
    public void SetMap(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<SetMap>();
-        foreach(var map in maps){
+		mapIndex = msg.offset;
+		ResetMap();
+    }
+
+	void ResetMap(){
+		foreach(var map in maps){
             map.image.enabled = false;
         }
-		mapIndex = msg.offset;
 		maps[mapIndex].image.enabled = true;
 		lobby.playScene = maps[mapIndex].scene;
-    }
+	}
 	  
-	public void SetName(NetworkMessage netMsg){
-		 var msg = netMsg.ReadMessage<SetName>();
+	public void AddPlayer(NetworkMessage netMsg){
+		 var msg = netMsg.ReadMessage<AddPlayerData>();
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
-		SetName named = new SetName();
-		named.name = name;
-		nc.Send(SetNameMsg, named);
+		InstantiateData inst = netMsg.ReadMessage<InstantiateData>();
+		mapIndex = inst.mapIndex;
+		ResetMap();
+		AddPlayerData msg = new AddPlayerData();
+		msg.ID = inst.ID;
+		msg.data = new LobbyPlayerData();
+		msg.data.cname = cname;
+		nc.Send(AddPlayerMsg, msg);
+		//idk if spawn instances
     }
 
 }

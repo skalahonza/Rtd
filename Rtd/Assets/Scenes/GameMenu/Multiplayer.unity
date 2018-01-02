@@ -222,7 +222,7 @@ MonoBehaviour:
   - scene: map02
     image: {fileID: 851214579}
   mapIndex: 0
-  name: Player
+  cname: Player
   cars:
   - car: {fileID: 1791092459031418, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     materials:
@@ -330,14 +330,16 @@ MonoBehaviour:
   m_MaxPlayers: 5
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 0
-  m_LobbyPlayerPrefab: {fileID: 114971448450575470, guid: 66c8de86114524e71b483ee598b84cfc,
+  m_LobbyPlayerPrefab: {fileID: 114369057886694002, guid: f87139ac157684b239465890969062be,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1973429733188802, guid: 66c8de86114524e71b483ee598b84cfc,
+  m_GamePlayerPrefab: {fileID: 1382391596274938, guid: f87139ac157684b239465890969062be,
     type: 2}
   m_LobbyScene: Multiplayer
   m_PlayScene: map01
   lobbySlots: []
   spawn: {fileID: 1904782730}
+  spawnObject: {fileID: 1501245619521568, guid: 96856a4019de9455d98dceaa28a45a5b,
+    type: 2}
 --- !u!224 &38199958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -903,7 +905,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1663651943}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.27663708
+  m_Size: 0.27659026
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2382,7 +2384,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1111740554}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

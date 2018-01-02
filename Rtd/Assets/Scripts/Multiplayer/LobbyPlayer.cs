@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 public class LobbyPlayer : NetworkLobbyPlayer {
 
+	LobbyPlayerData data = new LobbyPlayerData();
+
 	public void Play(){
-		readyToBegin = true;
 		SendReadyToBeginMessage();
 	}
 }
