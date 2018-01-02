@@ -15,10 +15,19 @@ public class Lobby : NetworkLobbyManager {
     List<NetworkConnection> connections = new List<NetworkConnection>();
 
     public void MapHandle(NetworkMessage netMsg){
+        Debug.Log("Map changed");
         var msg = netMsg.ReadMessage<SetMap>();
         foreach(var conn in connections){
             conn.Send(SetMapMsg, msg);
         }
+    }
+
+    public void OnLobbyStartHost(){
+        Debug.Log("Host Started");
+    }
+
+    public void OnLobbyStartServer(){
+        Debug.Log("Server Started");
     }
     
     public void NameHandle(NetworkMessage netMsg){
@@ -31,9 +40,11 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override void OnServerConnect(NetworkConnection conn){
+        Debug.Log("SRV connected");
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(SetNameMsg, NameHandle);
         connections.Add(conn);
+        base.OnServerConnect(conn);
      }
 
     //handle player spawning
