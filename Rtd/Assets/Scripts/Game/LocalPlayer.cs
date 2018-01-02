@@ -1,7 +1,9 @@
 using System;
+using Assets.Mechanics;
 using Assets.Scripts.Car;
 using UnityEngine;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Powerups;
 using Assets.Scripts.States.Camera;
 using UnityStandardAssets.Utility;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,7 @@ public class LocalPlayer : Player
     private CarControl control;
     private SmoothFollow smf;
     private CameraState cameraState = new MediumView();
+    private IPowerup previousPowerup;
 
     void Start()
     {
@@ -31,6 +34,14 @@ public class LocalPlayer : Player
     {
         if (!startRace)
             return;
+
+        var currentPowerup = spirit._powerUp;
+        if (currentPowerup != previousPowerup)
+        {
+            SoundMechanics.SpawnSound("powerup_spawn");
+        }
+        previousPowerup = currentPowerup;
+
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             spirit.UsePowerUp();

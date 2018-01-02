@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
@@ -35,8 +33,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
             //Do Stuff
             if (_powerUp == null)
             {
-                _powerUp = _powerupGenerator.GetPowerUp();
-                SoundMechanics.SpawnSound("powerup_spawn");
+                _powerUp = _powerupGenerator.GetPowerUp();                
                 Debug.Log("Power up spawned " + _powerUp);
             }
 
