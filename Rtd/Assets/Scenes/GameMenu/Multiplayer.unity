@@ -245,9 +245,6 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 6d38317b01835b74582aee0c913f28dd, type: 2}
     - {fileID: 2100000, guid: 4c804721f6e2d7042b782b77a50f1609, type: 2}
     - {fileID: 2100000, guid: f9de94f04b714ed4cbd5d89c5f10965e, type: 2}
-  spawn: {fileID: 1904782730}
-  spawnObject: {fileID: 1501245619521568, guid: 96856a4019de9455d98dceaa28a45a5b,
-    type: 2}
 --- !u!114 &38199957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +338,9 @@ MonoBehaviour:
   m_LobbyScene: Multiplayer
   m_PlayScene: map01
   lobbySlots: []
+  spawn: {fileID: 1904782730}
+  spawnObject: {fileID: 1501245619521568, guid: 96856a4019de9455d98dceaa28a45a5b,
+    type: 2}
 --- !u!224 &38199958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1663651943}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.27664164
+  m_Size: 0.2766013
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
