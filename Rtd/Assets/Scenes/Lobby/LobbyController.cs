@@ -41,6 +41,7 @@ public class LobbyController : NetworkBehaviour {
     public _car[] cars;
 	GameObject[] playerSetupObj = new GameObject[5];
 
+	bool bug1 = false;
 	Lobby lobby;
 	short SetMapMsg = 1024;
 	short UpdatePlayerMsg = 1025;
@@ -141,12 +142,15 @@ public class LobbyController : NetworkBehaviour {
 
 	public void UpdatePlayer(NetworkMessage netMsg){
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
+		bug1 = true;
 		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
-		Debug.Log(string.Format("update {0} {1}",msg.data.ID, msg.data.cartype ));
+		bug1 = false;
 	}
 
 	public void PlayerDropdownChange(Dropdown dd){
-		Debug.Log(string.Format("PREupdate {0} ",dd.value));
+		if(bug1){
+			return;
+		}
 		myData.cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
 		msg.data = myData;
