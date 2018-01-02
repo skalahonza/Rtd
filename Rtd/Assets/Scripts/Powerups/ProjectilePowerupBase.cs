@@ -1,6 +1,8 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Powerups
 {
@@ -35,8 +37,17 @@ namespace Assets.Scripts.Powerups
             var projBase = projectile.GetComponent<ProjectileBase>();
             projBase.Owner = car.gameObject;
 
-            var velocity =
-                TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
+            Vector3 velocity;
+            if (car.gameObject.GetComponent<AIPlayer>() != null)
+            {
+                var emulatedVeloity = car.gameObject.GetComponent<Rigidbody>().velocity.normalized;
+                emulatedVeloity *= car.maxSpeed/3.6f;
+                velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, emulatedVeloity,
+                    car.transform.position, projBase.Speed);
+            }
+            else
+                velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
+
             projectile.GetComponent<Rigidbody>().velocity = velocity;
             return true;
         }
@@ -47,7 +58,7 @@ namespace Assets.Scripts.Powerups
         /// <param name="car">Powerup owner</param>
         public void UpdatePowerup(CarSpirit car)
         {
-            LockTarget(car.gameObject.transform.position, car.transform.rotation);            
+            LockTarget(car.gameObject.transform.position, car.transform.rotation);
         }
 
         public abstract Sprite GetPowerupIcon();
