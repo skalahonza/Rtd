@@ -129,6 +129,7 @@ public class LobbyController : NetworkBehaviour {
 		AddPlayerData msg = new AddPlayerData();
 		myData = msg.data = new LobbyPlayerData();
 		msg.data.ID = inst.ID;
+				Debug.Log(string.Format("MYID {0}",msg.data.ID ));
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
@@ -139,16 +140,15 @@ public class LobbyController : NetworkBehaviour {
     }
 
 	public void UpdatePlayer(NetworkMessage netMsg){
-		Debug.Log("update");
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
 		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+		Debug.Log(string.Format("update {0} {1}",msg.data.ID, msg.data.cartype ));
 	}
 
 	public void PlayerDropdownChange(Dropdown dd){
 		myData.cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
 		msg.data = myData;
-		Debug.Log("msg");
 		nc.Send(UpdatePlayerMsg, msg);
 	}
 }
