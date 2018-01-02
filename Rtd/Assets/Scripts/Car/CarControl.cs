@@ -10,11 +10,11 @@ namespace Assets.Scripts.Car
     public class CarControl : MonoBehaviour
     {
         [SerializeField]
-        private float motorTorque;
+        public float motorTorque;
         [SerializeField]
-        private float steerAngle;    
+        public float steerAngle;
 
-        float brakeTorque;
+        public float brakeTorque;
         private Quaternion rot;
         private Vector3 pos;
 
@@ -93,69 +93,6 @@ namespace Assets.Scripts.Car
         {
             rb.velocity = velocity;
             this.steerAngle = steerAngle;
-        }
-
-        public void Update()
-        {
-            if (brakeTorque > 0.001)
-            {
-                brakeTorque = spirit.MaxMotorTorque;
-                motorTorque = 0;
-            }
-            else
-            {
-                brakeTorque = 0;
-            }
-
-            foreach (var wheelPair in wheelPairs)
-            {
-                //steering wheels
-                if (wheelPair.steering)
-                {
-                    wheelPair.leftWheelColider.steerAngle = wheelPair.rightWheelColider.steerAngle = steerAngle;
-                    // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    // Check if the car is reversing
-                    if ((transform.forward.normalized - GetComponent<Rigidbody>().velocity.normalized).magnitude == 0)
-                    {
-                        wheelPair.leftWheelColider.steerAngle *= Math.Sign(motorTorque);
-                    }
-                }
-
-                // motored wheel pair
-                if (wheelPair.motor)
-                {
-                    float scaledTorque = motorTorque;
-                    if (wheelPair.leftWheelColider.rpm < 0)//reversing
-                    {
-                        if (Speed < spirit.maxReverseSpeed)
-                            scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
-                        else scaledTorque = 0;
-
-                        //ENGINE SOUND
-                        var audio = GetComponent<AudioSource>();                        
-                        audio.pitch = 1 + Speed / spirit.maxReverseSpeed;
-                    }
-                    else// going forward
-                    {
-                        if (Speed < spirit.maxSpeed)
-                            scaledTorque = Mathf.Lerp(scaledTorque, 0, wheelPair.leftWheelColider.rpm / spirit.maxRPM);
-                        else scaledTorque = 0;
-
-                        //ENGINE SOUND
-                        var audio = GetComponent<AudioSource>();
-                        audio.pitch = 1 + Speed / spirit.maxSpeed;
-                    }
-
-                    wheelPair.leftWheelColider.motorTorque = scaledTorque;
-                    wheelPair.rightWheelColider.motorTorque = scaledTorque;                    
-                }
-
-                // apply breaking
-                wheelPair.leftWheelColider.brakeTorque = brakeTorque;
-                wheelPair.rightWheelColider.brakeTorque = brakeTorque;
-
-                VisualizeWheel(wheelPair);
-            }
         }
     }
 }
