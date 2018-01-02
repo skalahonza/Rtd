@@ -43,7 +43,7 @@ public class LobbyController : NetworkBehaviour {
 		nc.RegisterHandler(SetMapMsg, SetMap);
 		nc.RegisterHandler(SetNameMsg, SetName);
 		nc.RegisterHandler(MsgType.Connect, OnConnected);
-		name = GameObject.Find("plrname").GetComponent<Text>().text;
+		//name = GameObject.Find("plrname").GetComponent<Text>().text;
 		GameObject.Find("ConnectForm").SetActive(false);
 		mmaker.SetActive(true);
 		lobby.TryToAddPlayer(); 
@@ -57,7 +57,7 @@ public class LobbyController : NetworkBehaviour {
 		nc.RegisterHandler(SetNameMsg, SetName);
 		nc.RegisterHandler(MsgType.Connect, OnConnected);
 		int port = 8080;
-		name = GameObject.Find("plrname").GetComponent<Text>().text;
+		//name = GameObject.Find("plrname").GetComponent<Text>().text;
 		Int32.TryParse(GameObject.Find("port").GetComponent<Text>().text, out port );
 		nc.Connect(GameObject.Find("addr").GetComponent<Text>().text, port);
 	}
