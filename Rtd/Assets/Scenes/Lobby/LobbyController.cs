@@ -81,7 +81,7 @@ public class LobbyController : NetworkBehaviour {
 	}
 
    public void SetMap(NetworkMessage netMsg){
-        var msg = netMsg.ReadMessage<SetMap>(netMsg);
+        var msg = netMsg.ReadMessage<SetMap>();
         foreach(var map in maps){
             map.image.enabled = false;
         }
