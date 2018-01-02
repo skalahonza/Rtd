@@ -44,11 +44,11 @@ public class Lobby : NetworkLobbyManager {
         conn.Send(InstantiateMsg, msg);
     }
 
-    public void OnLobbyStartHost(){
+    public override void OnLobbyStartHost(){
         Debug.Log("Host Started");
     }
 
-    public void OnLobbyStartServer(){
+    public override void OnLobbyStartServer(){
         Debug.Log("Server Started");
     }
 
