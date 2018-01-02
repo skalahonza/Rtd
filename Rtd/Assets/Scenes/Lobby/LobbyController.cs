@@ -46,6 +46,7 @@ public class LobbyController : NetworkBehaviour {
 		name = GameObject.Find("plrname").GetComponent<Text>().text;
 		GameObject.Find("ConnectForm").SetActive(false);
 		mmaker.SetActive(true);
+		lobby.TryToAddPlayer(); 
 	}
 	
 	// Update is called once per frame
