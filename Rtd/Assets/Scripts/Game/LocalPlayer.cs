@@ -59,6 +59,12 @@ public class LocalPlayer : Player
             cameraState.SetUp(smf);
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //drop unwanted powerup
+            spirit._powerUp = null;
+        }
+
         control.setUpdate(spirit.MaxMotorTorque * Input.GetAxis(AxisNames.Vertical)
         , spirit.MaxSteeringAngle * Input.GetAxis(AxisNames.Horizontal)
         , Mathf.Abs(Input.GetAxis(AxisNames.Jump)));
