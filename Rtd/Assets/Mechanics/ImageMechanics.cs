@@ -7,7 +7,8 @@ namespace Assets.Mechanics
         public static Sprite LoadSprite(string name)
         {
             const string dir = "Sprites";
-            return Resources.Load<Sprite>(dir + "\\" + name);
+            var sprite = Resources.Load<Sprite>(dir+"/" + name);
+            return sprite;
         }
     }
 }

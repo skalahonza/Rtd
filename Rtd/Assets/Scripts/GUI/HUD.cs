@@ -17,6 +17,11 @@ public class HUD : MonoBehaviour {
         speed.text = string.Format("{0} km/h", control.Speed.ToString("0"));
         //SET IMAGE
         Image pwup = GameObject.Find("Pwup").GetComponent<Image>();
-        pwup.sprite = spirit._powerUp.GetPowerupIcon();
+        if(spirit._powerUp != null){
+            pwup.sprite = spirit._powerUp.GetPowerupIcon();
+            pwup.enabled = true;
+        }else{
+            pwup.enabled = false;
+        }
     }
 }
