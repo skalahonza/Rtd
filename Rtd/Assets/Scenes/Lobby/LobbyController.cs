@@ -146,6 +146,7 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void PlayerDropdownChange(Dropdown dd){
+		Debug.Log(string.Format("PREupdate {0} ",dd.value));
 		myData.cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
 		msg.data = myData;
