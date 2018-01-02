@@ -37,6 +37,7 @@ public class Lobby : NetworkLobbyManager {
         SendAll(msg, AddPlayerMsg);
         GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+        NetworkServer.Spawn(go);
     }
 
     public void Instantiate(NetworkConnection conn, int id){

@@ -63,6 +63,8 @@ public class LobbyController : NetworkBehaviour {
 		lobby.networkAddress = GameObject.Find("addr").GetComponent<Text>().text;
 		nc = lobby.StartClient(); 
 		InitializeNetworkClient(nc);
+		GameObject.Find("ConnectForm").SetActive(false);
+		mmaker.SetActive(true);
 	}
 
 	void InitializeNetworkClient(NetworkClient nc){
