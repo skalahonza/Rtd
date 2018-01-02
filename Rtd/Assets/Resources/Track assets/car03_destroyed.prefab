@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 54149077914037334}
   - component: {fileID: 65900919548137784}
   - component: {fileID: 65754855224963674}
+  - component: {fileID: 208291279271657198}
   m_Layer: 0
   m_Name: car03_destroyed
   m_TagString: Untagged
@@ -297,3 +298,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0661697, y: 1.2930374, z: 1.111084}
   m_Center: {x: 0.039600372, y: -0.7195091, z: -2.2701416}
+--- !u!208 &208291279271657198
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856065021403296}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

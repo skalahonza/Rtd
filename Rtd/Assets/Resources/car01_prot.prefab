@@ -755,6 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorTorque: 0
   steerAngle: 0
+  brakeTorque: 0
   wheelPairs:
   - leftWheelColider: {fileID: 146542111147674762}
     leftWheelMesh: {fileID: 1105128835863640}
