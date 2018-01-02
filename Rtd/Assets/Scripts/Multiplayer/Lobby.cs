@@ -17,7 +17,7 @@ public class Lobby : NetworkLobbyManager {
     List<LobbyPlayerData> players = new List<LobbyPlayerData>();
     List<NetworkConnection> connections = new List<NetworkConnection>();
 
-    int[] unityShitMap = new int[5];
+    short[] unityShitMap = new short[5];
 
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
@@ -73,7 +73,7 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short pcid){
-        playerControllerId = unityShitMap[pcid]++;
+        short playerControllerId = unityShitMap[pcid]++;
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
