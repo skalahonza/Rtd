@@ -41,6 +41,7 @@ public class LobbyController : NetworkBehaviour {
     public _car[] cars;
 	GameObject[] playerSetupObj = new GameObject[5];
 
+	bool bug1 = false;
 	Lobby lobby;
 	short SetMapMsg = 1024;
 	short UpdatePlayerMsg = 1025;
@@ -119,6 +120,9 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<AddPlayerData>();
 		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+		if(myData.ID != msg.data.ID){
+			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
+		}
 		playerSetupObj[msg.data.ID - 1] = go;
 	}
 
@@ -129,26 +133,31 @@ public class LobbyController : NetworkBehaviour {
 		AddPlayerData msg = new AddPlayerData();
 		myData = msg.data = new LobbyPlayerData();
 		msg.data.ID = inst.ID;
+				Debug.Log(string.Format("MYID {0}",msg.data.ID ));
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
-        	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname; 
+        	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname;
+			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 			playerSetupObj[plr.ID - 1] = go;
 		}
     }
 
 	public void UpdatePlayer(NetworkMessage netMsg){
-		Debug.Log("update");
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
+		bug1 = true;
 		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+		bug1 = false;
 	}
 
-	public void PlayerDropdownChange(){
-		//myData.cartype = dd.value;
+	public void PlayerDropdownChange(Dropdown dd){
+		if(bug1){
+			return;
+		}
+		myData.cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
 		msg.data = myData;
-		Debug.Log("msg");
 		nc.Send(UpdatePlayerMsg, msg);
 	}
 }
