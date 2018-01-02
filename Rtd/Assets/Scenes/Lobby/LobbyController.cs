@@ -23,7 +23,10 @@ public class InstantiateData :MessageBase {
 
 public class AddPlayerData : MessageBase{
 	public LobbyPlayerData data;
-	public int ID;
+}
+
+public class UpdatePlayerData : MessageBase{
+	public LobbyPlayerData data;
 }
 
 [RequireComponent(typeof(Lobby))]
@@ -36,12 +39,15 @@ public class LobbyController : NetworkBehaviour {
 	public int mapIndex = 0;
 	public string cname = "Player";
     public _car[] cars;
+	GameObject[] playerSetupObj = new GameObject[5];
 
 	Lobby lobby;
 	short SetMapMsg = 1024;
+	short UpdatePlayerMsg = 1025;
 	short AddPlayerMsg = 1027;
 	short InstantiateMsg = 1026;
 	NetworkClient nc;
+	LobbyPlayerData myData;
 	
 	public void Start(){
 		lobby = GetComponent<Lobby>();
@@ -73,11 +79,8 @@ public class LobbyController : NetworkBehaviour {
 	void InitializeNetworkClient(NetworkClient nc){
 		nc.RegisterHandler(SetMapMsg, SetMap);
 		nc.RegisterHandler(AddPlayerMsg, AddPlayer);
+		nc.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
 		nc.RegisterHandler(InstantiateMsg, OnConnected);
-	}
-
-	public void ChangeCarType(){
-		
 	}
 
 	public void nextMap(){
@@ -116,6 +119,7 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<AddPlayerData>();
 		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+		playerSetupObj[msg.data.ID - 1] = go;
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
@@ -123,14 +127,26 @@ public class LobbyController : NetworkBehaviour {
 		mapIndex = inst.mapIndex;
 		ResetMap();
 		AddPlayerData msg = new AddPlayerData();
-		msg.ID = inst.ID;
-		msg.data = new LobbyPlayerData();
+		myData = msg.data = new LobbyPlayerData();
+		msg.data.ID = inst.ID;
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname; 
+			playerSetupObj[plr.ID - 1] = go;
 		}
     }
 
+	public void UpdatePlayer(NetworkMessage netMsg){
+		var msg = netMsg.ReadMessage<UpdatePlayerData>();
+		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+	}
+
+	public void PlayerDropdownChange(Dropdown dd){
+		myData.cartype = dd.value;
+		UpdatePlayerData msg = new UpdatePlayerData();
+		msg.data = myData;
+		nc.Send(UpdatePlayerMsg, msg);
+	}
 }

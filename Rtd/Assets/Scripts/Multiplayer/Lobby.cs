@@ -10,6 +10,7 @@ public class Lobby : NetworkLobbyManager {
     int MapIndex;
 
    	short SetMapMsg = 1024;
+    short UpdatePlayerMsg = 1025;
     short InstantiateMsg = 1026;
     short AddPlayerMsg = 1027;
 
@@ -52,13 +53,21 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override void OnServerConnect(NetworkConnection conn){
+        connections.Add(conn);
         Debug.Log("SRV connected");
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
-        connections.Add(conn);
+        conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
         base.OnServerConnect(conn);
         Instantiate(conn, connections.Count);
-     }
+    }
 
-    //handle player spawning
+    public void UpdatePlayer(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<UpdatePlayerData>();
+        players[msg.data.ID -1] = msg.data;
+        SendAll(msg, UpdatePlayerMsg);
+    }
+
+
+    
 }
