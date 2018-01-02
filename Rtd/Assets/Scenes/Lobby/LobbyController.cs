@@ -28,6 +28,8 @@ public class AddPlayerData : MessageBase{
 
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
+	public GameObject spawn;
+    public GameObject spawnObject;	
 	public GameObject mmaker;
 	bool host = false;
 	public SpConfig[] maps;
@@ -111,7 +113,9 @@ public class LobbyController : NetworkBehaviour {
 	}
 	  
 	public void AddPlayer(NetworkMessage netMsg){
-		 var msg = netMsg.ReadMessage<AddPlayerData>();
+		var msg = netMsg.ReadMessage<AddPlayerData>();
+		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
+        go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
@@ -123,7 +127,10 @@ public class LobbyController : NetworkBehaviour {
 		msg.data = new LobbyPlayerData();
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
-		//idk if spawn instances
+		foreach(var plr in inst.players){
+			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
+        	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname; 
+		}
     }
 
 }
