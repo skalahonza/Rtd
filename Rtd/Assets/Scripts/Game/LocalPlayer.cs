@@ -36,7 +36,7 @@ public class LocalPlayer : Player
             return;
 
         var currentPowerup = spirit._powerUp;
-        if (currentPowerup != previousPowerup)
+        if (currentPowerup != previousPowerup && currentPowerup != null)
         {
             SoundMechanics.SpawnSound("powerup_spawn");
         }
