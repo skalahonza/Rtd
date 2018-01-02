@@ -31,8 +31,8 @@ public class LobbyController : NetworkBehaviour {
 	short InstantiateMsg = 1026;
 	
 	public void Start(){
-		mmaker.SetActive(false);
 		lobby = GetComponent<Lobby>();
+		mmaker.SetActive(false);
 	}
 
 	NetworkClient nc;
@@ -81,7 +81,7 @@ public class LobbyController : NetworkBehaviour {
 	}
 
    public void SetMap(NetworkMessage netMsg){
-        var msg = netMsg.ReadMessage<SetMap>();
+        var msg = netMsg.ReadMessage<SetMap>(netMsg);
         foreach(var map in maps){
             map.image.enabled = false;
         }
