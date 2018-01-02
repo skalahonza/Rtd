@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 114505973786291914}
   - component: {fileID: 114105952121353432}
   - component: {fileID: 82297799852453876}
+  - component: {fileID: 114076561199638230}
   m_Layer: 0
   m_Name: car02_prot
   m_TagString: Player
@@ -678,6 +679,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114076561199638230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750864972512678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 171
+    i1: 75
+    i2: 249
+    i3: 238
+    i4: 26
+    i5: 121
+    i6: 153
+    i7: 20
+    i8: 171
+    i9: 210
+    i10: 154
+    i11: 197
+    i12: 134
+    i13: 104
+    i14: 241
+    i15: 242
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114105952121353432
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -125,6 +125,7 @@ public class LobbyController : NetworkBehaviour {
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 		}
 		playerSetupObj[msg.data.ID - 1] = go;
+
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
@@ -134,7 +135,8 @@ public class LobbyController : NetworkBehaviour {
 		AddPlayerData msg = new AddPlayerData();
 		myData = msg.data = new LobbyPlayerData();
 		msg.data.ID = inst.ID;
-				Debug.Log(string.Format("MYID {0}",msg.data.ID ));
+		Debug.Log(string.Format("MYID {0}",msg.data.ID ));
+		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){

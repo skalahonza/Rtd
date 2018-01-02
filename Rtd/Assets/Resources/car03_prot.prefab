@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114449158104402032}
   - component: {fileID: 114036213504685252}
   - component: {fileID: 82694802443353698}
+  - component: {fileID: 114291612777492272}
   m_Layer: 0
   m_Name: car03_prot
   m_TagString: Player
@@ -678,6 +679,38 @@ MonoBehaviour:
   maxRPM: 1000
   maxSpeed: 250
   maxReverseSpeed: 75
+--- !u!114 &114291612777492272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 241
+    i1: 153
+    i2: 131
+    i3: 111
+    i4: 159
+    i5: 68
+    i6: 57
+    i7: 228
+    i8: 203
+    i9: 168
+    i10: 250
+    i11: 173
+    i12: 64
+    i13: 232
+    i14: 110
+    i15: 85
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114449158104402032
 MonoBehaviour:
   m_ObjectHideFlags: 1

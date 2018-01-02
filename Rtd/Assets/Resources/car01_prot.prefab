@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 114745044012179672}
   - component: {fileID: 23394678436686534}
   - component: {fileID: 82009688519919028}
+  - component: {fileID: 114418320773701182}
   m_Layer: 0
   m_Name: car01_prot
   m_TagString: Player
@@ -724,6 +725,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114418320773701182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 92
+    i1: 142
+    i2: 133
+    i3: 29
+    i4: 210
+    i5: 43
+    i6: 55
+    i7: 164
+    i8: 216
+    i9: 238
+    i10: 1
+    i11: 178
+    i12: 135
+    i13: 238
+    i14: 156
+    i15: 237
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114443255141721756
 MonoBehaviour:
   m_ObjectHideFlags: 1
