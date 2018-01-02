@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Mechanics;
+using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
@@ -20,6 +21,12 @@ public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
         var damagable = other.gameObject.GetComponent<IDamagable>();
         if (damagable != null)
         {
+            //Expllosion
+            var sound = SoundMechanics.SpawnSound("projectile_on_hit");
+            var particle = AnimationMechanics.SpawnParticle("energy_explosion");
+            particle.transform.position = gameObject.transform.position;
+            sound.gameObject.transform.position = gameObject.transform.position;
+
             damagable.SufferDamage(this);
             Destroy(gameObject);
         }
