@@ -17,6 +17,8 @@ public class Lobby : NetworkLobbyManager {
     List<LobbyPlayerData> players = new List<LobbyPlayerData>();
     List<NetworkConnection> connections = new List<NetworkConnection>();
 
+    int[] unityShitMap = new int[5];
+
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
         Debug.Log(string.Format("Map changed to {0}", msg.offset));
@@ -70,8 +72,8 @@ public class Lobby : NetworkLobbyManager {
         SendAll(msg, UpdatePlayerMsg);
     }
 
-    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        Debug.Log(string.Format("PCID {0}", playerControllerId));
+    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short pcid){
+        playerControllerId = unityShitMap[pcid]++;
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
@@ -81,6 +83,8 @@ public class Lobby : NetworkLobbyManager {
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
         go.transform.GetChild(4).GetComponent<Renderer>().material = material;
+        if(pcid == playerControllerId)
+            go.AddComponent<LocalPlayer>();
         return go;
     }
 
