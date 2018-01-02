@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a461e129fee7e27408ca1ff432d2943d
-timeCreated: 1508787199
+guid: 3479536724045ae4490c87d8cffb3279
+timeCreated: 1514927900
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,13 +10,14 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Technika
+  fontName: Good Times
   fontNames:
-  - Technika
+  - Good Times
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
