@@ -29,6 +29,7 @@ public class UpdatePlayerData : MessageBase{
 	public LobbyPlayerData data;
 }
 
+
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
 	public GameObject spawn;
