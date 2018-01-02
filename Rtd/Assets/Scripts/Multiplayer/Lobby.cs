@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class Lobby : NetworkLobbyManager {
 
-    public GameObject spawn;
-    public GameObject spawnObject;
     int MapIndex;
 
    	short SetMapMsg = 1024;
@@ -35,9 +33,6 @@ public class Lobby : NetworkLobbyManager {
         var msg = netMsg.ReadMessage<AddPlayerData>();
         players.Add(msg.data);
         SendAll(msg, AddPlayerMsg);
-        GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
-        go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
-        NetworkServer.Spawn(go);
     }
 
     public void Instantiate(NetworkConnection conn, int id){

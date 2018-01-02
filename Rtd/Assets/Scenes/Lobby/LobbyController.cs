@@ -33,6 +33,8 @@ public class LobbyController : NetworkBehaviour {
 	public int mapIndex = 0;
 	public string cname = "Player";
     public _car[] cars;
+	public GameObject spawn;
+    public GameObject spawnObject;
 
 	Lobby lobby;
 	short SetMapMsg = 1024;
@@ -122,6 +124,9 @@ public class LobbyController : NetworkBehaviour {
 		msg.data = new LobbyPlayerData();
 		msg.data.cname = cname;
 		nc.Send(AddPlayerMsg, msg);
+		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
+        go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+        NetworkServer.Spawn(go);
 		//idk if spawn instances
     }
 
