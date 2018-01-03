@@ -83,8 +83,7 @@ public class Lobby : NetworkLobbyManager {
         SendAll(msg, UpdatePlayerMsg);
     }
 
-    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short pcid){
-        short playerControllerId = unityShitMap[pcid]++;
+    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
