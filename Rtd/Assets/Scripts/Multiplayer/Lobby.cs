@@ -88,12 +88,12 @@ public class Lobby : NetworkLobbyManager {
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
-        Material material = lc.cars[data.cartype].materials[data.material];
+        /*Material material = lc.cars[data.cartype].materials[data.material];
         go.transform.GetChild(0).GetComponent<Renderer>().material = material;
         go.transform.GetChild(1).GetComponent<Renderer>().material = material;
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(4).GetComponent<Renderer>().material = material;
+        go.transform.GetChild(4).GetComponent<Renderer>().material = material;*/
         //SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         //LocalPlayer cc = go.AddComponent<LocalPlayer>();
         //cc.startRace = true;        
