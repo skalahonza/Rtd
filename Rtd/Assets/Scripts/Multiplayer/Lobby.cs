@@ -62,7 +62,7 @@ public class Lobby : NetworkLobbyManager {
 
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
         loaded++;
-        return true;
+        return false;
     }
 
     public override void OnServerConnect(NetworkConnection conn){
