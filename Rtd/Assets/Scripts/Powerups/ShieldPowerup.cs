@@ -6,17 +6,14 @@ namespace Assets.Scripts.Powerups
     public class ShieldPowerup<T> : IPowerup
         where T :ShieldBase, new()
     {
-        private T shield;
         public bool Use(CarSpirit car)
         {
-            //TODO SHIELD VIZUALIZATION
             if (car.Shield != null)
             {
                 car.Shield.Clean(car);
             }
 
-            shield = new T();
-            car.Shield = shield;
+            car.Shield = new T();
             car.Shield.Apply(car);
             return true;
         }
@@ -28,7 +25,7 @@ namespace Assets.Scripts.Powerups
 
         public Sprite GetPowerupIcon()
         {
-            return shield.GetPowerupIcon();
+            return new T().GetPowerupIcon();
         }
     }
 }

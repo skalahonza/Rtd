@@ -40,6 +40,8 @@ GameObject:
   - component: {fileID: 114449158104402032}
   - component: {fileID: 114036213504685252}
   - component: {fileID: 82694802443353698}
+  - component: {fileID: 114291612777492272}
+  - component: {fileID: 114554669688084896}
   m_Layer: 0
   m_Name: car03_prot
   m_TagString: Player
@@ -591,7 +593,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2673c667f0ae1534382d2a254686e358, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -678,6 +680,38 @@ MonoBehaviour:
   maxRPM: 1000
   maxSpeed: 250
   maxReverseSpeed: 75
+--- !u!114 &114291612777492272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 241
+    i1: 153
+    i2: 131
+    i3: 111
+    i4: 159
+    i5: 68
+    i6: 57
+    i7: 228
+    i8: 203
+    i9: 168
+    i10: 250
+    i11: 173
+    i12: 64
+    i13: 232
+    i14: 110
+    i15: 85
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114449158104402032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,6 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorTorque: 0
   steerAngle: 0
+  brakeTorque: 0
   wheelPairs:
   - leftWheelColider: {fileID: 146002045346198414}
     leftWheelMesh: {fileID: 1156746562332060}
@@ -704,6 +739,27 @@ MonoBehaviour:
     rightWheelMesh: {fileID: 1665452204541826}
     motor: 1
     steering: 0
+--- !u!114 &114554669688084896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!146 &146002045346198414
 WheelCollider:
   m_ObjectHideFlags: 1

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 135735280161530058}
   - component: {fileID: 114850641841223456}
   - component: {fileID: 82290952771322918}
+  - component: {fileID: 114282273696514756}
   m_Layer: 0
   m_Name: tower_mine
   m_TagString: Untagged
@@ -424,9 +425,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -501,6 +502,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114282273696514756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1042804733819322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 188
+    i1: 148
+    i2: 190
+    i3: 234
+    i4: 26
+    i5: 214
+    i6: 138
+    i7: 84
+    i8: 9
+    i9: 14
+    i10: 148
+    i11: 57
+    i12: 91
+    i13: 182
+    i14: 125
+    i15: 39
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114850641841223456
 MonoBehaviour:
   m_ObjectHideFlags: 1

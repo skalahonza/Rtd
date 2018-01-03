@@ -19,10 +19,16 @@ namespace Assets.Mechanics
             {
                 targetVelocity = rb.velocity;
             }
-            return CalculateAimVelocityVector(enemy.position, targetVelocity, shooterPosition, projectileSpeed);
+            return CalculateAimVelocityVector(enemy.rotation, enemy.position, targetVelocity, shooterPosition, projectileSpeed);
         }
 
-        private static Vector3 CalculateAimVelocityVector(Vector3 aTargetPos, Vector3 aTargetSpeed, Vector3 projectilePosition, float projectileSpeed)
+        public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 targetVelocity,
+            Vector3 shooterPosition, float projectileSpeed)
+        {
+            return CalculateAimVelocityVector(enemy.rotation, enemy.position, targetVelocity, shooterPosition, projectileSpeed);
+        }
+
+        private static Vector3 CalculateAimVelocityVector(Quaternion targetRot, Vector3 aTargetPos, Vector3 aTargetSpeed, Vector3 projectilePosition, float projectileSpeed)
         {
             var targetDir = aTargetPos - projectilePosition;
             var iSpeed2 = projectileSpeed * projectileSpeed;
@@ -31,8 +37,14 @@ namespace Assets.Mechanics
             var targetDist2 = targetDir.sqrMagnitude;
             var d = fDot1 * fDot1 - targetDist2 * (tSpeed2 - iSpeed2);
 
-            if (d < 0.1f)  // negative == no possible course because the interceptor isn't fast enough
-                return Vector3.zero;
+            if (d < 0.1f) // negative == no possible course because the interceptor isn't fast enough
+            {
+                //emulate speed
+                var newSpeed = targetRot * Vector3.forward;
+                //newSpeed *= 100 / 3.6f;
+                newSpeed *= aTargetSpeed.magnitude / 2;
+                return CalculateAimVelocityVector(targetRot, aTargetPos, newSpeed, projectilePosition, projectileSpeed);
+            }
 
             var sqrt = Mathf.Sqrt(d);
             var s1 = (-fDot1 - sqrt) / targetDist2;
@@ -62,11 +74,11 @@ namespace Assets.Mechanics
         {
             RaycastHit info;
             if (Physics.Raycast(center, direction, out info))
-            {       
+            {
                 var target = info.transform.gameObject;
 
-                if(!IsTargetInRange(target,direction,center,maxDistance,maxAngle))
-                    return null;                
+                if (!IsTargetInRange(target, direction, center, maxDistance, maxAngle))
+                    return null;
 
                 // target is damagable
                 if (target.GetComponent<IDamagable>() != null)

@@ -154,6 +154,8 @@ GameObject:
   - component: {fileID: 114745044012179672}
   - component: {fileID: 23394678436686534}
   - component: {fileID: 82009688519919028}
+  - component: {fileID: 114418320773701182}
+  - component: {fileID: 114155888292397328}
   m_Layer: 0
   m_Name: car01_prot
   m_TagString: Player
@@ -655,7 +657,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2673c667f0ae1534382d2a254686e358, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -724,6 +726,59 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114155888292397328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114418320773701182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 92
+    i1: 142
+    i2: 133
+    i3: 29
+    i4: 210
+    i5: 43
+    i6: 55
+    i7: 164
+    i8: 216
+    i9: 238
+    i10: 1
+    i11: 178
+    i12: 135
+    i13: 238
+    i14: 156
+    i15: 237
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114443255141721756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -755,6 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorTorque: 0
   steerAngle: 0
+  brakeTorque: 0
   wheelPairs:
   - leftWheelColider: {fileID: 146542111147674762}
     leftWheelMesh: {fileID: 1105128835863640}
