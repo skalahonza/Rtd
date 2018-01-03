@@ -17,7 +17,7 @@ public class Lobby : NetworkLobbyManager {
     List<LobbyPlayerData> players = new List<LobbyPlayerData>();
     List<NetworkConnection> connections = new List<NetworkConnection>();
 
-    short[] unityShitMap = new short[5];
+    int loaded = 0;
 
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
@@ -54,11 +54,15 @@ public class Lobby : NetworkLobbyManager {
         Debug.Log("Server Started");
     }
     
-/*    public override void OnLobbyServerPlayersReady(){
+    public override void OnLobbyServerPlayersReady(){
         string sceneName = GameObject.Find("network").GetComponent<LobbyController>().maps[MapIndex].scene;
         Application.LoadLevel(sceneName);
         NetworkManager.singleton.ServerChangeScene(sceneName);
-    }*/
+    }
+
+    public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
+        loaded++;
+    }
 
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
