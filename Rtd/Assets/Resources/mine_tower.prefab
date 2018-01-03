@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 114385950147283538}
   - component: {fileID: 82572354525522678}
   - component: {fileID: 82162896021397206}
+  - component: {fileID: 114033071815206722}
   m_Layer: 0
   m_Name: mine_tower
   m_TagString: Untagged
@@ -3964,9 +3965,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 0
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 63010ff66010bf34fbfd502c6d9d665c, type: 3}
 --- !u!82 &82162896021397206
@@ -4182,6 +4183,38 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114033071815206722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209771239385708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 237
+    i1: 219
+    i2: 103
+    i3: 39
+    i4: 197
+    i5: 153
+    i6: 20
+    i7: 68
+    i8: 152
+    i9: 182
+    i10: 215
+    i11: 3
+    i12: 243
+    i13: 38
+    i14: 189
+    i15: 85
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114385950147283538
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1037,6 +1037,7 @@ GameObject:
   - component: {fileID: 64287908455025992}
   - component: {fileID: 114767673006025104}
   - component: {fileID: 82912981109449578}
+  - component: {fileID: 114596643301849886}
   m_Layer: 0
   m_Name: surge_tower
   m_TagString: Untagged
@@ -3963,9 +3964,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 0
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 63010ff66010bf34fbfd502c6d9d665c, type: 3}
 --- !u!82 &82912981109449578
@@ -4101,6 +4102,38 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114596643301849886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904063434479526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 183
+    i1: 12
+    i2: 222
+    i3: 97
+    i4: 185
+    i5: 15
+    i6: 137
+    i7: 4
+    i8: 42
+    i9: 128
+    i10: 24
+    i11: 205
+    i12: 151
+    i13: 0
+    i14: 145
+    i15: 59
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114767673006025104
 MonoBehaviour:
   m_ObjectHideFlags: 1
