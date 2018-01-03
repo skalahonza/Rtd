@@ -62,7 +62,7 @@ public class Lobby : NetworkLobbyManager {
 
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
         loaded++;
-        return false;
+        return true;
     }
 
     public override void OnServerConnect(NetworkConnection conn){
@@ -93,11 +93,6 @@ public class Lobby : NetworkLobbyManager {
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
         go.transform.GetChild(4).GetComponent<Renderer>().material = material;
-        /*if(pcid == playerControllerId){
-            SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
-            LocalPlayer cc = go.AddComponent<LocalPlayer>();
-            cc.startRace = true;        
-        }*/
         return go;
     }
 
