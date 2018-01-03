@@ -135,15 +135,17 @@ public class LobbyController : NetworkBehaviour {
 		AddPlayerData msg = new AddPlayerData();
 		myData = msg.data = new LobbyPlayerData();
 		msg.data.ID = inst.ID;
-		Debug.Log(string.Format("MYID {0}",msg.data.ID ));
 		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
+		msg.data.cartype = 0;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname;
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
+			bug1 = true;
      		go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = plr.cartype;
+			bug1 = false;
 			playerSetupObj[plr.ID - 1] = go;
 		}
     }
