@@ -59,12 +59,12 @@ public class Lobby : NetworkLobbyManager {
         Application.LoadLevel(sceneName);
         NetworkManager.singleton.ServerChangeScene(sceneName);
     }
-
+/*
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
         loaded++;
-        return false;
+        return true;
     }
-
+*/
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
         Debug.Log("SRV connected");

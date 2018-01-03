@@ -143,6 +143,7 @@ public class LobbyController : NetworkBehaviour {
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname;
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
+     		go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = plr.cartype;
 			playerSetupObj[plr.ID - 1] = go;
 		}
     }
