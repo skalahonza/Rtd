@@ -21,7 +21,7 @@ namespace Assets.Scripts.Powerups
             postion = NumberConstants.MineSpawnHeight(postion);
             var sound = SoundMechanics.SpawnSound("car_mine_sound");
             ObjectsToSynchronize.Add(sound);
-            var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+            var mine = Instantiate(Mine.GetPrefab(), postion, new Quaternion());
             ObjectsToSynchronize.Add(mine);
             return true;
         }

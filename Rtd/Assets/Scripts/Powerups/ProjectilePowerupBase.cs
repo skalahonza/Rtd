@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
 
@@ -16,13 +15,6 @@ namespace Assets.Scripts.Powerups
 
         protected abstract GameObject GetProjectilePrefab();
 
-        public List<GameObject> ObjectsToSynchronize { get; private set; }
-
-        protected ProjectilePowerupBase()
-        {
-            ObjectsToSynchronize = new List<GameObject>();
-        }
-
         /// <inheritdoc />
         /// <summary>
         /// Use the powerup and apply it's damage or debuff upon target/s
@@ -37,10 +29,8 @@ namespace Assets.Scripts.Powerups
             //spawn and fire projectile
             var prefab = GetProjectilePrefab();
             var position = NumberConstants.MineSpawnHeight(car.transform.position);
-            var projectile = GameObject.Instantiate(prefab, position,
+            var projectile = Instantiate(prefab, position,
                 TargetingMechanis.CalculateAimRotation(Target.transform.position, car.transform.position));
-
-            ObjectsToSynchronize.Add(projectile);
 
             var projBase = projectile.GetComponent<ProjectileBase>();
             projBase.Owner = car.gameObject;

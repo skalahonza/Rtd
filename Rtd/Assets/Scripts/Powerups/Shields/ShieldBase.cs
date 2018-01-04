@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Powerups.Shields
 {
@@ -25,13 +26,13 @@ namespace Assets.Scripts.Powerups.Shields
         public virtual void Apply(CarSpirit car)
         {
             var prefab = GetPrefab();
-            ShieldVisualization = GameObject.Instantiate(prefab, car.transform);
+            ShieldVisualization = Object.Instantiate(prefab, car.transform);
         }
 
         public void Clean(CarSpirit car)
         {
-            GameObject.Destroy(ShieldVisualization);
-            GameObject.Destroy(ShieldSoundPlayer);
+            Object.Destroy(ShieldVisualization);
+            Object.Destroy(ShieldSoundPlayer);
         }
 
         protected abstract GameObject GetPrefab();

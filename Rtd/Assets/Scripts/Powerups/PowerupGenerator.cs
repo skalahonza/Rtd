@@ -34,5 +34,10 @@ namespace Assets.Scripts.Powerups
             var type = _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
             return Activator.CreateInstance(type) as IPowerup;
         }
+
+        public Type GetPowerUpType()
+        {
+            return _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
+        }
     }
 }
