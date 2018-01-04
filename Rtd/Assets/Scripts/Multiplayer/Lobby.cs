@@ -67,12 +67,8 @@ public class Lobby : NetworkLobbyManager {
         Debug.Log(string.Format("for conn.id {0}",conn.connectionId));
         LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
-        Material material = lc.cars[data.cartype].materials[data.material];
-        go.transform.GetChild(0).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(1).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(2).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(3).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(4).GetComponent<Renderer>().material = material;  
+        go.GetComponent<NetworkPlayer>().ctype = data.cartype;
+        go.GetComponent<NetworkPlayer>().material = data.material;
         return go;
     }
 
