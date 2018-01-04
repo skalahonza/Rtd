@@ -19,7 +19,8 @@ public class NetworkPlayer : NetworkBehaviour {
         {
             Destroy(cw);
         }else if(isLocalPlayer) {
-            Camera.main.GetComponent<SmoothFollow>().target = this.transform;
+            gameObject.AddComponent<LocalPlayer>();
+            cc.startRace = true; 
         }
     }
 
