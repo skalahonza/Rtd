@@ -16,14 +16,18 @@ public class NetworkPlayer : NetworkBehaviour {
 
     void Start() 
     {
-        cw = gameObject.GetComponent<CarControl>();
-        if (!isLocalPlayer && cw != null)
-        {
-            Destroy(cw);
-        }else if(isLocalPlayer) {
+        if(isLocalPlayer) {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
+        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
+        LobbyPlayerData data = lc.myData;
+        Material mat = lc.cars[data.cartype].materials[data.material];
+        transform.GetChild(0).GetComponent<Renderer>().material = mat;
+        transform.GetChild(1).GetComponent<Renderer>().material = mat;
+        transform.GetChild(2).GetComponent<Renderer>().material = mat;
+        transform.GetChild(3).GetComponent<Renderer>().material = mat;
+        transform.GetChild(4).GetComponent<Renderer>().material = mat;  
     }
 
     public void startRace(){
