@@ -52,7 +52,7 @@ public class LobbyController : NetworkBehaviour {
 	short AddPlayerMsg = 1027;
 	short InstantiateMsg = 1026;
 	NetworkClient nc;
-	LobbyPlayerData myData;
+	public LobbyPlayerData myData;
 	
 	public void Start(){
 		lobby = GetComponent<Lobby>();

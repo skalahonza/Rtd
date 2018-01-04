@@ -13,8 +13,6 @@ public class NetworkPlayer : NetworkBehaviour {
 
     CarControl cw;
     LocalPlayer cc ;
-    public int material;
-    public int ctype;
 
     void Start() 
     {
@@ -22,8 +20,9 @@ public class NetworkPlayer : NetworkBehaviour {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
-        Debug.Log(string.Format("material for car {0} {1}", material, ctype));
-        Material mat = GameObject.Find("network").GetComponent<LobbyController>().cars[ctype].materials[material];
+        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
+        LobbyPlayerData data = lc.myData;
+        Material mat = lc.cars[data.cartype].materials[data.material];
         transform.GetChild(0).GetComponent<Renderer>().material = mat;
         transform.GetChild(1).GetComponent<Renderer>().material = mat;
         transform.GetChild(2).GetComponent<Renderer>().material = mat;
