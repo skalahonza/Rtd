@@ -16,11 +16,7 @@ public class NetworkPlayer : NetworkBehaviour {
 
     void Start() 
     {
-        cw = gameObject.GetComponent<CarControl>();
-        if (!isLocalPlayer && cw != null)
-        {
-            Destroy(cw);
-        }else if(isLocalPlayer) {
+        if(isLocalPlayer) {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }

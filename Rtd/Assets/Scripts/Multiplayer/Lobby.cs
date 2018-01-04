@@ -55,7 +55,7 @@ public class Lobby : NetworkLobbyManager {
 
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
-        Debug.Log("SRV connected");
+        Debug.Log(string.Format("SRV connected {0}", conn.connectionId));
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
         conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
@@ -72,7 +72,6 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        Debug.Log("CREATE GAME OBJECT");
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
