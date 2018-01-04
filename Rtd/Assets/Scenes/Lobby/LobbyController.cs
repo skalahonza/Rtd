@@ -139,7 +139,7 @@ public class LobbyController : NetworkBehaviour {
 		AddPlayerData msg = new AddPlayerData();
 		msg.data = new LobbyPlayerData();
 		myID = msg.data.ID = inst.ID;
-		msg.data.material = inst.ID - 1;
+		msg.data.material = inst.ID;
 		msg.data.cname = cname;
 		myData[myID] = msg.data;
 		msg.data.cartype = 0;
