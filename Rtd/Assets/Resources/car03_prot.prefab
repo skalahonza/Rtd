@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 82694802443353698}
   - component: {fileID: 114291612777492272}
   - component: {fileID: 114554669688084896}
+  - component: {fileID: 114626136587631230}
   m_Layer: 0
   m_Name: car03_prot
   m_TagString: Player
@@ -760,6 +761,17 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114626136587631230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061bf477e506e4d838d2cf688dd40bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!146 &146002045346198414
 WheelCollider:
   m_ObjectHideFlags: 1

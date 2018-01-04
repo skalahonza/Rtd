@@ -84,7 +84,6 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        Debug.Log("LOAD");
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
@@ -94,9 +93,7 @@ public class Lobby : NetworkLobbyManager {
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
         go.transform.GetChild(4).GetComponent<Renderer>().material = material;*/
-        //SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
-        LocalPlayer cc = go.AddComponent<LocalPlayer>();
-        cc.startRace = true;        
+        //SceneManager.LoadScene("HUD", LoadSceneMode.Additive);  
         return go;
     }
 

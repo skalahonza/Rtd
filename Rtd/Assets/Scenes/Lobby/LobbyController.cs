@@ -29,6 +29,9 @@ public class UpdatePlayerData : MessageBase{
 	public LobbyPlayerData data;
 }
 
+public class StartGame : MessageBase {
+
+}
 
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
@@ -125,7 +128,6 @@ public class LobbyController : NetworkBehaviour {
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 		}
 		playerSetupObj[msg.data.ID - 1] = go;
-
 	}
 
 	public void OnConnected(NetworkMessage netMsg){

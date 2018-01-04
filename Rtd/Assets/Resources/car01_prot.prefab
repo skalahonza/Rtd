@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 82009688519919028}
   - component: {fileID: 114418320773701182}
   - component: {fileID: 114155888292397328}
+  - component: {fileID: 114006717428324150}
   m_Layer: 0
   m_Name: car01_prot
   m_TagString: Player
@@ -726,6 +727,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114006717428324150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061bf477e506e4d838d2cf688dd40bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114155888292397328
 MonoBehaviour:
   m_ObjectHideFlags: 1
