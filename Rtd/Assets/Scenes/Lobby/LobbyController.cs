@@ -54,7 +54,7 @@ public class LobbyController : NetworkBehaviour {
 	NetworkClient nc;
 	int myID;
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
-	
+
 	public void Start(){
 		lobby = GetComponent<Lobby>();
 		mmaker.SetActive(false);
