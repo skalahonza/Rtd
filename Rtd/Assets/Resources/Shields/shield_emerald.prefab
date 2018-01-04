@@ -71,6 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4914169514721710}
   - component: {fileID: 95476491579297852}
+  - component: {fileID: 114190336755804898}
   m_Layer: 0
   m_Name: shield_emerald
   m_TagString: Untagged
@@ -489,3 +490,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114190336755804898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826083555660136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 23
+    i1: 223
+    i2: 11
+    i3: 94
+    i4: 95
+    i5: 42
+    i6: 223
+    i7: 244
+    i8: 233
+    i9: 113
+    i10: 148
+    i11: 115
+    i12: 14
+    i13: 193
+    i14: 31
+    i15: 69
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
