@@ -13,6 +13,7 @@ public class NetworkPlayer : NetworkBehaviour {
 
     CarControl cw;
     LocalPlayer cc;
+    [SyncVar]
     public int pid;
 
     void Start() 
