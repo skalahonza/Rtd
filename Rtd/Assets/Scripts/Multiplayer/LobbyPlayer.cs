@@ -30,10 +30,4 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	void Awake() {
         DontDestroyOnLoad(transform.gameObject);
     }
-
-    private void OnStartClient(){
-		if(isLocalPlayer){
-			gameObject.AddComponent<LocalPlayer>();
-		}
-	}
 }

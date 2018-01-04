@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityStandardAssets.Utility;
 using Assets.Scripts.Constants;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CarControl))]
 public class NetworkPlayer : NetworkBehaviour {
 
 
     CarControl cw;
-    
+    LocalPlayer cc ;
+
     void Start() 
     {
         cw = gameObject.GetComponent<CarControl>();
@@ -19,19 +21,18 @@ public class NetworkPlayer : NetworkBehaviour {
         {
             Destroy(cw);
         }else if(isLocalPlayer) {
+            SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
     }
 
     public void startRace(){
-        foreach(var car in cars){
-            car.GetComponent<Player>().StartRace(map);
-        }
+        cc.StartRace(GameObject.Find("metadata").GetComponent<Map>());
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
-            LocalPlayer cc = gameObject.AddComponent<LocalPlayer>();
+            cc = gameObject.AddComponent<LocalPlayer>();
             cc.startRace = true; 
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);

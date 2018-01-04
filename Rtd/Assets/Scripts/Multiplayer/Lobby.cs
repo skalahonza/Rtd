@@ -17,8 +17,6 @@ public class Lobby : NetworkLobbyManager {
     List<LobbyPlayerData> players = new List<LobbyPlayerData>();
     List<NetworkConnection> connections = new List<NetworkConnection>();
 
-    int loaded = 0;
-
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
         Debug.Log(string.Format("Map changed to {0}", msg.offset));
@@ -43,6 +41,7 @@ public class Lobby : NetworkLobbyManager {
         msg.players = players.ToArray();
         msg.mapIndex = MapIndex;
         msg.ID = id;
+    
         conn.Send(InstantiateMsg, msg);
     }
 
@@ -53,18 +52,7 @@ public class Lobby : NetworkLobbyManager {
     public override void OnLobbyStartServer(){
         Debug.Log("Server Started");
     }
-/*    
-    public override void OnLobbyServerPlayersReady(){
-        string sceneName = GameObject.Find("network").GetComponent<LobbyController>().maps[MapIndex].scene;
-        Application.LoadLevel(sceneName);
-        NetworkManager.singleton.ServerChangeScene(sceneName);
-    }
 
-    public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
-        loaded++;
-        return true;
-    }
-*/
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
         Debug.Log("SRV connected");
@@ -83,17 +71,17 @@ public class Lobby : NetworkLobbyManager {
         SendAll(msg, UpdatePlayerMsg);
     }
 
+     [RPC]
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[playerControllerId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
-        /*Material material = lc.cars[data.cartype].materials[data.material];
+        Material material = lc.cars[data.cartype].materials[data.material];
         go.transform.GetChild(0).GetComponent<Renderer>().material = material;
         go.transform.GetChild(1).GetComponent<Renderer>().material = material;
         go.transform.GetChild(2).GetComponent<Renderer>().material = material;
         go.transform.GetChild(3).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(4).GetComponent<Renderer>().material = material;*/
-        //SceneManager.LoadScene("HUD", LoadSceneMode.Additive);  
+        go.transform.GetChild(4).GetComponent<Renderer>().material = material;  
         return go;
     }
 
