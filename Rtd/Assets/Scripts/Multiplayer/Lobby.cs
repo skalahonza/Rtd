@@ -53,13 +53,13 @@ public class Lobby : NetworkLobbyManager {
     public override void OnLobbyStartServer(){
         Debug.Log("Server Started");
     }
-    
+/*    
     public override void OnLobbyServerPlayersReady(){
         string sceneName = GameObject.Find("network").GetComponent<LobbyController>().maps[MapIndex].scene;
         Application.LoadLevel(sceneName);
         NetworkManager.singleton.ServerChangeScene(sceneName);
     }
-/*
+
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
         loaded++;
         return true;
