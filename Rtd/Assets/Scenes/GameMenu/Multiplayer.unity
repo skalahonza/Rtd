@@ -329,6 +329,13 @@ MonoBehaviour:
   - {fileID: 1791092459031418, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   - {fileID: 1750864972512678, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   - {fileID: 1056444904812556, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
+  - {fileID: 1056966752839254, guid: 421691368471fab44a696e75701d31bc, type: 2}
+  - {fileID: 1479726337392158, guid: b777b54bfc4a2eb4b8d13bf8cf4b89bb, type: 2}
+  - {fileID: 1976259511280868, guid: b409a3714a0f84d4c9ddf3a994a9dc80, type: 2}
+  - {fileID: 1042804733819322, guid: bc94beea1ad68a54090e94395bb67d27, type: 2}
+  - {fileID: 1904063434479526, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
+  - {fileID: 1455124742998872, guid: 5a9859344537a164db51adde53225edf, type: 2}
+  - {fileID: 1209771239385708, guid: eddb6727c599144498b6d703f326bd55, type: 2}
   - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -1255,8 +1262,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1663651944}
   m_HandleRect: {fileID: 1663651943}
   m_Direction: 2
-  m_Value: 0.00000010547556
-  m_Size: 0.2766668
+  m_Value: 0.0000003867435
+  m_Size: 0.27666557
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3524,7 +3531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0042768456, y: 216.99991}
+  m_AnchoredPosition: {x: 0.0042768456, y: 216.99994}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &1036621569
