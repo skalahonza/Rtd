@@ -65,6 +65,7 @@ public class Lobby : NetworkLobbyManager {
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
+        go.GetComponent<NetworkPlayer>().pid = conn.connectionId;
         return go;
     }
 
