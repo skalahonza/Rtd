@@ -73,7 +73,7 @@ public class Lobby : NetworkLobbyManager {
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
-        LobbyPlayerData data = players[playerControllerId];
+        LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
         Material material = lc.cars[data.cartype].materials[data.material];
         go.transform.GetChild(0).GetComponent<Renderer>().material = material;
