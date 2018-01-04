@@ -52,7 +52,8 @@ public class LobbyController : NetworkBehaviour {
 	short AddPlayerMsg = 1027;
 	short InstantiateMsg = 1026;
 	NetworkClient nc;
-	public LobbyPlayerData myData;
+	int myID;
+	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 	
 	public void Start(){
 		lobby = GetComponent<Lobby>();
@@ -124,10 +125,11 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<AddPlayerData>();
 		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
-		if(myData.ID != msg.data.ID){
+		if(myData[myID].ID != msg.data.ID){
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 		}
 		playerSetupObj[msg.data.ID - 1] = go;
+		myData[msg.data.ID - 1]  = msg.data;
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
@@ -135,8 +137,8 @@ public class LobbyController : NetworkBehaviour {
 		mapIndex = inst.mapIndex;
 		ResetMap();
 		AddPlayerData msg = new AddPlayerData();
-		myData = msg.data = new LobbyPlayerData();
-		msg.data.ID = inst.ID;
+		myData[msg.data.ID] = msg.data = new LobbyPlayerData();
+		myID = msg.data.ID = inst.ID;
 		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
 		msg.data.cartype = 0;
@@ -149,6 +151,7 @@ public class LobbyController : NetworkBehaviour {
      		go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = plr.cartype;
 			bug1 = false;
 			playerSetupObj[plr.ID - 1] = go;
+			myData[plr.ID - 1]  = plr;
 		}
     }
 
@@ -156,6 +159,7 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
 		bug1 = true;
 		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+		myData[msg.data.ID - 1]  = msg.data;
 		bug1 = false;
 	}
 
@@ -163,9 +167,9 @@ public class LobbyController : NetworkBehaviour {
 		if(bug1){
 			return;
 		}
-		myData.cartype = dd.value;
+		myData[myID].cartype = dd.value;
 		UpdatePlayerData msg = new UpdatePlayerData();
-		msg.data = myData;
+		msg.data = myData[myID];
 		nc.Send(UpdatePlayerMsg, msg);
 	}
 }
