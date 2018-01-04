@@ -137,10 +137,11 @@ public class LobbyController : NetworkBehaviour {
 		mapIndex = inst.mapIndex;
 		ResetMap();
 		AddPlayerData msg = new AddPlayerData();
-		myData[msg.data.ID] = msg.data = new LobbyPlayerData();
+		msg.data = new LobbyPlayerData();
 		myID = msg.data.ID = inst.ID;
 		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
+		myData[msg.data.ID] = msg;
 		msg.data.cartype = 0;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
