@@ -128,8 +128,8 @@ public class LobbyController : NetworkBehaviour {
 		if(myData[myID].ID != msg.data.ID){
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 		}
-		playerSetupObj[msg.data.ID - 1] = go;
-		myData[msg.data.ID - 1]  = msg.data;
+		playerSetupObj[msg.data.ID ] = go;
+		myData[msg.data.ID]  = msg.data;
 	}
 
 	public void OnConnected(NetworkMessage netMsg){
@@ -141,7 +141,7 @@ public class LobbyController : NetworkBehaviour {
 		myID = msg.data.ID = inst.ID;
 		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
-		myData[msg.data.ID] = msg.data;
+		myData[myID = msg.data;
 		msg.data.cartype = 0;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
@@ -151,16 +151,16 @@ public class LobbyController : NetworkBehaviour {
 			bug1 = true;
      		go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = plr.cartype;
 			bug1 = false;
-			playerSetupObj[plr.ID - 1] = go;
-			myData[plr.ID - 1]  = plr;
+			playerSetupObj[plr.ID] = go;
+			myData[plr.ID] = plr;
 		}
     }
 
 	public void UpdatePlayer(NetworkMessage netMsg){
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
 		bug1 = true;
-		playerSetupObj[msg.data.ID - 1].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
-		myData[msg.data.ID - 1]  = msg.data;
+		playerSetupObj[msg.data.ID].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+		myData[msg.data.ID]  = msg.data;
 		bug1 = false;
 	}
 

@@ -51,14 +51,14 @@ public class Lobby : NetworkLobbyManager {
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
         conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
         base.OnServerConnect(conn);
-        Instantiate(conn, connections.Count);
+        Instantiate(conn, connections.Count-1);
     }
 
     public void UpdatePlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<UpdatePlayerData>();
-        players[msg.data.ID -1] = msg.data;
-        players[msg.data.ID -1].material = msg.data.material;
-        players[msg.data.ID -1].cartype = msg.data.cartype;
+        players[msg.data.ID] = msg.data;
+        players[msg.data.ID].material = msg.data.material;
+        players[msg.data.ID].cartype = msg.data.cartype;
         SendAll(msg, UpdatePlayerMsg);
     }
 
