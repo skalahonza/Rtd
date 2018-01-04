@@ -28,7 +28,7 @@ public class TestPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            spirit.CmdUsePowerUp();
+            spirit.UsePowerUp();
         }
         control.setUpdate(spirit.MaxMotorTorque * Input.GetAxis(AxisNames.Vertical)
             , spirit.MaxSteeringAngle * Input.GetAxis(AxisNames.Horizontal)

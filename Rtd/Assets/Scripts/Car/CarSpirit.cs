@@ -92,20 +92,15 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         }
     }
 
-    [Command]
-    public void CmdUsePowerUp()
+    
+    public void UsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
             if (_powerUp.Use(this))
-            {
-                //sync objects created by powerups
-                foreach (var obj in _powerUp.ObjectsToSynchronize)
-                {
-                    NetworkServer.Spawn(obj);
-                }
-
+            {                
+                CmdSyncPowerUp();
                 //Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
@@ -118,6 +113,15 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         else
         {
             SoundMechanics.SpawnSound("error_sound");
+        }
+    }
+    [Command]
+    public void CmdSyncPowerUp()
+    {
+        //sync objects created by powerups
+        foreach (var obj in _powerUp.ObjectsToSynchronize)
+        {
+            NetworkServer.Spawn(obj);
         }
     }
 }
