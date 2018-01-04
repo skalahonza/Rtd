@@ -41,7 +41,6 @@ public class Lobby : NetworkLobbyManager {
         msg.players = players.ToArray();
         msg.mapIndex = MapIndex;
         msg.ID = id;
-    
         conn.Send(InstantiateMsg, msg);
     }
 
