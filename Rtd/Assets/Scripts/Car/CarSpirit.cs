@@ -4,8 +4,9 @@ using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CarSpirit : MonoBehaviour, IDamagable
+public class CarSpirit : NetworkBehaviour, IDamagable
 {
     public float MaxHp;
     public float Hp;
@@ -91,13 +92,20 @@ public class CarSpirit : MonoBehaviour, IDamagable
         }
     }
 
-    public void UsePowerUp()
+    [Command]
+    public void CmdUsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
             if (_powerUp.Use(this))
             {
+                //sync objects created by powerups
+                foreach (var obj in _powerUp.ObjectsToSynchronize)
+                {
+                    NetworkServer.Spawn(obj);
+                }
+
                 //Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;

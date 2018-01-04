@@ -11,12 +11,22 @@ namespace Assets.Scripts.Powerups
         private float radius = 25;
         private float damage = 15;
 
+        public List<GameObject> ObjectsToSynchronize { get; private set; }
+
+        public SurgePowerUp()
+        {
+            ObjectsToSynchronize = new List<GameObject>();
+        }
+
         public bool Use(CarSpirit car)
         {
             if (!targets.Any()) return false;
 
-            SoundMechanics.SpawnSound("surge_sound");
-            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+            var sound = SoundMechanics.SpawnSound("surge_sound");
+            var effect = AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+            ObjectsToSynchronize.Add(sound);
+            ObjectsToSynchronize.Add(effect);
+
             foreach (var target in targets)
             {
                 target.SufferDamage(this);

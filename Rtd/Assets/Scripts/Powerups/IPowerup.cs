@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
@@ -18,5 +19,7 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <returns>Sprite of powerup</returns>
         Sprite GetPowerupIcon();
+
+        List<GameObject> ObjectsToSynchronize { get; }
     }
 }

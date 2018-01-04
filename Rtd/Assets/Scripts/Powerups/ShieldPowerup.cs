@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Powerups.Shields;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 
 namespace Assets.Scripts.Powerups
@@ -6,6 +7,13 @@ namespace Assets.Scripts.Powerups
     public class ShieldPowerup<T> : IPowerup
         where T :ShieldBase, new()
     {
+        public List<GameObject> ObjectsToSynchronize { get; private set; }
+
+        public ShieldPowerup()
+        {
+            ObjectsToSynchronize = new List<GameObject>();
+        }
+
         public bool Use(CarSpirit car)
         {
             if (car.Shield != null)
@@ -15,6 +23,8 @@ namespace Assets.Scripts.Powerups
 
             car.Shield = new T();
             car.Shield.Apply(car);
+            ObjectsToSynchronize.Add(car.Shield.ShieldSoundPlayer);
+            ObjectsToSynchronize.Add(car.Shield.ShieldVisualization);
             return true;
         }
 
@@ -26,6 +36,6 @@ namespace Assets.Scripts.Powerups
         public Sprite GetPowerupIcon()
         {
             return new T().GetPowerupIcon();
-        }
+        }        
     }
 }

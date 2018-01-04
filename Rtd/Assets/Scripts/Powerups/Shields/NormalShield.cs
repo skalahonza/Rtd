@@ -21,7 +21,7 @@ namespace Assets.Scripts.Powerups.Shields
         {
             var sound = SoundMechanics.SpawnSound("long_shield_sound");
             sound.transform.parent = car.transform;
-            shieldSoundPlayer = sound;
+            ShieldSoundPlayer = sound;
             base.Apply(car);
         }
 

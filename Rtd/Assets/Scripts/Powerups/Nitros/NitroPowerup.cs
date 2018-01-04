@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Nitros
 {
@@ -7,9 +8,12 @@ namespace Assets.Scripts.Powerups.Nitros
     {        
         public T Nitro { get; private set; }
 
+        public List<GameObject> ObjectsToSynchronize { get; private set; }
+
         public NitroPowerup()
         {
             Nitro = new T();
+            ObjectsToSynchronize = new List<GameObject>();
         }
 
         public bool Use(CarSpirit car)
@@ -34,6 +38,6 @@ namespace Assets.Scripts.Powerups.Nitros
         public Sprite GetPowerupIcon()
         {
             return Nitro.GetPowerupIcon();
-        }
+        }        
     }
 }
