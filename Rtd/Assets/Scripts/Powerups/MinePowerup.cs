@@ -2,6 +2,7 @@
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {

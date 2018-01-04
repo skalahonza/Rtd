@@ -36,6 +36,11 @@ namespace Assets.Scripts.Powerups
         public Sprite GetPowerupIcon()
         {
             return new T().GetPowerupIcon();
-        }        
+        }    
+        
+        public bool UseNetwork(CarSpirit car){
+            return PowerupNetworkSpawner.spawn(this, cars);
+        }    
     }
+
 }

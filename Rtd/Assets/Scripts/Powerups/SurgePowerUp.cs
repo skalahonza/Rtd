@@ -34,6 +34,10 @@ namespace Assets.Scripts.Powerups
             return true;
         }
 
+        public bool UseNetwork(CarSpirit car){
+            return PowerupNetworkSpawner.spawn(this, cars);
+        }
+        
         public void UpdatePowerup(CarSpirit car)
         {
             targets.Clear();

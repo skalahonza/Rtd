@@ -62,6 +62,9 @@ namespace Assets.Scripts.Powerups
             return true;
         }
 
+        public bool UseNetwork(CarSpirit car){
+            return PowerupNetworkSpawner.spawn(this, cars);
+        }
 
         /// <summary>
         /// Updates powerup targets and other properties if required

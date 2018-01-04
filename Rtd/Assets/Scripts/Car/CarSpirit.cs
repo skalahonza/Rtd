@@ -6,7 +6,7 @@ using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CarSpirit : IDamagable
+public class CarSpirit : MonoBehaviour, IDamagable
 {
     public float MaxHp;
     public float Hp;
