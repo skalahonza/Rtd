@@ -21,7 +21,7 @@ public class NetworkPlayer : NetworkBehaviour {
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
-        Debug.Log(string.Format("test ID = {0} {1}",connectionToClient.connectionId,connectionToServer.connectionId ));
+        Debug.Log(string.Format("test ID = {0} {1}",connectionToClient.connectionId));
         LobbyPlayerData data = lc.myData[playerControllerId];
         Material mat = lc.cars[data.cartype].materials[data.material];
         transform.GetChild(0).GetComponent<Renderer>().material = mat;
