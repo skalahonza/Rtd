@@ -19,13 +19,24 @@ public class NetworkPlayer : NetworkBehaviour {
         {
             Destroy(cw);
         }else if(isLocalPlayer) {
-            LocalPlayer cc = gameObject.AddComponent<LocalPlayer>();
-            cc.startRace = true; 
+            SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
     }
 
-    void FixedUpdate()
-    {
+    public void startRace(){
+        foreach(var car in cars){
+            car.GetComponent<Player>().StartRace(map);
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        if(mode == LoadSceneMode.Additive){
+            LocalPlayer cc = gameObject.AddComponent<LocalPlayer>();
+            cc.startRace = true; 
+            Counter counter = GameObject.FindObjectOfType<Counter>();
+            counter.setDelegate(startRace);
+            return;
+        }
 
     }
 }
