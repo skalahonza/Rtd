@@ -45,17 +45,8 @@ public class Lobby : NetworkLobbyManager {
         conn.Send(InstantiateMsg, msg);
     }
 
-    public override void OnLobbyStartHost(){
-        Debug.Log("Host Started");
-    }
-
-    public override void OnLobbyStartServer(){
-        Debug.Log("Server Started");
-    }
-
     public override void OnServerConnect(NetworkConnection conn){
         connections.Add(conn);
-        Debug.Log(string.Format("SRV connected {0}", conn.connectionId));
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
         conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
@@ -73,6 +64,7 @@ public class Lobby : NetworkLobbyManager {
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
+        Debug.log(string.Format("for conn.id {0}",conn.connectionId));
         LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car);
         Material material = lc.cars[data.cartype].materials[data.material];
