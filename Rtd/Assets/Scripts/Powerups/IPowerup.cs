@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
@@ -19,7 +18,12 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <returns>Sprite of powerup</returns>
         Sprite GetPowerupIcon();
+    }
 
-        List<GameObject> ObjectsToSynchronize { get; }
+    public abstract class PowerUpBase : NetworkPlayer,IPowerup
+    {
+        public abstract bool Use(CarSpirit car);
+        public abstract void UpdatePowerup(CarSpirit car);
+        public abstract Sprite GetPowerupIcon();
     }
 }

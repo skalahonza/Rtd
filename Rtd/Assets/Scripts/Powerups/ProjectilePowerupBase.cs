@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Powerups
 {
-    public abstract class ProjectilePowerupBase : IPowerup
+    public abstract class ProjectilePowerupBase : PowerUpBase
     {
         protected GameObject Target;
 
@@ -31,7 +29,7 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <param name="car">Owner of the powerup</param>
         /// <returns>True if action performed successfully</returns>
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
             if (Target == null) return false;
             
@@ -67,12 +65,12 @@ namespace Assets.Scripts.Powerups
         /// Updates powerup targets and other properties if required
         /// </summary>
         /// <param name="car">Powerup owner</param>
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
             LockTarget(car.gameObject.transform.position, car.transform.rotation);
         }
 
-        public abstract Sprite GetPowerupIcon();
+        public abstract override Sprite GetPowerupIcon();
 
         /// <summary>
         /// Lock on target from current position and rotation

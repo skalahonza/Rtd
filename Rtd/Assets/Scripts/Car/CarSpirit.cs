@@ -91,8 +91,10 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             gameObject.GetComponent<Player>().Respawn();
         }
     }
-
     
+    /// <summary>
+    /// Use currentely weared powerup
+    /// </summary>
     public void UsePowerUp()
     {
         if (_powerUp != null)
@@ -100,8 +102,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             Debug.Log("Using powerup: " + _powerUp);
             if (_powerUp.Use(this))
             {                
-                CmdSyncPowerUp();
-                //Clear powerup upon successfull action
+                //TODO Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }
@@ -113,15 +114,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         else
         {
             SoundMechanics.SpawnSound("error_sound");
-        }
-    }
-    [Command]
-    public void CmdSyncPowerUp()
-    {
-        //sync objects created by powerups
-        foreach (var obj in _powerUp.ObjectsToSynchronize)
-        {
-            NetworkServer.Spawn(obj);
         }
     }
 }

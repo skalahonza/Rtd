@@ -3,20 +3,17 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Nitros
 {
-    public class NitroPowerup<T>:IPowerup
+    public class NitroPowerup<T>: PowerUpBase
         where T:NitroBase, new()
     {        
         public T Nitro { get; private set; }
 
-        public List<GameObject> ObjectsToSynchronize { get; private set; }
-
         public NitroPowerup()
         {
             Nitro = new T();
-            ObjectsToSynchronize = new List<GameObject>();
         }
 
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
             if (car.Nitro != null)
             {
@@ -30,12 +27,12 @@ namespace Assets.Scripts.Powerups.Nitros
             return true;
         }
 
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
             
         }
 
-        public Sprite GetPowerupIcon()
+        public override Sprite GetPowerupIcon()
         {
             return Nitro.GetPowerupIcon();
         }        

@@ -5,27 +5,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
-    public class SurgePowerUp : IPowerup, IDamageDealer {  
+    public class SurgePowerUp : PowerUpBase, IDamageDealer {  
         
         private List<IDamagable> targets = new List<IDamagable>();
         private float radius = 25;
         private float damage = 15;
 
-        public List<GameObject> ObjectsToSynchronize { get; private set; }
-
-        public SurgePowerUp()
-        {
-            ObjectsToSynchronize = new List<GameObject>();
-        }
-
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
             if (!targets.Any()) return false;
 
-            var sound = SoundMechanics.SpawnSound("surge_sound");
-            var effect = AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
-            ObjectsToSynchronize.Add(sound);
-            ObjectsToSynchronize.Add(effect);
+            SoundMechanics.SpawnSound("surge_sound");
+            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
 
             foreach (var target in targets)
             {
@@ -34,7 +25,7 @@ namespace Assets.Scripts.Powerups
             return true;
         }
 
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
             targets.Clear();
             var colliders = Physics.OverlapSphere(car.transform.position, radius);
@@ -50,7 +41,7 @@ namespace Assets.Scripts.Powerups
             }
         }
 
-        public Sprite GetPowerupIcon()
+        public override Sprite GetPowerupIcon()
         {
             return ImageMechanics.LoadSprite("surge");
         }
