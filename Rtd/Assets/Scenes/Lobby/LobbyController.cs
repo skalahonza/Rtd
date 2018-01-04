@@ -141,7 +141,7 @@ public class LobbyController : NetworkBehaviour {
 		myID = msg.data.ID = inst.ID;
 		msg.data.material = inst.ID - 1;
 		msg.data.cname = cname;
-		myData[myID = msg.data;
+		myData[myID] = msg.data;
 		msg.data.cartype = 0;
 		nc.Send(AddPlayerMsg, msg);
 		foreach(var plr in inst.players){
