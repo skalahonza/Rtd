@@ -96,7 +96,7 @@ public class Lobby : NetworkLobbyManager {
         go.transform.GetChild(4).GetComponent<Renderer>().material = material;*/
         //SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         LocalPlayer cc = go.AddComponent<LocalPlayer>();
-        //cc.startRace = true;        
+        cc.startRace = true;        
         return go;
     }
 
