@@ -19,7 +19,7 @@ public class NetworkPlayer : NetworkBehaviour {
         {
             Destroy(cw);
         }else if(isLocalPlayer) {
-            gameObject.AddComponent<LocalPlayer>();
+            LocalPlayer cc = gameObject.AddComponent<LocalPlayer>();
             cc.startRace = true; 
         }
     }
