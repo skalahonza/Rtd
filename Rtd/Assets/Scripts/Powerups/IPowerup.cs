@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
@@ -19,12 +18,5 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <returns>Sprite of powerup</returns>
         Sprite GetPowerupIcon();
-    }
-
-    public abstract class PowerUpBase : NetworkBehaviour,IPowerup
-    {
-        public abstract bool Use(CarSpirit car);
-        public abstract void UpdatePowerup(CarSpirit car);
-        public abstract Sprite GetPowerupIcon();
     }
 }
