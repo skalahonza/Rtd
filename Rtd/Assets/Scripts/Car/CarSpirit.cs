@@ -6,7 +6,7 @@ using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CarSpirit : NetworkBehaviour, IDamagable
+public class CarSpirit : IDamagable
 {
     public float MaxHp;
     public float Hp;
@@ -100,7 +100,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             Debug.Log("Using powerup: " + _powerUp);
             if (_powerUp.Use(this))
             {                
-                CmdSyncPowerUp();
                 //Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
@@ -113,15 +112,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         else
         {
             SoundMechanics.SpawnSound("error_sound");
-        }
-    }
-    [Command]
-    public void CmdSyncPowerUp()
-    {
-        //sync objects created by powerups
-        foreach (var obj in _powerUp.ObjectsToSynchronize)
-        {
-            NetworkServer.Spawn(obj);
         }
     }
 }
