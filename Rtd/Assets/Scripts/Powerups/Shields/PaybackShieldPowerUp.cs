@@ -7,9 +7,9 @@ namespace Assets.Scripts.Powerups.Shields
     public class PaybackShieldPowerUp : PowerUpBase
     {
         public override bool Use(CarSpirit car)
-        {                      
+        {
             //apply shield to car
-            CmdFire();
+            SpawnEffects();
             return true;
         }
 
@@ -26,15 +26,6 @@ namespace Assets.Scripts.Powerups.Shields
             var prefab = car.Shield.GetPrefab();
             var vizualization = car.Shield.ShieldVisualization = Object.Instantiate(prefab, car.transform);
             yield return vizualization;
-        }
-
-        [Command]
-        void CmdFire()
-        {
-            foreach (var effect in SpawnEffects())
-            {
-                NetworkServer.Spawn(effect);
-            }
         }
 
         public override void UpdatePowerup(CarSpirit car)

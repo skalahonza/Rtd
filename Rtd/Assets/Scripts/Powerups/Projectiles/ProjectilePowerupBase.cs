@@ -25,25 +25,8 @@ namespace Assets.Scripts.Powerups.Projectiles
         public override bool Use(CarSpirit car)
         {
             if (Target == null) return false;     
-
-            //single player
-            if(false)
-                SpawnProjectile();
-            
-            //TODO multi kulti player
-            else
-                CmdFire();
+            SpawnProjectile();
             return true;
-        }
-
-        /// <summary>
-        /// Fire projectile and instantize it over network
-        /// </summary>
-        [Command]
-        void CmdFire()
-        {
-            GameObject projectile = SpawnProjectile();
-            NetworkServer.Spawn(projectile);
         }
 
         private GameObject SpawnProjectile()

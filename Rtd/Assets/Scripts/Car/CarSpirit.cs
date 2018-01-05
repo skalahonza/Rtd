@@ -55,7 +55,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             if (_powerUp == null)
             {
                 //TODO HANDLE SINGLEPLAYER
-                SpawnPowerup();
+                CmdSpawnPowerup();
             }
 
             _powerupSpawnPeriod = 0;
@@ -88,13 +88,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         // update powerup, retarget cars etc
         if (_powerUp != null)
             _powerUp.UpdatePowerup(this);
-    }
-
-    private void SpawnPowerup()
-    {
-        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
-        Debug.Log("Power up spawned " + _powerUp);
-    }
+    }    
 
     /// <summary>
     /// When hit by projectile or another damage dealer
@@ -117,18 +111,38 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             gameObject.GetComponent<Player>().Respawn();
         }
     }
-    
+
     /// <summary>
     /// Use currentely weared powerup
     /// </summary>
-    public void UsePowerUp()
+    [Command]
+    public void CmdUsePowerUp()
+    {
+        RpcUsePowerUp();   
+    }
+
+    [Command]
+    private void CmdSpawnPowerup()
+    {
+        RpcSpawnPowerup();
+    }
+
+    [ClientRpc]
+    private void RpcSpawnPowerup()
+    {
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
+        Debug.Log("Power up spawned " + _powerUp);
+    }
+
+    [ClientRpc]
+    public void RpcUsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
             //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
-            if (_powerUp.Use(this))            
-            {                
+            if (_powerUp.Use(this))
+            {
                 //TODO Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;

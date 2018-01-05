@@ -44,7 +44,7 @@ public class LocalPlayer : Player
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            spirit.UsePowerUp();
+            spirit.CmdUsePowerUp();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
