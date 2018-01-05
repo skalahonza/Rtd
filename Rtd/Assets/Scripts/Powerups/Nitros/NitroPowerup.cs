@@ -16,6 +16,10 @@ namespace Assets.Scripts.Powerups.Nitros
             ObjectsToSynchronize = new List<GameObject>();
         }
 
+        public bool UseNetwork(CarSpirit car){
+            return PowerupNetworkSpawner.spawn(this, car);
+        }
+
         public bool Use(CarSpirit car)
         {
             if (car.Nitro != null)
