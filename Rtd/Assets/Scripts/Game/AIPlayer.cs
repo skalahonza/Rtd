@@ -6,14 +6,14 @@ using System;
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 class AIPlayer : Player{
     CarControl control;
-	List<Vector3> path;
+	List<Vector3> path = new List<Vector3>();
 	private int pathIndex ;
 	float distFromPath = 20.0f;
 
 	float maxSteer  = 20.0f;
-	public float maxTorque  = 120.0f;
+	public float maxTorque  = 1200.0f;
 	float currentSpeed  = 0.0f;
-	float topSpeed  = 150.0f;
+	float topSpeed  = 200.0f;
 	private bool isBreaking = false;
 	public float breakForce = 500.0f;
 
@@ -46,8 +46,12 @@ class AIPlayer : Player{
     }
 
     void GetSteer () {
-
-	Vector3 steerVector  = transform.InverseTransformPoint( new Vector3(
+		if (pathIndex >= path.Count)
+		{
+			pathIndex = 0;			
+			GetPath ();
+		}
+		Vector3 steerVector  = transform.InverseTransformPoint( new Vector3(
 		path[pathIndex].x,
 		transform.position.y,
 		path[pathIndex].z)
@@ -55,7 +59,7 @@ class AIPlayer : Player{
 	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
 		control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
 	control.wheelPairs[0].rightWheelColider.steerAngle = newSteer;
-	
+	Debug.Log(string.Format("float steer {0}", newSteer));
 	if (steerVector.magnitude <= distFromPath)
 	{	
 		pathIndex++;
@@ -79,11 +83,14 @@ class AIPlayer : Player{
 	}																																																																							
 }
 
-void GetPath () {	
+void GetPath () {
+		path.Clear();	
         if(map.checkpoints.Length != checkpointOffest+1){
             agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
         }
-	//TODO: from agent
+		foreach(var point in agent.path.corners){
+			path.Add(point);
+		}
 }
 
 void Move () {
