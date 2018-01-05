@@ -43,7 +43,6 @@ namespace Assets.Scripts.Powerups
         private IEnumerable<GameObject> SpawnEffects()
         {
             var car = gameObject.GetComponent<CarSpirit>();
-            yield return SoundMechanics.SpawnSound("surge_sound");
             yield return AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
         }
 
