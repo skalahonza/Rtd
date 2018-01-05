@@ -9,7 +9,7 @@ namespace Assets.Scripts.Powerups
             PowerupNetworkSpawner inst = new PowerupNetworkSpawner();
             bool ret = pwup.Spawnable();
             if(ret){
-                GameObject.Find("network").GetComponent<PowerupNetworkSpawner>().CmdServerSpawn((MinePowerup)pwup, car.gameObject.transform.position, car.gameObject.transform.forward);
+                GameObject.Find("GameObject").GetComponent<PowerupNetworkSpawner>().CmdServerSpawn((MinePowerup)pwup, car.gameObject.transform.position, car.gameObject.transform.forward);
             }
             return ret;
         }

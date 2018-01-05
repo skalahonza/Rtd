@@ -56,8 +56,11 @@ public class LobbyController : NetworkBehaviour {
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	public void Start(){
+		gameObject.SetActive(true);
 		lobby = GetComponent<Lobby>();
 		mmaker.SetActive(false);
+		GameObject.Find("GameObject").SetActive(true);
+		DontDestroyOnLoad(GameObject.Find("GameObject"));
 	}
 
 	public void Host () {
