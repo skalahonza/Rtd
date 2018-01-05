@@ -10,10 +10,7 @@ class AIPlayer : Player{
 	private int pathIndex ;
 	float distFromPath = 20.0f;
 
-	float maxSteer  = 30.0f;
-	public float maxTorque  = 2100.0f;
 	float currentSpeed  = 0.0f;
-	float topSpeed  = 207.0f;
 	private bool isBreaking = false;
 	public float breakForce = 500.0f;
 
@@ -57,7 +54,7 @@ class AIPlayer : Player{
 		transform.position.y,
 		path[pathIndex].z)
 		);
-	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
+	float newSteer  = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
 	if(control.wheelPairs[0].steering){
 		control.wheelPairs[0].rightWheelColider.steerAngle = control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
 	}else{
@@ -108,11 +105,11 @@ for (int i= 0; i < 2; i++)
 			currentSpeed = 2*22 /7 * wheelsCollider.radius * wheelsCollider.rpm * 60/1000;
 			currentSpeed = Mathf.Round(currentSpeed);
 						
-			if (currentSpeed < topSpeed && !isBreaking)
+			if (currentSpeed < spirit.maxSpeed && !isBreaking)
 			{
 				//accelarate the car
-				float accelarate  = 1.0f;
-				wheelsCollider.motorTorque = accelarate * maxTorque;
+				wheelsCollider.motorTorque = spirit.MaxMotorTorque;
+				wheelsCollider.motorTorque = Mathf.Lerp(wheelsCollider.motorTorque, 0, wheelsCollider.rpm / spirit.maxRPM);
 			}
 			else
 			{			
@@ -163,11 +160,8 @@ void driveBackwards() {
 for (int i= 0; i < 2; i++)
 		{	
 			wheelsCollider = (i == 1 ? col.leftWheelColider : col.rightWheelColider);
-
-		float accelarateBack  = 1.0f;		
-		
-		wheelsCollider.motorTorque = 0;
-		wheelsCollider.motorTorque -= accelarateBack * maxTorque;
+			wheelsCollider.motorTorque = -spirit.MaxMotorTorque	;
+			wheelsCollider.motorTorque =  Mathf.Lerp(wheelsCollider.motorTorque, 0, wheelsCollider.rpm / spirit.maxRPM);
 		
 		timer -= Time.deltaTime;
 	
