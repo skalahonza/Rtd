@@ -53,6 +53,7 @@ public class LobbyController : NetworkBehaviour {
 	GameObject[] playerSetupObj = new GameObject[5];
 
 	bool bug1 = false;
+	bool bug2 = false;
 	Lobby lobby;
 	short SetMapMsg = 1024;
 	short UpdatePlayerMsg = 1025;
@@ -67,6 +68,9 @@ public class LobbyController : NetworkBehaviour {
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	public void Start(){
+		if(bug2){
+			return;
+		}
 		gameObject.SetActive(true);
 		lobby = GetComponent<Lobby>();
 		mmaker.SetActive(false);
@@ -220,12 +224,11 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Kicked(NetworkMessage netMsg){
-
-		//destroy all players
-		//destroy  network
+		bug2 = true;
+		lobby.dontDestroyOnLoad = false;
 		Destroy(GameObject.Find("network"));
 		Destroy(GameObject.Find("GameObject"));
 		NetworkManager.Shutdown();
-		Application.LoadLevel("Menu");
+		SceneManager.LoadScene("Menu");
 	}
 }
