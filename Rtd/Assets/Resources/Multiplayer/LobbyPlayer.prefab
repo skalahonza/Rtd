@@ -40,7 +40,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce61a9f94b244c49bb7aab0825fd0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowLobbyGUI: 1
+  ShowLobbyGUI: 0
+  data:
+    cname: 
+    cartype: 0
+    material: 0
+    ID: 0
 --- !u!114 &114502849394778530
 MonoBehaviour:
   m_ObjectHideFlags: 1

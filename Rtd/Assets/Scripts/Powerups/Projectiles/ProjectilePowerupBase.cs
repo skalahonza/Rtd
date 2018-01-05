@@ -74,7 +74,10 @@ namespace Assets.Scripts.Powerups.Projectiles
             return projectile;
         }
 
-
+        public bool Spawnable(){
+            return true;
+        }
+        
         /// <summary>
         /// Updates powerup targets and other properties if required
         /// </summary>

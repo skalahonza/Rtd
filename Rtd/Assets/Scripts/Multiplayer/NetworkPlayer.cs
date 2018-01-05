@@ -12,7 +12,9 @@ public class NetworkPlayer : NetworkBehaviour {
 
 
     CarControl cw;
-    LocalPlayer cc ;
+    LocalPlayer cc;
+    [SyncVar]
+    public int pid;
 
     void Start() 
     {
@@ -20,8 +22,8 @@ public class NetworkPlayer : NetworkBehaviour {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
-        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
-        LobbyPlayerData data = lc.myData;
+        LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+        LobbyPlayerData data = lc.myData[pid];
         Material mat = lc.cars[data.cartype].materials[data.material];
         transform.GetChild(0).GetComponent<Renderer>().material = mat;
         transform.GetChild(1).GetComponent<Renderer>().material = mat;
@@ -37,11 +39,9 @@ public class NetworkPlayer : NetworkBehaviour {
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
             cc = gameObject.AddComponent<LocalPlayer>();
-            cc.startRace = true; 
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
             return;
         }
-
     }
 }

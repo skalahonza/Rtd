@@ -9,7 +9,7 @@ using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CarSpirit : NetworkBehaviour, IDamagable
+public class CarSpirit : MonoBehaviour, IDamagable
 {
     public float MaxHp;
     public float Hp;
@@ -115,7 +115,8 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
-            if (_powerUp.Use(this))
+            //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
+            if (_powerUp.Use(this))            
             {                
                 //TODO Clear powerup upon successfull action
                 Destroy(_powerUp);
