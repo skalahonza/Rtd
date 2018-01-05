@@ -1,6 +1,7 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups.Projectiles
 {
@@ -23,8 +24,31 @@ namespace Assets.Scripts.Powerups.Projectiles
         /// <returns>True if action performed successfully</returns>
         public override bool Use(CarSpirit car)
         {
-            if (Target == null) return false;
+            if (Target == null) return false;     
+
+            //single player
+            if(true)
+                SpawnProjectile();
             
+            //TODO multi kulti player
+            else
+                CmdFire();
+            return true;
+        }
+
+        /// <summary>
+        /// Fire projectile and instantize it over network
+        /// </summary>
+        [Command]
+        void CmdFire()
+        {
+            GameObject projectile = SpawnProjectile();
+            NetworkServer.Spawn(projectile);
+        }
+
+        private GameObject SpawnProjectile()
+        {
+            var car = gameObject.GetComponent<CarSpirit>();
             // create projectile instance
             //spawn and fire projectile
             var prefab = GetProjectilePrefab();
@@ -39,7 +63,7 @@ namespace Assets.Scripts.Powerups.Projectiles
             if (car.gameObject.GetComponent<AIPlayer>() != null)
             {
                 var emulatedVeloity = car.gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                emulatedVeloity *= car.maxSpeed/3.6f;
+                emulatedVeloity *= car.maxSpeed / 3.6f;
                 velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, emulatedVeloity,
                     car.transform.position, projBase.Speed);
             }
@@ -47,7 +71,7 @@ namespace Assets.Scripts.Powerups.Projectiles
                 velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
 
             projectile.GetComponent<Rigidbody>().velocity = velocity;
-            return true;
+            return projectile;
         }
 
 

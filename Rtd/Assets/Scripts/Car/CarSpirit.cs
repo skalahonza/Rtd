@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
