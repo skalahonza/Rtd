@@ -8,8 +8,6 @@ namespace Assets.Scripts.Powerups
 {
     public class MinePowerup: PowerUpBase
     {
-        private  MineBase Mine = new CarMine();
-
         public override bool Use(CarSpirit car)
         {
             
@@ -23,7 +21,7 @@ namespace Assets.Scripts.Powerups
             CarSpirit car = gameObject.GetComponent<CarSpirit>();
             var postion = car.gameObject.transform.position + car.gameObject.transform.forward * -1 * NumberConstants.SpawningDiretionMultiplier * 5;
             postion = NumberConstants.MineSpawnHeight(postion);
-            return Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+            return Instantiate(Resources.Load<GameObject>("car_mine"), postion, new Quaternion());
         }
 
         [Command]
