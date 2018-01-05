@@ -22,7 +22,7 @@ namespace Assets.Scripts.Powerups
             postion = NumberConstants.MineSpawnHeight(postion);
             var sound = SoundMechanics.SpawnSound("car_mine_sound");
             NetworkServer.Spawn(sound);
-            var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+            var mine = GameObject.Instantiate(Resources.Load<GameObject>("car_mine"), postion, new Quaternion());
             NetworkServer.Spawn(mine);
         }
 
