@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class LobbyPlayer : NetworkLobbyPlayer {
 
 	[SyncVar]
-	int ID;
+	public int ID;
 
 	public void Start(){
 		if(isLocalPlayer){
@@ -19,8 +19,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	}
 
 	public void Play(){
-		LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
-		ID = lc.myID;
 		Button play = GameObject.Find("Play").GetComponent<Button>();
 		if(play.GetComponentInChildren<Text>().text == "Ready"){
 			play.GetComponentInChildren<Text>().text = "Not Ready";

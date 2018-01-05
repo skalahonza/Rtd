@@ -126,6 +126,13 @@ public class Lobby : NetworkLobbyManager {
         go.GetComponent<NetworkPlayer>().pid = pid;
         return go;
     }
+    
+    public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
+    {
+      GameObject go = Instantiate(lobbyPlayerPrefab.gameObject);
+      go.GetComponent<LobbyPlayer>().ID = cid[conn.connectionId];
+      return go;
+    }
 
     public void KickPlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<KickData>();
