@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
@@ -9,6 +8,14 @@ using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(MissilePowerup))]
+[RequireComponent(typeof(ReverseMissilePowerup))]
+[RequireComponent(typeof(MinePowerup))]
+[RequireComponent(typeof(SurgePowerUp))]
+[RequireComponent(typeof(NormalShieldPowerUp))]
+[RequireComponent(typeof(PaybackShieldPowerUp))]
+[RequireComponent(typeof(SpeedyNitrPowerUp))]
+[RequireComponent(typeof(TimedNitroPowerUp))]
 public class CarSpirit : NetworkBehaviour, IDamagable
 {
     public float MaxHp;
@@ -48,7 +55,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             if (_powerUp == null)
             {
                 //TODO HANDLE SINGLEPLAYER
-                CmdSpawnPwrUp();
+                SpawnPowerup();
             }
 
             _powerupSpawnPeriod = 0;
@@ -85,16 +92,8 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
     private void SpawnPowerup()
     {
-        gameObject.AddComponent(_powerupGenerator.GetPowerUpType());
-        _powerUp = gameObject.GetComponent<PowerUpBase>();
-
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
         Debug.Log("Power up spawned " + _powerUp);
-    }
-
-    [Command]
-    public void CmdSpawnPwrUp()
-    {
-        SpawnPowerup();
     }
 
     /// <summary>
@@ -131,7 +130,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             if (_powerUp.Use(this))            
             {                
                 //TODO Clear powerup upon successfull action
-                Destroy(_powerUp);
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }
