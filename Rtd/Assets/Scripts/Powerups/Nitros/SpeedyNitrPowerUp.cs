@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Nitros
 {
-    public class NitroPowerup<T>: IPowerup
-        where T:NitroBase, new()
-    {        
-        public T Nitro { get; private set; }
+    public class SpeedyNitrPowerUp : PowerUpBase
+    {
+        public SpeedyNitro Nitro { get; private set; }
 
-        public NitroPowerup()
+        public SpeedyNitrPowerUp()
         {
-            Nitro = new T();
+            Nitro = new SpeedyNitro();
         }
 
-        public  bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
             if (car.Nitro != null)
             {
@@ -27,14 +25,14 @@ namespace Assets.Scripts.Powerups.Nitros
             return true;
         }
 
-        public  void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
-            
+
         }
 
-        public  Sprite GetPowerupIcon()
+        public override Sprite GetPowerupIcon()
         {
             return Nitro.GetPowerupIcon();
-        }        
+        }
     }
 }
