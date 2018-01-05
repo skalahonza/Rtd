@@ -1,49 +1,59 @@
 using Assets.Scripts.Car;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 class AIPlayer : Player{
-
+/*
     CarControl control;
+	List<Transform> path;
+	private int pathIndex ;
+	float distFromPath = 20.0f;
+
+	float maxSteer  = 20.0f;
+	public float maxTorque  = 120.0f;
+	float currentSpeed  = 0.0f;
+	float topSpeed  = 150.0f;
+
+	private bool isBreaking = false;
+	public float breakForce = 500.0f;
+
+	private bool isRunning  = true;
+	float timer = 1.5f;
+	float resetTimer = 500.0f;
+	float m_Downforce = 100.0f;
     CarSpirit spirit;
-    UnityEngine.AI.NavMeshAgent agent   ;
+    UnityEngine.AI.NavMeshAgent agent;
+
     void Start(){
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         spirit = GetComponent<CarSpirit>();
         control = GetComponent<CarControl>();
-
-        //set info from car
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.autoBraking = false;
-        //agent.acceleration = spirit.MaxMotorTorque;
-        agent.speed = /*spirit.maxSpeed/2*/30;
-        agent.angularSpeed = 30;
-        agent.height = 5.5f;
-        agent.radius = 8.0f;
-        //set offset
-        agent.baseOffset = 1.2f;
+		GetPath ();
     }
 
     void FixedUpdate() {
         if(!startRace)
             return;
-        if(map.checkpoints.Length != checkpointOffest+1){
-            agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
-        }
-        
-	    //GetSteer ();
-	    //Move ();
-	    //Breaking ();	
+	    GetSteer ();
+	    Move ();
+	    Breaking ();	
         if(!agent.isOnNavMesh){
             Respawn(false);
         }
     }
-/*
+
     void GetSteer () {
 
-	Vector3 steerVector  = transform.InverseTransformPoint(Vector3(path[currentPathObj].position.x,
-								transform.position.y,path[currentPathObj].position.z));
+	Vector3 steerVector  = transform.InverseTransformPoint( new Vector3(
+		path[pathIndex].position.x,
+		transform.position.y,
+		path[pathIndex].position.z)
+		);
 	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
 	
 	wheelsCollider [0].steerAngle = newSteer;
@@ -51,31 +61,17 @@ class AIPlayer : Player{
 	
 	if (steerVector.magnitude <= distFromPath)
 	{	
-		currentPathObj++;
-		
-		if (currentPathObj >= path.length)
+		pathIndex++;
+		if (pathIndex >= path.Count)
 		{
-			currentPathObj = 0;			
-			
-			var randomValue  = Random.Range(0,2);
-		
-			if (randomValue == 0)
-			{
-				GetPath ();
-			    //Debug.Log("Im in path 1");
-			}		
-			
-			if (randomValue == 1)
-			{			
-				GetPath2 ();
-				//Debug.Log("Im in path 2");
-			}		
+			pathIndex = 0;			
+			GetPath ();
 		}		
 	}	
 		
 	if (Math.Abs (newSteer) >= 8 && GetComponent<Rigidbody>().velocity.magnitude >= 15)
 	{					
-		if (distFromPath)
+		if (distFromPath != 0.0f)
 		{
 			isBreaking = true;
 		}
@@ -84,6 +80,13 @@ class AIPlayer : Player{
 	{
 		isBreaking = false;
 	}																																																																							
+}
+
+void GetPath () {	
+        if(map.checkpoints.Length != checkpointOffest+1){
+            agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
+        }
+	//TODO: from agent
 }
 
 void Move () {
@@ -123,28 +126,44 @@ private void AddDownForce()
 void Breaking () {
 
 	if (isBreaking)
-	{	
-		breakLights.SetActive(true);
-		
+	{			
 		wheelsCollider[0].brakeTorque = breakForce;	
 		wheelsCollider[1].brakeTorque = breakForce;	
 		wheelsCollider[2].brakeTorque = breakForce;	
 		wheelsCollider[3].brakeTorque = breakForce;
 		
-		wheelsCollider[0].motorTorque = 0.0;	
-		wheelsCollider[1].motorTorque = 0.0;	
-		wheelsCollider[2].motorTorque = 0.0;	
-		wheelsCollider[3].motorTorque = 0.0;
+		wheelsCollider[0].motorTorque = 0.0f;	
+		wheelsCollider[1].motorTorque = 0.0f;	
+		wheelsCollider[2].motorTorque = 0.0f;	
+		wheelsCollider[3].motorTorque = 0.0f;
 	}
 	else
 	{				
-		breakLights.SetActive(false);
-		
-		wheelsCollider[0].brakeTorque = 0;	
-		wheelsCollider[1].brakeTorque = 0;	
-		wheelsCollider[2].brakeTorque = 0;	
-		wheelsCollider[3].brakeTorque = 0;	
+
+		wheelsCollider[0].brakeTorque = 0f;	
+		wheelsCollider[1].brakeTorque = 0f;	
+		wheelsCollider[2].brakeTorque = 0f;	
+		wheelsCollider[3].brakeTorque = 0f;	
 	}
 }
-*/
+void driveBackwards() {
+	
+	for (int i = 0; i < 4; i++)
+	{
+		float accelarateBack  = 1.0f;		
+		
+		wheelsCollider[i].motorTorque = 0;
+		wheelsCollider[i].motorTorque -= accelarateBack * maxTorque;
+		
+		timer -= Time.deltaTime;
+	
+		if (timer <= 0)
+		{
+			timer = 0;		
+			isRunning = true;
+			timer = resetTimer;
+			wheelsCollider[i].motorTorque = 0;
+		}
+	}	
+}*/
 }
