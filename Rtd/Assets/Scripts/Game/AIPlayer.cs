@@ -39,7 +39,9 @@ class AIPlayer : Player{
             return;
 	    GetSteer ();
 	    Move ();
-	    Breaking ();	
+	    Breaking ();
+		control.VisualizeWheel(control.wheelPairs[1]);
+		control.VisualizeWheel(control.wheelPairs[0]);	
         if(!agent.isOnNavMesh){
             Respawn(false);
         }
@@ -57,9 +59,11 @@ class AIPlayer : Player{
 		path[pathIndex].z)
 		);
 	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
-		control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
-	control.wheelPairs[0].rightWheelColider.steerAngle = newSteer;
-	Debug.Log(string.Format("float steer {0}", newSteer));
+	if(control.wheelPairs[0].steering){
+		control.wheelPairs[0].rightWheelColider.steerAngle = control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
+	}else{
+		control.wheelPairs[1].rightWheelColider.steerAngle = control.wheelPairs[1].leftWheelColider.steerAngle = newSteer;
+	}
 	if (steerVector.magnitude <= distFromPath)
 	{	
 		pathIndex++;
