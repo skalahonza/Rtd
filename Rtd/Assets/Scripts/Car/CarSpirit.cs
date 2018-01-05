@@ -55,7 +55,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
         if (_powerupSpawnPeriod > NumberConstants.PowerUpSpawn)
         {
-            //Do Stuff
+            //Spawn powerup after time limit
             if (_powerUp == null)
             {
                 //TODO HANDLE SINGLEPLAYER
@@ -65,6 +65,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             _powerupSpawnPeriod = 0;
         }
 
+        //clear shield after warmoff time
         if (Shield != null)
         {
             _shieldDisablePeriod += Time.deltaTime;
@@ -77,6 +78,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             }
         }
 
+        //clear nitro after warmoff time
         if (Nitro != null)
         {
             _nitroDisablePeriod += Time.deltaTime;
@@ -153,12 +155,14 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             }
             else
             {
-                SoundMechanics.SpawnSound("error_sound");
+                if(isLocalPlayer)
+                    SoundMechanics.SpawnSound("error_sound");
             }
         }
         else
         {
-            SoundMechanics.SpawnSound("error_sound");
+            if (isLocalPlayer)
+                SoundMechanics.SpawnSound("error_sound");
         }
     }
 }
