@@ -36,6 +36,7 @@ public class StartGame : MessageBase {
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
 	public GameObject spawn;
+	public GameObject projectileSpawner;
     public GameObject spawnObject;	
 	public GameObject mmaker;
 	bool host = false;
@@ -59,8 +60,8 @@ public class LobbyController : NetworkBehaviour {
 		gameObject.SetActive(true);
 		lobby = GetComponent<Lobby>();
 		mmaker.SetActive(false);
-		GameObject.Find("GameObject").SetActive(true);
-		DontDestroyOnLoad(GameObject.Find("GameObject"));
+		projectileSpawner.SetActive(true);
+		DontDestroyOnLoad(projectileSpawner);
 	}
 
 	public void Host () {
