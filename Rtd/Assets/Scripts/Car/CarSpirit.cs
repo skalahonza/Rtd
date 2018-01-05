@@ -60,7 +60,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             //Spawn powerup after time limit
             if (_powerUp == null)
             {
-                if (Network.isServer || Network.isClient)
+                if (MultiplayerHelper.IsMultiplayer())
                     CmdSpawnPowerup();
                 else
                 {

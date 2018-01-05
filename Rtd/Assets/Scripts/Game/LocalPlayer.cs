@@ -45,7 +45,7 @@ public class LocalPlayer : Player
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (Network.isServer || Network.isClient)
+            if (MultiplayerHelper.IsMultiplayer())
                 spirit.CmdUsePowerUp();
             else
                 spirit.UsePowerUp();
