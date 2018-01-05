@@ -30,15 +30,23 @@ namespace Assets.Scripts.Powerups
             _allowedPowerups = allowedPowerups;
         }
 
-        public IPowerup GetPowerUp()
-        {
-            var type = _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
-            return Activator.CreateInstance(type) as IPowerup;
-        }
-
+        /// <summary>
+        /// Randomly select powerup
+        /// </summary>
+        /// <returns>Powerup type</returns>
         public Type GetPowerUpType()
         {
-            return _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
+            return GetPowerUpType(_rand.Next());
+        }
+
+        /// <summary>
+        /// Provide rnadomized number - due to synchronization
+        /// </summary>
+        /// <param name="number">Nuber throwed by random generator</param>
+        /// <returns>Powerup type</returns>
+        public Type GetPowerUpType(int number)
+        {
+            return _allowedPowerups[number % _allowedPowerups.Count];
         }
     }
 }

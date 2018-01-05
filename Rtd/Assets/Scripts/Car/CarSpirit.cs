@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using Random = System.Random;
 
 [RequireComponent(typeof(MissilePowerup))]
 [RequireComponent(typeof(ReverseMissilePowerup))]
@@ -42,6 +45,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
+
     public ShieldBase Shield;
     public NitroBase Nitro;
 
@@ -124,13 +128,13 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     [Command]
     private void CmdSpawnPowerup()
     {
-        RpcSpawnPowerup();
+        RpcSpawnPowerup(new Random().Next(100));
     }
 
     [ClientRpc]
-    private void RpcSpawnPowerup()
+    private void RpcSpawnPowerup(int rand)
     {
-        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
         Debug.Log("Power up spawned " + _powerUp);
     }
 
