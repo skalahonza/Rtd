@@ -2,21 +2,21 @@
 using System.Linq;
 using Assets.Mechanics;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
-    public class SurgePowerUp : IPowerup, IDamageDealer {  
+    public class SurgePowerUp : PowerUpBase, IDamageDealer {  
         
         private List<IDamagable> targets = new List<IDamagable>();
         private float radius = 25;
         private float damage = 15;
 
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
             if (!targets.Any()) return false;
+            CmdFire();
 
-            SoundMechanics.SpawnSound("surge_sound");
-            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
             foreach (var target in targets)
             {
                 target.SufferDamage(this);
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Powerups
             return true;
         }
 
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
             targets.Clear();
             var colliders = Physics.OverlapSphere(car.transform.position, radius);
@@ -40,7 +40,22 @@ namespace Assets.Scripts.Powerups
             }
         }
 
-        public Sprite GetPowerupIcon()
+        private IEnumerable<GameObject> SpawnEffects()
+        {
+            var car = gameObject.GetComponent<CarSpirit>();
+            yield return AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+        }
+
+        [Command]
+        void CmdFire()
+        {
+            foreach (var effect in SpawnEffects())
+            {
+                NetworkServer.Spawn(effect);
+            }
+        }
+
+        public override Sprite GetPowerupIcon()
         {
             return ImageMechanics.LoadSprite("surge");
         }

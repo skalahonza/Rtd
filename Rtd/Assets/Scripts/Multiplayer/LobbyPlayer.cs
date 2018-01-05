@@ -8,12 +8,14 @@ using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 
-	public LobbyPlayerData data = new LobbyPlayerData();
+	[SyncVar]
+	public int ID;
 
 	public void Start(){
 		if(isLocalPlayer){
 			GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(Play);
 		}
+	
 	}
 
 	public void Play(){
@@ -27,13 +29,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		}
 	}
 
+	public override void OnClientReady(bool readyState){
+		LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+		Debug.Log(string.Format("My ID: {0}", ID));
+		GameObject setup = lc.playerSetupObj[ID];
+		setup.transform.GetChild(0).gameObject.GetComponent<Text>().fontStyle = readyState ?  FontStyle.BoldAndItalic : FontStyle.Normal;
+	}
+
 	void Awake() {
         DontDestroyOnLoad(transform.gameObject);
     }
-
-    private void OnStartClient(){
-		if(isLocalPlayer){
-			gameObject.AddComponent<LocalPlayer>();
-		}
-	}
 }

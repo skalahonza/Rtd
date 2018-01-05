@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4728514364520886}
   - component: {fileID: 95431864234046294}
+  - component: {fileID: 114732249420866766}
+  - component: {fileID: 114169707238462132}
   m_Layer: 0
   m_Name: normal_shield
   m_TagString: Untagged
@@ -489,3 +491,56 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114169707238462132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081228564780196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114732249420866766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1081228564780196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 136
+    i1: 115
+    i2: 131
+    i3: 147
+    i4: 160
+    i5: 221
+    i6: 147
+    i7: 52
+    i8: 104
+    i9: 253
+    i10: 51
+    i11: 16
+    i12: 71
+    i13: 149
+    i14: 64
+    i15: 168
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1

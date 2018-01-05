@@ -15,7 +15,7 @@ public class LocalPlayer : Player
     private CarControl control;
     private SmoothFollow smf;
     private CameraState cameraState = new MediumView();
-    private IPowerup previousPowerup;
+    private PowerUpBase previousPowerup;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class LocalPlayer : Player
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            spirit.UsePowerUp();
+            spirit.CmdUsePowerUp();
         }
 
         if (Input.GetKeyDown(KeyCode.R))

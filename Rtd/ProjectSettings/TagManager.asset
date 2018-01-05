@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Muzzle
   - Tower
+  - network
   layers:
   - Default
   - TransparentFX

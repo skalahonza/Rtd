@@ -1,11 +1,25 @@
-﻿using Assets.Mechanics;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
+using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
+using Random = System.Random;
 
-public class CarSpirit : MonoBehaviour, IDamagable
+[RequireComponent(typeof(MissilePowerup))]
+[RequireComponent(typeof(ReverseMissilePowerup))]
+[RequireComponent(typeof(MinePowerup))]
+[RequireComponent(typeof(SurgePowerUp))]
+[RequireComponent(typeof(NormalShieldPowerUp))]
+[RequireComponent(typeof(PaybackShieldPowerUp))]
+[RequireComponent(typeof(SpeedyNitrPowerUp))]
+[RequireComponent(typeof(TimedNitroPowerUp))]
+public class CarSpirit : NetworkBehaviour, IDamagable
 {
     public float MaxHp;
     public float Hp;
@@ -15,12 +29,23 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float maxSpeed = 207;
     public float maxReverseSpeed = 75;
 
-    public IPowerup _powerUp;
+    public PowerUpBase _powerUp;
 
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(
+/*        new List<Type>()
+        {
+            //typeof(MinePowerup),
+            //typeof(SurgePowerUp),
+            //typeof(MissilePowerup),
+            //typeof(ReverseMissilePowerup),
+            typeof(NormalShieldPowerUp),
+            typeof(PaybackShieldPowerUp),
+        }*/
+        );
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
+
     public ShieldBase Shield;
     public NitroBase Nitro;
 
@@ -30,16 +55,17 @@ public class CarSpirit : MonoBehaviour, IDamagable
 
         if (_powerupSpawnPeriod > NumberConstants.PowerUpSpawn)
         {
-            //Do Stuff
+            //Spawn powerup after time limit
             if (_powerUp == null)
             {
-                _powerUp = _powerupGenerator.GetPowerUp();                
-                Debug.Log("Power up spawned " + _powerUp);
+                //TODO HANDLE SINGLEPLAYER
+                CmdSpawnPowerup();
             }
 
             _powerupSpawnPeriod = 0;
         }
 
+        //clear shield after warmoff time
         if (Shield != null)
         {
             _shieldDisablePeriod += Time.deltaTime;
@@ -52,6 +78,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
             }
         }
 
+        //clear nitro after warmoff time
         if (Nitro != null)
         {
             _nitroDisablePeriod += Time.deltaTime;
@@ -67,7 +94,7 @@ public class CarSpirit : MonoBehaviour, IDamagable
         // update powerup, retarget cars etc
         if (_powerUp != null)
             _powerUp.UpdatePowerup(this);
-    }
+    }    
 
     /// <summary>
     /// When hit by projectile or another damage dealer
@@ -91,25 +118,51 @@ public class CarSpirit : MonoBehaviour, IDamagable
         }
     }
 
-    public void UsePowerUp()
+    /// <summary>
+    /// Use currentely weared powerup
+    /// </summary>
+    [Command]
+    public void CmdUsePowerUp()
+    {
+        RpcUsePowerUp();   
+    }
+
+    [Command]
+    private void CmdSpawnPowerup()
+    {
+        RpcSpawnPowerup(new Random().Next(100));
+    }
+
+    [ClientRpc]
+    private void RpcSpawnPowerup(int rand)
+    {
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
+        Debug.Log("Power up spawned " + _powerUp);
+    }
+
+    [ClientRpc]
+    public void RpcUsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
+            //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
             if (_powerUp.Use(this))
             {
-                //Clear powerup upon successfull action
+                //TODO Clear powerup upon successfull action
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }
             else
             {
-                SoundMechanics.SpawnSound("error_sound");
+                if(isLocalPlayer)
+                    SoundMechanics.SpawnSound("error_sound");
             }
         }
         else
         {
-            SoundMechanics.SpawnSound("error_sound");
+            if (isLocalPlayer)
+                SoundMechanics.SpawnSound("error_sound");
         }
     }
 }

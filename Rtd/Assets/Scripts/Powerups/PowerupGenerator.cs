@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Powerups.Nitros;
+using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
 
 namespace Assets.Scripts.Powerups
@@ -16,10 +17,10 @@ namespace Assets.Scripts.Powerups
             typeof(ReverseMissilePowerup),
             typeof(MinePowerup),
             typeof(SurgePowerUp),
-            typeof(ShieldPowerup<NormalShield>),
-            typeof(ShieldPowerup<PaybackShield>),        
-            typeof(NitroPowerup<SpeedyNitro>),        
-            typeof(NitroPowerup<TimedNitro>),           
+            typeof(NormalShieldPowerUp),
+            typeof(PaybackShieldPowerUp),
+            typeof(SpeedyNitrPowerUp),
+            typeof(TimedNitroPowerUp)
         })
         {         
         }
@@ -29,10 +30,23 @@ namespace Assets.Scripts.Powerups
             _allowedPowerups = allowedPowerups;
         }
 
-        public IPowerup GetPowerUp()
+        /// <summary>
+        /// Randomly select powerup
+        /// </summary>
+        /// <returns>Powerup type</returns>
+        public Type GetPowerUpType()
         {
-            var type = _allowedPowerups[_rand.Next(_allowedPowerups.Count)];
-            return Activator.CreateInstance(type) as IPowerup;
+            return GetPowerUpType(_rand.Next());
+        }
+
+        /// <summary>
+        /// Provide rnadomized number - due to synchronization
+        /// </summary>
+        /// <param name="number">Nuber throwed by random generator</param>
+        /// <returns>Powerup type</returns>
+        public Type GetPowerUpType(int number)
+        {
+            return _allowedPowerups[number % _allowedPowerups.Count];
         }
     }
 }

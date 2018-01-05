@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 114496738520142006}
   - component: {fileID: 82215791364572572}
   - component: {fileID: 114515067061408972}
+  - component: {fileID: 114917084809013956}
   m_Layer: 0
   m_Name: missile_tower
   m_TagString: Untagged
@@ -4150,6 +4151,27 @@ MonoBehaviour:
     i15: 223
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114917084809013956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455124742998872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!137 &137929112050263848
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -13,87 +13,131 @@ public class Lobby : NetworkLobbyManager {
     short UpdatePlayerMsg = 1025;
     short InstantiateMsg = 1026;
     short AddPlayerMsg = 1027;
+	short SendMessageMsg = 1028;
+   	short KickPlayerMsg = 1029;
+    short PlayerDisconnectMsg = 1030;
 
-    List<LobbyPlayerData> players = new List<LobbyPlayerData>();
-    List<NetworkConnection> connections = new List<NetworkConnection>();
-
-    int loaded = 0;
+    bool[] usedId = new bool[5];
+    int[] cid = new int[5];
+    int tcon = 0;
+    LobbyPlayerData[] players = new LobbyPlayerData[5];
+    NetworkConnection[] connections = new NetworkConnection[5];
 
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
-        Debug.Log(string.Format("Map changed to {0}", msg.offset));
         MapIndex = msg.offset;
         SendAll(msg, SetMapMsg);
     }
 
     void SendAll(MessageBase msg, short messagetype){
          foreach(var conn in connections){
-            conn.Send(messagetype, msg);
+            if(conn != null){
+                conn.Send(messagetype, msg);
+            }
         }
     }
 
     public void AddGamePlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<AddPlayerData>();
-        players.Add(msg.data);
+        players[msg.data.ID] = msg.data;
         SendAll(msg, AddPlayerMsg);
     }
 
     public void Instantiate(NetworkConnection conn, int id){
         InstantiateData msg = new InstantiateData();
-        msg.players = players.ToArray();
+        int i = 0;
+        msg.players = new LobbyPlayerData[tcon];
+        foreach(var player in players){
+            if(player != null){
+                msg.players[i++] = player;
+            }
+        }
         msg.mapIndex = MapIndex;
         msg.ID = id;
         conn.Send(InstantiateMsg, msg);
     }
 
-    public override void OnLobbyStartHost(){
-        Debug.Log("Host Started");
+    public override void OnLobbyServerDisconnect(NetworkConnection conn){
+        //check which player has disconnected and send info to others
+        Debug.Log("player disconnect");
+        PlayerDisconnectData msg = new PlayerDisconnectData();
+        msg.id = cid[conn.connectionId];
+        usedId[msg.id] = false;
+        players[msg.id] = null;
+        connections[msg.id] = null;
+        SendAll(msg, PlayerDisconnectMsg);
+        tcon --;
     }
 
-    public override void OnLobbyStartServer(){
-        Debug.Log("Server Started");
+    public override void OnStopHost(){
+        Debug.Log("host stopped");
+        usedId = new bool[5];
+        cid = new int[5];
+        tcon = 0;
+        players = new LobbyPlayerData[5];
+        connections = new NetworkConnection[5];
+        MapIndex = 0;
     }
-    
-    public override void OnLobbyServerPlayersReady(){
-        string sceneName = GameObject.Find("network").GetComponent<LobbyController>().maps[MapIndex].scene;
-        Application.LoadLevel(sceneName);
-        NetworkManager.singleton.ServerChangeScene(sceneName);
-    }
-/*
-    public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer){
-        loaded++;
-        return true;
-    }
-*/
+
     public override void OnServerConnect(NetworkConnection conn){
-        connections.Add(conn);
-        Debug.Log("SRV connected");
+        int findId = GetID();
+        cid[conn.connectionId] = findId;
+        connections[findId] = conn;
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
         conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
+        conn.RegisterHandler(SendMessageMsg, DistributeMessage);
+        conn.RegisterHandler(KickPlayerMsg, KickPlayer);
         base.OnServerConnect(conn);
-        Instantiate(conn, connections.Count);
+        Instantiate(conn, findId);
+        tcon ++;        
+    }
+
+    public int GetID(){
+        int i =0;
+        foreach(var id in usedId){
+            if(!id){
+                usedId[i] = true;
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     public void UpdatePlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<UpdatePlayerData>();
-        players[msg.data.ID -1] = msg.data;
-        players[msg.data.ID -1].material = msg.data.material;
-        players[msg.data.ID -1].cartype = msg.data.cartype;
+        players[msg.data.ID] = msg.data;
+        players[msg.data.ID].material = msg.data.material;
+        players[msg.data.ID].cartype = msg.data.cartype;
         SendAll(msg, UpdatePlayerMsg);
     }
 
+    public void DistributeMessage(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<MessageData>();
+        SendAll(msg, SendMessageMsg);
+    }
+
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
-        LobbyPlayerData data = players[playerControllerId];
-        GameObject go =  Instantiate(lc.cars[data.cartype].car);
-        Material material = lc.cars[data.cartype].materials[data.material];
-        go.transform.GetChild(0).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(1).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(2).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(3).GetComponent<Renderer>().material = material;
-        go.transform.GetChild(4).GetComponent<Renderer>().material = material;
+        LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+        int pid = cid[conn.connectionId];
+        LobbyPlayerData data = players[pid];
+        GameObject go =  Instantiate(lc.cars[data.cartype].car,GetStartPosition(), true);
+        go.GetComponent<NetworkPlayer>().pid = pid;
         return go;
     }
+    
+    public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
+    {
+      GameObject go = Instantiate(lobbyPlayerPrefab.gameObject);
+      go.GetComponent<LobbyPlayer>().ID = cid[conn.connectionId];
+      return go;
+    }
+
+    public void KickPlayer(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<KickData>();
+        connections[msg.id].Send(KickPlayerMsg, msg);
+    }
+
 
 }

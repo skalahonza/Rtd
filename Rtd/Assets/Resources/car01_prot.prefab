@@ -156,6 +156,15 @@ GameObject:
   - component: {fileID: 82009688519919028}
   - component: {fileID: 114418320773701182}
   - component: {fileID: 114155888292397328}
+  - component: {fileID: 114006717428324150}
+  - component: {fileID: 114331752606769860}
+  - component: {fileID: 114767962621970532}
+  - component: {fileID: 114875739236630354}
+  - component: {fileID: 114658485453056134}
+  - component: {fileID: 114477994040120074}
+  - component: {fileID: 114411849950256826}
+  - component: {fileID: 114959806255167562}
+  - component: {fileID: 114249979225380446}
   m_Layer: 0
   m_Name: car01_prot
   m_TagString: Player
@@ -726,6 +735,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114006717428324150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061bf477e506e4d838d2cf688dd40bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pid: 0
 --- !u!114 &114155888292397328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,6 +768,39 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114249979225380446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8c854506a9c4b42a0df12a99a84613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114331752606769860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b6694fe1b2068409939c1843c17dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114411849950256826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccf49286f4392a4481cbcc9143e03a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114418320773701182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -797,6 +851,30 @@ MonoBehaviour:
   maxRPM: 1000
   maxSpeed: 207
   maxReverseSpeed: 85
+  _powerUp: {fileID: 0}
+--- !u!114 &114477994040120074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379ede75107b35844a6164741b988232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 75
+--- !u!114 &114658485453056134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a78fbc206017f4c9f0e460cadefdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114745044012179672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -824,6 +902,40 @@ MonoBehaviour:
     rightWheelMesh: {fileID: 1849822923346304}
     motor: 1
     steering: 0
+--- !u!114 &114767962621970532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c18bb06b4fe214a9a8eccb020c6df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114875739236630354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e4188aae83719418b912cec23d40a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 75
+--- !u!114 &114959806255167562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791092459031418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b30304b761721542859129ff0cfe31e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!146 &146285602338694100
 WheelCollider:
   m_ObjectHideFlags: 1

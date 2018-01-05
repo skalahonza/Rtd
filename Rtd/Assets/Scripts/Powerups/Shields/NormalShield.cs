@@ -17,15 +17,7 @@ namespace Assets.Scripts.Powerups.Shields
             get { return TimeSpan.FromSeconds(NumberConstants.NormalShieldSeconds); }
         }
 
-        public override void Apply(CarSpirit car)
-        {
-            var sound = SoundMechanics.SpawnSound("long_shield_sound");
-            sound.transform.parent = car.transform;
-            shieldSoundPlayer = sound;
-            base.Apply(car);
-        }
-
-        protected override GameObject GetPrefab()
+        public override GameObject GetPrefab()
         {
             return Resources.Load<GameObject>("Shields\\shield_blue");
         }
