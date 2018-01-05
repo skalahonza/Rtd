@@ -150,13 +150,10 @@ MonoBehaviour:
     type: 2}
   hostSpawnObject: {fileID: 1943673384756750, guid: bb7eb2ff956d8498c9a239a024429320,
     type: 2}
-  mmaker: {fileID: 0}
   chatText: {fileID: 114863219103260928, guid: bba20c296ca634ace9ec5725dfad3b17, type: 2}
   maps:
-  - scene: map01
-    image: {fileID: 0}
-  - scene: map02
-    image: {fileID: 0}
+  - {fileID: 114593832161478452, guid: a05dceccbd73243889773cd6b7079be0, type: 2}
+  - {fileID: 114064529561850474, guid: 577c7e92bbb91470aa8f7de5b3d69b0b, type: 2}
   mapIndex: 0
   cname: Player
   cars:
@@ -181,6 +178,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 6d38317b01835b74582aee0c913f28dd, type: 2}
     - {fileID: 2100000, guid: 4c804721f6e2d7042b782b77a50f1609, type: 2}
     - {fileID: 2100000, guid: f9de94f04b714ed4cbd5d89c5f10965e, type: 2}
+  lobby: {fileID: 0}
   myData:
   - cname: 
     cartype: 0

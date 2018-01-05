@@ -1,11 +1,10 @@
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor;
 
-[System.Serializable]
-public class SpConfig
-{
+public class SpConfig : MonoBehaviour {
     public string scene;
-    public RawImage image;
+    public RawImage image
+    {
+        get { return GameObject.Find(scene).GetComponent<RawImage>(); }
+    }
 }

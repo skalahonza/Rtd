@@ -43,7 +43,6 @@ public class LobbyController : NetworkBehaviour {
 	public GameObject spawn;
     public GameObject spawnObject;	
 	public GameObject hostSpawnObject;	
-	public GameObject mmaker;
 	public Text chatText;
 	public SpConfig[] maps;
 	public int mapIndex = 0;
@@ -67,15 +66,12 @@ public class LobbyController : NetworkBehaviour {
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	public void Start(){
-		mmaker = GameObject.Find("mmaker");
-		if(mmaker == null){
-			return;
-		}
+		playerSetupObj = new GameObject[5];
+		playerSetupObj = new GameObject[5];
 		spawn = GameObject.Find("player_setup");
 		gameObject.SetActive(true);
 		lobby = GetComponent<Lobby>();
 		DontDestroyOnLoad(gameObject);
-		mmaker.SetActive(false);
 	}
 
 	public void Host () {
@@ -85,7 +81,6 @@ public class LobbyController : NetworkBehaviour {
 		InitializeNetworkClient(nc);
 		cname = GameObject.Find("plrname").GetComponent<Text>().text;
 		GameObject.Find("ConnectForm").SetActive(false);
-		mmaker.SetActive(true);
 	}
 	
 	public void Connect () {
@@ -97,7 +92,6 @@ public class LobbyController : NetworkBehaviour {
 		nc = lobby.StartClient(); 
 		InitializeNetworkClient(nc);
 		GameObject.Find("ConnectForm").SetActive(false);
-		mmaker.SetActive(true);
 	}
 
 	void InitializeNetworkClient(NetworkClient nc){
@@ -107,6 +101,7 @@ public class LobbyController : NetworkBehaviour {
 		nc.RegisterHandler(InstantiateMsg, OnConnected);
 		nc.RegisterHandler(SendMessageMsg, ReceiveMessage);
 		nc.RegisterHandler(KickPlayerMsg, Kicked);
+		spawn = GameObject.Find("player_setup");
 	}
 
 	public void nextMap(){
@@ -134,6 +129,7 @@ public class LobbyController : NetworkBehaviour {
     }
 
 	void ResetMap(){
+		Debug.Log(string.Format("mapreset to {0}", mapIndex));
 		foreach(var map in maps){
             map.image.enabled = false;
         }
@@ -194,14 +190,6 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send(UpdatePlayerMsg, msg);
 	}
 
-	public void Back(){
-		lobby.dontDestroyOnLoad = false;
-		DestroyImmediate(GameObject.Find("network"));
-		Destroy(GameObject.Find("GameObject"));
-		NetworkManager.Shutdown();
-		SceneManager.LoadScene("Menu");
-	}
-
 	public void SendMessage(){
 		MessageData msg = new MessageData();
 		msg.msg = GameObject.Find("InputField").GetComponent<InputField>().text;
@@ -229,6 +217,10 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Kicked(NetworkMessage netMsg){
+		Back();
+	}
+
+	public void Back(){
 		if(bug712042){
 			lobby.StopHost();
 		}else{

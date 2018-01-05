@@ -21,7 +21,6 @@ public class Lobby : NetworkLobbyManager {
 
     public void MapHandle(NetworkMessage netMsg){
         SetMap msg = netMsg.ReadMessage<SetMap>();
-        Debug.Log(string.Format("Map changed to {0}", msg.offset));
         MapIndex = msg.offset;
         SendAll(msg, SetMapMsg);
     }
@@ -71,7 +70,7 @@ public class Lobby : NetworkLobbyManager {
     }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
-        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
+        LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
         LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car,GetStartPosition(), true);
         go.GetComponent<NetworkPlayer>().pid = conn.connectionId;

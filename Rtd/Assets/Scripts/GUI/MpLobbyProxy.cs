@@ -13,4 +13,20 @@ public class MpLobbyProxy : MonoBehaviour {
 	public void Connect(){
 		lc.Connect();
 	}
+
+	public void Back(){
+		lc.Back();
+	}
+
+	public void nextMap(){
+		lc.nextMap();
+	}
+
+	public void prevMap(){
+		lc.prevMap();
+	}
+
+	public void Send(){
+		lc.SendMessage();
+	}
 }

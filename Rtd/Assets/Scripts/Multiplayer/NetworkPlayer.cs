@@ -22,7 +22,7 @@ public class NetworkPlayer : NetworkBehaviour {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
         }
-        LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
+        LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
         LobbyPlayerData data = lc.myData[pid];
         Material mat = lc.cars[data.cartype].materials[data.material];
         transform.GetChild(0).GetComponent<Renderer>().material = mat;

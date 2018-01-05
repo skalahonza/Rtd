@@ -6,17 +6,16 @@ using UnityEngine;
 public class NetwokResolution : MonoBehaviour {
 
 	public GameObject spawn;
-	public GameObject mmaker;
 	// Use this for initialization
 	void Start () {
-		if(GameObject.Find("network") == null){
+		if(GameObject.FindGameObjectsWithTag("network").Length == 0){
 			GameObject inst = Instantiate(Resources.Load<GameObject>("Multiplayer/network"));
 			LobbyController lc = GetComponent<MpLobbyProxy>().lc = inst.GetComponent<LobbyController>();
 			lc.lobby = inst.GetComponent<Lobby>();
-			lc.mmaker = mmaker;
+			inst.tag = "network";
 			lc.spawn = spawn;
 			inst.SetActive(true);
-			lc.mmaker.SetActive(false);
 		}
+		GetComponent<MpLobbyProxy>().lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
 	}
 }
