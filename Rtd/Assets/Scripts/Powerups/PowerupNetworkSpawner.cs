@@ -16,6 +16,7 @@ namespace Assets.Scripts.Powerups
 
         [Command]
         public void CmdServerSpawn(MinePowerup pwup, Vector3 pos, Vector3 forward){
+            Debug.Log("mine spawned");
             pwup.Use(pos, forward);
         }
 
