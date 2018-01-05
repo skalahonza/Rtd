@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Powerups.Shields;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Powerups
+namespace Assets.Scripts.Powerups.Shields
 {
-    public class NormalShieldPowerUp : PowerUpBase
+    public class PaybackShieldPowerUp : PowerUpBase
     {
         public override bool Use(CarSpirit car)
         {
@@ -12,7 +11,7 @@ namespace Assets.Scripts.Powerups
                 car.Shield.Clean(car);
             }
 
-            car.Shield = new NormalShield();
+            car.Shield = new PaybackShield();
             car.Shield.Apply(car);
             return true;
         }
@@ -24,7 +23,7 @@ namespace Assets.Scripts.Powerups
 
         public override Sprite GetPowerupIcon()
         {
-            return new NormalShield().GetPowerupIcon();
+            return new PaybackShield().GetPowerupIcon();
         }
     }
 }

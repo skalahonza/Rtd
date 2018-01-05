@@ -2,7 +2,7 @@
 using Assets.Scripts.Constants;
 using UnityEngine;
 
-namespace Assets.Scripts.Powerups
+namespace Assets.Scripts.Powerups.Projectiles
 {
     public class MissilePowerup : ProjectilePowerupBase
     {

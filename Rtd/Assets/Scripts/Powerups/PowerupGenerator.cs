@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Powerups.Nitros;
+using Assets.Scripts.Powerups.Projectiles;
+using Assets.Scripts.Powerups.Shields;
 
 namespace Assets.Scripts.Powerups
 {
