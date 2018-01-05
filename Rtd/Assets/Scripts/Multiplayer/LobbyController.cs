@@ -234,7 +234,7 @@ public class LobbyController : NetworkBehaviour {
 
 	public void Kick(Button btt){
 		KickData msg = new KickData();
-		msg.id = 0 ;
+		msg.id = 1;
 		nc.Send(KickPlayerMsg, msg);
 	}
 
