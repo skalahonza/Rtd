@@ -1,7 +1,10 @@
-﻿using Assets.Mechanics;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
+using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,9 +19,19 @@ public class CarSpirit : MonoBehaviour, IDamagable
     public float maxSpeed = 207;
     public float maxReverseSpeed = 75;
 
-    public IPowerup _powerUp;
+    public PowerUpBase _powerUp;
 
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(
+/*        new List<Type>()
+        {
+            //typeof(MinePowerup),
+            //typeof(SurgePowerUp),
+            //typeof(MissilePowerup),
+            //typeof(ReverseMissilePowerup),
+            typeof(NormalShieldPowerUp),
+            typeof(PaybackShieldPowerUp),
+        }*/
+        );
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
@@ -34,7 +47,9 @@ public class CarSpirit : MonoBehaviour, IDamagable
             //Do Stuff
             if (_powerUp == null)
             {
-                _powerUp = _powerupGenerator.GetPowerUp();                
+                gameObject.AddComponent(_powerupGenerator.GetPowerUpType());
+                _powerUp = gameObject.GetComponent<PowerUpBase>();
+                
                 Debug.Log("Power up spawned " + _powerUp);
             }
 
@@ -91,16 +106,20 @@ public class CarSpirit : MonoBehaviour, IDamagable
             gameObject.GetComponent<Player>().Respawn();
         }
     }
-
     
+    /// <summary>
+    /// Use currentely weared powerup
+    /// </summary>
     public void UsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
-            if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
+            //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
+            if (_powerUp.Use(this))            
             {                
-                //Clear powerup upon successfull action
+                //TODO Clear powerup upon successfull action
+                Destroy(_powerUp);
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }

@@ -6,32 +6,38 @@ using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
-    public class MinePowerup:IPowerup
+    public class MinePowerup: PowerUpBase
     {
         private  MineBase Mine = new CarMine();
 
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
-            var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
+            
+            // SpawnMine();
+            CmdFire();
+            return true;
+        }
+
+        private GameObject SpawnMine()
+        {
+            CarSpirit car = gameObject.GetComponent<CarSpirit>();
+            var postion = car.gameObject.transform.position + car.gameObject.transform.forward * -1 * NumberConstants.SpawningDiretionMultiplier * 5;
             postion = NumberConstants.MineSpawnHeight(postion);
-            SoundMechanics.SpawnSound("car_mine_sound");
-            GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
-            return true;
-        }
-        
-        public bool Spawnable(){
-            return true;
+            return Instantiate(Mine.GetPrefab(), postion, new Quaternion());
         }
 
-        public bool UseNetwork(CarSpirit car){
-            return PowerupNetworkSpawner.spawn(this, car);
+        [Command]
+        void CmdFire()
+        {
+            var mine = SpawnMine();
+            NetworkServer.Spawn(mine);
         }
 
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
         }
 
-        public Sprite GetPowerupIcon()
+        public override Sprite GetPowerupIcon()
         {
             return ImageMechanics.LoadSprite("mine");
         }        
