@@ -57,7 +57,7 @@ public class Lobby : NetworkLobbyManager {
         conn.Send(InstantiateMsg, msg);
     }
 
-    public override void OnLobbyServerDisconnect(NetworkConnection conn,  short pid){
+    public override void OnLobbyServerDisconnect(NetworkConnection conn){
         //check which player has disconnected and send info to others
         Debug.Log("player disconnect");
         PlayerDisconnectData msg = new PlayerDisconnectData();
