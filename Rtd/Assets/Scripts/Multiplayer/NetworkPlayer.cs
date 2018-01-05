@@ -39,7 +39,6 @@ public class NetworkPlayer : NetworkBehaviour {
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
             cc = gameObject.AddComponent<LocalPlayer>();
-            cc.startRace = true; 
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
             return;

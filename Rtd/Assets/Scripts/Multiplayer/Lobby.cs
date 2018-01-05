@@ -13,6 +13,8 @@ public class Lobby : NetworkLobbyManager {
     short UpdatePlayerMsg = 1025;
     short InstantiateMsg = 1026;
     short AddPlayerMsg = 1027;
+	short SendMessageMsg = 1028;
+   	short KickPlayerMsg = 1029;
 
     List<LobbyPlayerData> players = new List<LobbyPlayerData>();
     List<NetworkConnection> connections = new List<NetworkConnection>();
@@ -49,6 +51,8 @@ public class Lobby : NetworkLobbyManager {
         conn.RegisterHandler(SetMapMsg, MapHandle);
         conn.RegisterHandler(AddPlayerMsg, AddGamePlayer);
         conn.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
+        conn.RegisterHandler(SendMessageMsg, DistributeMessage);
+        conn.RegisterHandler(KickPlayerMsg, KickPlayer);
         base.OnServerConnect(conn);
         Instantiate(conn, connections.Count-1);
     }
@@ -61,12 +65,22 @@ public class Lobby : NetworkLobbyManager {
         SendAll(msg, UpdatePlayerMsg);
     }
 
+    public void DistributeMessage(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<MessageData>();
+        SendAll(msg, SendMessageMsg);
+    }
+
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId){
         LobbyController lc = GameObject.Find("network").GetComponent<LobbyController>();
         LobbyPlayerData data = players[conn.connectionId];
         GameObject go =  Instantiate(lc.cars[data.cartype].car,GetStartPosition(), true);
         go.GetComponent<NetworkPlayer>().pid = conn.connectionId;
         return go;
+    }
+
+    public void KickPlayer(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<KickData>();
+        lobbySlots[msg.id].GetComponent<NetworkIdentity> ().connectionToClient.Disconnect ();
     }
 
 }

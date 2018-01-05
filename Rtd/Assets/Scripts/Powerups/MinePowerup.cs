@@ -19,15 +19,6 @@ namespace Assets.Scripts.Powerups
             return true;
         }
         
-        public void Use(Vector3 pos, Vector3 forward){
-            var postion = pos + forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
-            postion = NumberConstants.MineSpawnHeight(postion);
-            var sound = SoundMechanics.SpawnSound("car_mine_sound");
-            NetworkServer.Spawn(sound);
-            var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
-            NetworkServer.Spawn(mine);
-        }
-
         public bool Spawnable(){
             return true;
         }

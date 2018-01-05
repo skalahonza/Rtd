@@ -247,7 +247,6 @@ GameObject:
   - component: {fileID: 38199958}
   - component: {fileID: 38199957}
   - component: {fileID: 38199956}
-  - component: {fileID: 38199959}
   m_Layer: 0
   m_Name: network
   m_TagString: Untagged
@@ -271,6 +270,7 @@ MonoBehaviour:
   spawnObject: {fileID: 1501245619521568, guid: 96856a4019de9455d98dceaa28a45a5b,
     type: 2}
   mmaker: {fileID: 582244092}
+  chatText: {fileID: 114863219103260928, guid: bba20c296ca634ace9ec5725dfad3b17, type: 2}
   maps:
   - scene: map01
     image: {fileID: 1940032034}
@@ -444,21 +444,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &38199959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 38199955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4784cc5032083491aab4a5f646b79893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 0
-  offsetX: 0
-  offsetY: 0
 --- !u!4 &41625091 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4115115717072832, guid: 7b5330a485868fd45b5a04147e4659b5,
@@ -924,7 +909,7 @@ GameObject:
   - component: {fileID: 175155981}
   - component: {fileID: 175155980}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: chatscroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1049,7 +1034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 523.6, y: -243}
+  m_AnchoredPosition: {x: 523.6, y: -244}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &192009536
@@ -1090,7 +1075,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 192009537}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 38199956}
+        m_MethodName: SendMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &192009537
@@ -1285,8 +1281,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1663651944}
   m_HandleRect: {fileID: 1663651943}
   m_Direction: 2
-  m_Value: 0.00000017579252
-  m_Size: 0.2766667
+  m_Value: 0
+  m_Size: 0.9999987
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1984,7 +1980,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 38199956}
         m_MethodName: Back
         m_Mode: 1
         m_Arguments:
@@ -3133,7 +3129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_AnchoredPosition: {x: 0, y: 1.2}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961710379
@@ -3577,8 +3573,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1029047142}
+  - component: {fileID: 1029047143}
   m_Layer: 5
-  m_Name: Content
+  m_Name: ChatWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3599,9 +3596,31 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0042768456, y: 216.99994}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0.0042768456, y: 0.000049420603}
+  m_SizeDelta: {x: 0, y: 5}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &1029047143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1029047141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 5
+    m_Right: 0
+    m_Top: 4
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
 --- !u!1001 &1036621569
 Prefab:
   m_ObjectHideFlags: 0
@@ -6287,7 +6306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -271.6, y: 41.4}
+  m_AnchoredPosition: {x: -268.5, y: 92.4}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1904782732

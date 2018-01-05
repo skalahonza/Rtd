@@ -88,7 +88,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -822,7 +821,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 598453664}
   m_LocalRotation: {x: -0.7153171, y: -0.031132903, z: -0.020113738, w: 0.69781643}
-  m_LocalPosition: {x: 227, y: -58, z: -34}
+  m_LocalPosition: {x: 205, y: -42, z: -33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 733406913}
@@ -1606,6 +1605,7 @@ Prefab:
     - {fileID: 114767673006025104, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
     - {fileID: 82912981109449578, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
     - {fileID: 114596643301849886, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
+    - {fileID: 114110992189160522, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b70cde61b90f89042a8018cd9700913b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1029326812
@@ -1673,12 +1673,18 @@ Prefab:
       propertyPath: m_Name
       value: car01_prot_a
       objectReference: {fileID: 0}
+    - target: {fileID: 114006717428324150, guid: 5c8e851dd22b37a4d8ee01b287ee9ced,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 82009688519919028, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114745044012179672, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114443255141721756, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114155888292397328, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114418320773701182, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
+    - {fileID: 114006717428324150, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1034608771 stripped
@@ -1780,6 +1786,7 @@ Prefab:
     - {fileID: 114496738520142006, guid: 5a9859344537a164db51adde53225edf, type: 2}
     - {fileID: 82215791364572572, guid: 5a9859344537a164db51adde53225edf, type: 2}
     - {fileID: 114515067061408972, guid: 5a9859344537a164db51adde53225edf, type: 2}
+    - {fileID: 114917084809013956, guid: 5a9859344537a164db51adde53225edf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5a9859344537a164db51adde53225edf, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1140983052
@@ -1896,12 +1903,18 @@ Prefab:
       propertyPath: m_Name
       value: car03_prot_a
       objectReference: {fileID: 0}
+    - target: {fileID: 114626136587631230, guid: f199836f9f4439e4cba8faad40e86e55,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114449158104402032, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
     - {fileID: 114036213504685252, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
     - {fileID: 82694802443353698, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
     - {fileID: 114554669688084896, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
     - {fileID: 114291612777492272, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
+    - {fileID: 114626136587631230, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1231242957 stripped
@@ -2114,6 +2127,8 @@ Prefab:
     - {fileID: 114443255141721756, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114155888292397328, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
     - {fileID: 114418320773701182, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
+    - {fileID: 114006717428324150, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
+    - {fileID: 23394678436686534, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1380085433
@@ -2609,12 +2624,18 @@ Prefab:
       propertyPath: m_Name
       value: car02_prot_a
       objectReference: {fileID: 0}
+    - target: {fileID: 114455600423282498, guid: ab4bf9ee1a799914abd29ac58668f1f2,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 95112098335329148, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114505973786291914, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114105952121353432, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114650033946397484, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114076561199638230, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
+    - {fileID: 114455600423282498, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1764337951 stripped
@@ -3111,6 +3132,7 @@ Prefab:
     - {fileID: 114105952121353432, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114650033946397484, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
     - {fileID: 114076561199638230, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
+    - {fileID: 114455600423282498, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2066879209 stripped
