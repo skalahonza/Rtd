@@ -101,6 +101,7 @@ public class LobbyController : NetworkBehaviour {
 		nc.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
 		nc.RegisterHandler(InstantiateMsg, OnConnected);
 		nc.RegisterHandler(SendMessageMsg, ReceiveMessage);
+		nc.RegisterHandler(KickPlayerMsg, Kicked);
 	}
 
 	public void nextMap(){
@@ -212,9 +213,19 @@ public class LobbyController : NetworkBehaviour {
 		GameObject.Find("chatscroll").GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
 	}
 
-	public void kick(Button btt){
+	public void Kick(Button btt){
 		KickData msg = new KickData();
 		msg.id = 0 ;
 		nc.Send(KickPlayerMsg, msg);
+	}
+
+	public void Kicked(NetworkMessage netMsg){
+
+		//destroy all players
+		//destroy  network
+		Destroy(GameObject.Find("network"));
+		Destroy(GameObject.Find("GameObject"));
+		NetworkManager.Shutdown();
+		Application.LoadLevel("Menu");
 	}
 }

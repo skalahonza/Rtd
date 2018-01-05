@@ -80,7 +80,7 @@ public class Lobby : NetworkLobbyManager {
 
     public void KickPlayer(NetworkMessage netMsg){
         var msg = netMsg.ReadMessage<KickData>();
-        lobbySlots[msg.id].GetComponent<NetworkIdentity> ().connectionToClient.Disconnect ();
+        connections[msg.id].Send(KickPlayerMsg, msg);
     }
 
 }

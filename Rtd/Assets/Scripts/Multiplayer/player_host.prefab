@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 222867711616515582}
   - component: {fileID: 114197258159323326}
   - component: {fileID: 114693697669107634}
+  - component: {fileID: 114146924237347508}
   m_Layer: 5
   m_Name: kick
   m_TagString: Untagged
@@ -310,6 +311,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 188b02fed093b4725a4e95b40775c75f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114146924237347508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983875555267770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606809a64eb054a998ac5543a1518f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114197258159323326
@@ -728,7 +740,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114197258159323326}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114146924237347508}
+        m_MethodName: UpdateDD
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 114693697669107634}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114697309913867058
@@ -1142,8 +1165,8 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943673384756750}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -11.598943}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224942179817681598}
@@ -1154,7 +1177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.66796875, y: 4.078103}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224303019011503668
@@ -1224,7 +1247,7 @@ RectTransform:
   m_GameObject: {fileID: 1983875555267770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2.5989428}
-  m_LocalScale: {x: 0.0034675691, y: 0.0034675691, z: 0.0034675691}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224899090808001446}
   m_Father: {fileID: 224246352410564784}
