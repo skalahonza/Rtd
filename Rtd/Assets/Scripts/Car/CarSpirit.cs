@@ -116,7 +116,8 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         if (Hp <= 0)
         {
             //TODO VISUALIZE DESTROYING waint and respawn
-            gameObject.GetComponent<Player>().Respawn();
+            if(isLocalPlayer)
+                gameObject.GetComponent<Player>().Respawn();
         }
     }
 
