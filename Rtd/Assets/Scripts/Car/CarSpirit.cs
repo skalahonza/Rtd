@@ -60,8 +60,12 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             //Spawn powerup after time limit
             if (_powerUp == null)
             {
-                //TODO HANDLE SINGLEPLAYER
-                CmdSpawnPowerup();
+                if (Network.isServer || Network.isClient)
+                    CmdSpawnPowerup();
+                else
+                {
+                    SpawnPowerup();
+                }
             }
 
             _powerupSpawnPeriod = 0;
@@ -96,7 +100,13 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         // update powerup, retarget cars etc
         if (_powerUp != null)
             _powerUp.UpdatePowerup(this);
-    }    
+    }
+
+    private void SpawnPowerup()
+    {
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
+        Debug.Log("Power up spawned " + _powerUp);
+    }
 
     /// <summary>
     /// When hit by projectile or another damage dealer
@@ -139,12 +149,22 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     [ClientRpc]
     private void RpcSpawnPowerup(int rand)
     {
+        SpawnPowerup(rand);
+    }
+
+    private void SpawnPowerup(int rand)
+    {
         _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
         Debug.Log("Power up spawned " + _powerUp);
     }
 
     [ClientRpc]
     public void RpcUsePowerUp()
+    {
+        UsePowerUp();
+    }
+
+    public void UsePowerUp()
     {
         if (_powerUp != null)
         {
@@ -158,7 +178,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             }
             else
             {
-                if(isLocalPlayer)
+                if (isLocalPlayer)
                     SoundMechanics.SpawnSound("error_sound");
             }
         }
