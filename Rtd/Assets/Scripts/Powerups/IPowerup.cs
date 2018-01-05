@@ -23,5 +23,7 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <returns>Sprite of powerup</returns>
         Sprite GetPowerupIcon();
+
+        bool Spawnable();
     }
 }

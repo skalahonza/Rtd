@@ -66,6 +66,10 @@ namespace Assets.Scripts.Powerups
             return PowerupNetworkSpawner.spawn(this, car);
         }
 
+        public bool Spawnable(){
+            return true;
+        }
+        
         /// <summary>
         /// Updates powerup targets and other properties if required
         /// </summary>

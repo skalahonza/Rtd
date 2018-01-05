@@ -7,12 +7,16 @@ namespace Assets.Scripts.Powerups
 
         public static bool spawn(IPowerup pwup, CarSpirit car){
             PowerupNetworkSpawner inst = new PowerupNetworkSpawner();
-            return inst.serverSpawn(pwup, car);
+            bool ret = pwup.Spawnable();
+            if(ret){
+                inst.CmdServerSpawn((MinePowerup)pwup, car.gameObject.transform);
+            }
+            return ret;
         }
 
         [Command]
-        public bool serverSpawn(IPowerup pwup, CarSpirit car){
-            return pwup.Use(car);
+        public void CmdServerSpawn(MinePowerup pwup, Transform car){
+            pwup.Use(car);
         }
 
     }

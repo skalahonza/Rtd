@@ -20,6 +20,10 @@ namespace Assets.Scripts.Powerups.Nitros
             return PowerupNetworkSpawner.spawn(this, car);
         }
 
+        public bool Spawnable(){
+            return true;
+        }
+        
         public bool Use(CarSpirit car)
         {
             if (car.Nitro != null)

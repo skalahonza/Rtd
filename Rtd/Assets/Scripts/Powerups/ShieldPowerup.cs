@@ -33,6 +33,10 @@ namespace Assets.Scripts.Powerups
             //TODO CHECK IF SHIELD CAN BE USED
         }
 
+        public bool Spawnable(){
+            return true;
+        }
+        
         public Sprite GetPowerupIcon()
         {
             return new T().GetPowerupIcon();

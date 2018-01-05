@@ -15,9 +15,20 @@ namespace Assets.Scripts.Powerups
             var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
             postion = NumberConstants.MineSpawnHeight(postion);
             var sound = SoundMechanics.SpawnSound("car_mine_sound");
+            var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+            return true;
+        }
+        
+        public void Use(Transform tr){
+            var postion = tr.position + tr.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
+            postion = NumberConstants.MineSpawnHeight(postion);
+            var sound = SoundMechanics.SpawnSound("car_mine_sound");
             NetworkServer.Spawn(sound);
             var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
             NetworkServer.Spawn(mine);
+        }
+
+        public bool Spawnable(){
             return true;
         }
 
