@@ -18,8 +18,6 @@ namespace Assets.Scripts.Car
         private Quaternion rot;
         private Vector3 pos;
 
-        private CarSpirit spirit;
-
         public List<CarInfo> wheelPairs;
 
         private Rigidbody rb;
@@ -65,7 +63,6 @@ namespace Assets.Scripts.Car
 
         void Start()
         {
-            spirit = GetComponent<CarSpirit>();
             rb = GetComponent<Rigidbody>();
             rb.ResetCenterOfMass();
             rb.centerOfMass += new Vector3(0, -0.5f, 0);
