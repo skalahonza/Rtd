@@ -27,7 +27,7 @@ namespace Assets.Scripts.Powerups.Projectiles
             if (Target == null) return false;     
 
             //single player
-            if(true)
+            if(false)
                 SpawnProjectile();
             
             //TODO multi kulti player

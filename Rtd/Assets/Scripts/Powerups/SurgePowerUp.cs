@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Mechanics;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
@@ -14,9 +15,7 @@ namespace Assets.Scripts.Powerups
         public override bool Use(CarSpirit car)
         {
             if (!targets.Any()) return false;
-
-            SoundMechanics.SpawnSound("surge_sound");
-            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+            CmdFire();
 
             foreach (var target in targets)
             {
@@ -38,6 +37,22 @@ namespace Assets.Scripts.Powerups
                 {
                     targets.Add(damagable);
                 }
+            }
+        }
+
+        private IEnumerable<GameObject> SpawnEffects()
+        {
+            var car = gameObject.GetComponent<CarSpirit>();
+            yield return SoundMechanics.SpawnSound("surge_sound");
+            yield return AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+        }
+
+        [Command]
+        void CmdFire()
+        {
+            foreach (var effect in SpawnEffects())
+            {
+                NetworkServer.Spawn(effect);
             }
         }
 

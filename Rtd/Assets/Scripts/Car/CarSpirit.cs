@@ -4,6 +4,7 @@ using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
+using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -23,7 +24,10 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(
         new List<Type>()
         {
-            typeof(MinePowerup)
+            typeof(MinePowerup),
+            typeof(SurgePowerUp),
+            typeof(MissilePowerup),
+            typeof(ReverseMissilePowerup),
         }
         );
     private float _powerupSpawnPeriod = 0.0f;

@@ -12,6 +12,7 @@ namespace Assets.Scripts.Powerups
 
         public override bool Use(CarSpirit car)
         {
+            
             // SpawnMine();
             CmdFire();
             return true;
