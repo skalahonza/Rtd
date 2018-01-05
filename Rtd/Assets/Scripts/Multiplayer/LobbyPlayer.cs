@@ -13,14 +13,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	public void Start(){
 		if(isLocalPlayer){
-			LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
-			ID = lc.myID;
 			GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(Play);
 		}
 	
 	}
 
 	public void Play(){
+		LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+		ID = lc.myID;
 		Button play = GameObject.Find("Play").GetComponent<Button>();
 		if(play.GetComponentInChildren<Text>().text == "Ready"){
 			play.GetComponentInChildren<Text>().text = "Not Ready";
