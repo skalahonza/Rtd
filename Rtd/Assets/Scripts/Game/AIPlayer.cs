@@ -5,9 +5,8 @@ using System;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 class AIPlayer : Player{
-/*
     CarControl control;
-	List<Transform> path;
+	List<Vector3> path;
 	private int pathIndex ;
 	float distFromPath = 20.0f;
 
@@ -15,7 +14,6 @@ class AIPlayer : Player{
 	public float maxTorque  = 120.0f;
 	float currentSpeed  = 0.0f;
 	float topSpeed  = 150.0f;
-
 	private bool isBreaking = false;
 	public float breakForce = 500.0f;
 
@@ -50,14 +48,13 @@ class AIPlayer : Player{
     void GetSteer () {
 
 	Vector3 steerVector  = transform.InverseTransformPoint( new Vector3(
-		path[pathIndex].position.x,
+		path[pathIndex].x,
 		transform.position.y,
-		path[pathIndex].position.z)
+		path[pathIndex].z)
 		);
 	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
-	
-	wheelsCollider [0].steerAngle = newSteer;
-	wheelsCollider [1].steerAngle = newSteer;	
+		control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
+	control.wheelPairs[0].rightWheelColider.steerAngle = newSteer;
 	
 	if (steerVector.magnitude <= distFromPath)
 	{	
@@ -92,24 +89,29 @@ void GetPath () {
 void Move () {
 	
 	if (isRunning)
-	{		
-		for (int i= 0; i < 4; i++)
+	{	
+	WheelCollider wheelsCollider	;
+		foreach(var col in control.wheelPairs){
+for (int i= 0; i < 2; i++)
 		{	
-			currentSpeed = 2*22 /7 * wheelsCollider[i].radius * wheelsCollider[i].rpm * 60/1000;
+			wheelsCollider = (i == 1 ? col.leftWheelColider : col.rightWheelColider);
+			currentSpeed = 2*22 /7 * wheelsCollider.radius * wheelsCollider.rpm * 60/1000;
 			currentSpeed = Mathf.Round(currentSpeed);
 						
 			if (currentSpeed < topSpeed && !isBreaking)
 			{
 				//accelarate the car
 				float accelarate  = 1.0f;
-				wheelsCollider[i].motorTorque = accelarate * maxTorque;
+				wheelsCollider.motorTorque = accelarate * maxTorque;
 			}
 			else
 			{			
-				wheelsCollider[i].motorTorque = 0;
+				wheelsCollider.motorTorque = 0;
 			}
 			AddDownForce();	
 		}
+		}
+		
 	}
 	else if (isRunning == false)
 	{
@@ -120,40 +122,42 @@ void Move () {
 private void AddDownForce()
 {
 	//wheelsCollider[2].attachedRigidbody.AddForce(-transform.up*m_Downforce * wheelsCollider[3].attachedRigidbody.velocity.magnitude);
-	this.GetComponent<Rigidbody>().AddRelativeForce(-transform.up * m_Downforce * GetComponent<Rigidbody>().velocity.magnitude);
+	GetComponent<Rigidbody>().AddRelativeForce(-transform.up * m_Downforce * GetComponent<Rigidbody>().velocity.magnitude);
 }
 
 void Breaking () {
 
 	if (isBreaking)
 	{			
-		wheelsCollider[0].brakeTorque = breakForce;	
-		wheelsCollider[1].brakeTorque = breakForce;	
-		wheelsCollider[2].brakeTorque = breakForce;	
-		wheelsCollider[3].brakeTorque = breakForce;
+		control.wheelPairs[1].leftWheelColider.brakeTorque = breakForce;	
+		control.wheelPairs[1].rightWheelColider.brakeTorque = breakForce;	
+		control.wheelPairs[0].leftWheelColider.brakeTorque = breakForce;	
+		control.wheelPairs[0].rightWheelColider.brakeTorque = breakForce;
 		
-		wheelsCollider[0].motorTorque = 0.0f;	
-		wheelsCollider[1].motorTorque = 0.0f;	
-		wheelsCollider[2].motorTorque = 0.0f;	
-		wheelsCollider[3].motorTorque = 0.0f;
+		control.wheelPairs[1].leftWheelColider.motorTorque = 0.0f;	
+		control.wheelPairs[1].rightWheelColider.motorTorque = 0.0f;	
+		control.wheelPairs[0].leftWheelColider.motorTorque = 0.0f;	
+		control.wheelPairs[0].rightWheelColider.motorTorque = 0.0f;
 	}
 	else
 	{				
-
-		wheelsCollider[0].brakeTorque = 0f;	
-		wheelsCollider[1].brakeTorque = 0f;	
-		wheelsCollider[2].brakeTorque = 0f;	
-		wheelsCollider[3].brakeTorque = 0f;	
+		control.wheelPairs[1].leftWheelColider.brakeTorque = 0.0f;	
+		control.wheelPairs[1].rightWheelColider.brakeTorque = 0.0f;	
+		control.wheelPairs[0].leftWheelColider.brakeTorque = 0.0f;	
+		control.wheelPairs[0].rightWheelColider.brakeTorque = 0.0f;
 	}
 }
 void driveBackwards() {
-	
-	for (int i = 0; i < 4; i++)
-	{
+		WheelCollider wheelsCollider	;
+		foreach(var col in control.wheelPairs){
+for (int i= 0; i < 2; i++)
+		{	
+			wheelsCollider = (i == 1 ? col.leftWheelColider : col.rightWheelColider);
+
 		float accelarateBack  = 1.0f;		
 		
-		wheelsCollider[i].motorTorque = 0;
-		wheelsCollider[i].motorTorque -= accelarateBack * maxTorque;
+		wheelsCollider.motorTorque = 0;
+		wheelsCollider.motorTorque -= accelarateBack * maxTorque;
 		
 		timer -= Time.deltaTime;
 	
@@ -162,8 +166,9 @@ void driveBackwards() {
 			timer = 0;		
 			isRunning = true;
 			timer = resetTimer;
-			wheelsCollider[i].motorTorque = 0;
+			wheelsCollider.motorTorque = 0;
+		}
 		}
 	}	
-}*/
+}
 }
