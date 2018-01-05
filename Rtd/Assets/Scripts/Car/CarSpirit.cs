@@ -93,12 +93,12 @@ public class CarSpirit : MonoBehaviour, IDamagable
     }
 
     
-    public void UsePowerUp()
+    public void UsePowerUp(bool net = false)
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
-            if (_powerUp.Use(this))
+            if (net ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
             {                
                 //Clear powerup upon successfull action
                 _powerUp = null;
