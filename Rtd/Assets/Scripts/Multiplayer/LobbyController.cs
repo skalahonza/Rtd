@@ -31,11 +31,20 @@ public class UpdatePlayerData : MessageBase{
 
 public class MessageData : MessageBase {
 	public string msg;
-	public string plrname;
+	public int id;
 }
 
 public class KickData : MessageBase {
 	public int id;
+}
+
+public class PlayerDisconnectData : MessageBase {
+	public int id;
+}
+
+public class PlayerReadyStateChangeData : MessageBase {
+	public int id;
+	public bool ready;
 }
 
 [RequireComponent(typeof(Lobby))]
@@ -48,7 +57,8 @@ public class LobbyController : NetworkBehaviour {
 	public int mapIndex = 0;
 	public string cname = "Player";
     public _car[] cars;
-	GameObject[] playerSetupObj = new GameObject[5];
+	public GameObject[] playerSetupObj = new GameObject[5];
+	public Color[] colors = new Color[5];
 
 	bool bug1 = false;
 	bool bug712042 = false;
@@ -59,9 +69,10 @@ public class LobbyController : NetworkBehaviour {
 	short InstantiateMsg = 1026;
 	short SendMessageMsg = 1028;
 	short KickPlayerMsg = 1029;
+    short PlayerDisconnectMsg = 1030;
 
 	NetworkClient nc;
-	int myID;
+	public int myID;
 	int msgstotal = 0;
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
@@ -101,7 +112,15 @@ public class LobbyController : NetworkBehaviour {
 		nc.RegisterHandler(InstantiateMsg, OnConnected);
 		nc.RegisterHandler(SendMessageMsg, ReceiveMessage);
 		nc.RegisterHandler(KickPlayerMsg, Kicked);
+		nc.RegisterHandler(PlayerDisconnectMsg, Disconnected);
 		spawn = GameObject.Find("player_setup");
+	}
+
+	public void Disconnected(NetworkMessage netMsg){
+        var msg = netMsg.ReadMessage<PlayerDisconnectData>();
+		//remove line and data
+		myData[msg.id] = null;
+		Destroy(playerSetupObj[msg.id]);
 	}
 
 	public void nextMap(){
@@ -141,6 +160,7 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<AddPlayerData>();
 		GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         go.transform.GetChild(0).gameObject.GetComponent<Text>().text = msg.data.cname; 
+		go.transform.GetChild(0).gameObject.GetComponent<Text>().color = colors[msg.data.material]; 
 		if(myData[myID].ID != msg.data.ID){
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 		}
@@ -163,6 +183,7 @@ public class LobbyController : NetworkBehaviour {
 		foreach(var plr in inst.players){
 			GameObject go = Instantiate(spawnObject, spawn.transform).gameObject;
         	go.transform.GetChild(0).gameObject.GetComponent<Text>().text = plr.cname;
+			go.transform.GetChild(0).gameObject.GetComponent<Text>().color = colors[plr.material]; 
 			go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().interactable = false;
 			bug1 = true;
      		go.transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = plr.cartype;
@@ -176,6 +197,7 @@ public class LobbyController : NetworkBehaviour {
 		var msg = netMsg.ReadMessage<UpdatePlayerData>();
 		bug1 = true;
 		playerSetupObj[msg.data.ID].transform.GetChild(1).gameObject.GetComponent<Dropdown>().value = msg.data.cartype;
+		playerSetupObj[msg.data.ID].transform.GetChild(0).gameObject.GetComponent<Text>().color = colors[msg.data.material]; 
 		myData[msg.data.ID]  = msg.data;
 		bug1 = false;
 	}
@@ -195,7 +217,7 @@ public class LobbyController : NetworkBehaviour {
 		msg.msg = GameObject.Find("InputField").GetComponent<InputField>().text;
 		if(msg.msg == "")
 			return;
-		msg.plrname = myData[myID].cname;
+		msg.id = myID;
 		nc.Send(SendMessageMsg, msg);
 		GameObject.Find("InputField").GetComponent<InputField>().text = "";
 	}
@@ -204,7 +226,7 @@ public class LobbyController : NetworkBehaviour {
 		msgstotal++;
 		var msg = netMsg.ReadMessage<MessageData>();
 		Text tst = Instantiate(chatText, GameObject.Find("ChatWin").transform);
-		tst.text = msg.plrname + " : " + msg.msg;
+		tst.text = "<color=#"+ColorUtility.ToHtmlStringRGBA( colors[myData[msg.id].material] )+">" + myData[msg.id].cname + "</color> : " + msg.msg;
 		//Debug.Log(string.Format("XAPI {0}",GameObject.Find("chatscroll").GetComponent<ScrollRect>().content.anchorMin));
 		GameObject.Find("chatscroll").GetComponent<ScrollRect>().content.sizeDelta = new Vector2(0,msgstotal*21); 
 		GameObject.Find("chatscroll").GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
@@ -221,6 +243,9 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Back(){
+		Debug.Log("disconnect");
+		nc.Disconnect();
+		nc.Shutdown();
 		if(bug712042){
 			lobby.StopHost();
 		}else{

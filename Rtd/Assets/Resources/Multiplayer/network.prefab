@@ -178,7 +178,20 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 6d38317b01835b74582aee0c913f28dd, type: 2}
     - {fileID: 2100000, guid: 4c804721f6e2d7042b782b77a50f1609, type: 2}
     - {fileID: 2100000, guid: f9de94f04b714ed4cbd5d89c5f10965e, type: 2}
+  playerSetupObj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  colors:
+  - {r: 0.07307312, g: 0.9632353, b: 0, a: 1}
+  - {r: 0.78676474, g: 0.052065317, b: 0.7664973, a: 1}
+  - {r: 0, g: 0.167, b: 0.871, a: 1}
+  - {r: 0.9862069, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
   lobby: {fileID: 0}
+  myID: 0
   myData:
   - cname: 
     cartype: 0

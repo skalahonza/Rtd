@@ -8,12 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 
-	public LobbyPlayerData data = new LobbyPlayerData();
-
 	public void Start(){
 		if(isLocalPlayer){
 			GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(Play);
 		}
+	
 	}
 
 	public void Play(){
@@ -25,6 +24,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 			play.GetComponentInChildren<Text>().text = "Ready";
 			SendNotReadyToBeginMessage();
 		}
+	}
+
+	public override void OnClientReady(bool readyState){
+		LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+		GameObject setup = lc.playerSetupObj[lc.myID];
+		setup.transform.GetChild(0).gameObject.GetComponent<Text>().fontStyle = readyState ?  FontStyle.BoldAndItalic : FontStyle.Normal;
 	}
 
 	void Awake() {
