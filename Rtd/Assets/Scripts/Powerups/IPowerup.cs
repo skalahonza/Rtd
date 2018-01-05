@@ -23,7 +23,5 @@ namespace Assets.Scripts.Powerups
         /// </summary>
         /// <returns>Sprite of powerup</returns>
         Sprite GetPowerupIcon();
-
-        List<GameObject> ObjectsToSynchronize { get; }
     }
 }

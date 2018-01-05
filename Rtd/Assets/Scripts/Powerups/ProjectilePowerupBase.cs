@@ -63,7 +63,7 @@ namespace Assets.Scripts.Powerups
         }
 
         public bool UseNetwork(CarSpirit car){
-            return PowerupNetworkSpawner.spawn(this, cars);
+            return PowerupNetworkSpawner.spawn(this, car);
         }
 
         /// <summary>
