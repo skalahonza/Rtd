@@ -23,8 +23,11 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>()
     {
         typeof(MissilePowerup),
+        typeof(ReverseMissilePowerup),
         typeof(MinePowerup),
         typeof(SurgePowerUp),
+        typeof(NormalShieldPowerUp),
+        typeof(PaybackShieldPowerUp),
     });
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;

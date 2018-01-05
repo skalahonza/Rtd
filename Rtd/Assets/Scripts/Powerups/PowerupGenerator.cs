@@ -16,8 +16,8 @@ namespace Assets.Scripts.Powerups
             typeof(ReverseMissilePowerup),
             typeof(MinePowerup),
             typeof(SurgePowerUp),
-            typeof(ShieldPowerup<NormalShield>),
-            typeof(ShieldPowerup<PaybackShield>),        
+            typeof(NormalShieldPowerUp),
+            typeof(PaybackShieldPowerUp),        
             typeof(NitroPowerup<SpeedyNitro>),        
             typeof(NitroPowerup<TimedNitro>),           
         })

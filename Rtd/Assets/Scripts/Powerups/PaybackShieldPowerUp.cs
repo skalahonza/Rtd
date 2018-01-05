@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups
 {
-    public class ShieldPowerup<T> : PowerUpBase
-        where T :ShieldBase, new()
+    public class PaybackShieldPowerUp : PowerUpBase
     {
         public override bool Use(CarSpirit car)
         {
@@ -13,7 +12,7 @@ namespace Assets.Scripts.Powerups
                 car.Shield.Clean(car);
             }
 
-            car.Shield = new T();
+            car.Shield = new PaybackShield();
             car.Shield.Apply(car);
             return true;
         }
@@ -25,7 +24,7 @@ namespace Assets.Scripts.Powerups
 
         public override Sprite GetPowerupIcon()
         {
-            return new T().GetPowerupIcon();
-        }        
+            return new PaybackShield().GetPowerupIcon();
+        }
     }
 }

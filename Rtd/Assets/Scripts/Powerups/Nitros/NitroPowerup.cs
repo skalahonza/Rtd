@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Nitros
 {
-    public class NitroPowerup<T>: PowerUpBase
+    public class NitroPowerup<T>: IPowerup
         where T:NitroBase, new()
     {        
         public T Nitro { get; private set; }
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Powerups.Nitros
             Nitro = new T();
         }
 
-        public override bool Use(CarSpirit car)
+        public  bool Use(CarSpirit car)
         {
             if (car.Nitro != null)
             {
@@ -27,12 +27,12 @@ namespace Assets.Scripts.Powerups.Nitros
             return true;
         }
 
-        public override void UpdatePowerup(CarSpirit car)
+        public  void UpdatePowerup(CarSpirit car)
         {
             
         }
 
-        public override Sprite GetPowerupIcon()
+        public  Sprite GetPowerupIcon()
         {
             return Nitro.GetPowerupIcon();
         }        
