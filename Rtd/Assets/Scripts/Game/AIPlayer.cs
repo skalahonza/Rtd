@@ -10,10 +10,10 @@ class AIPlayer : Player{
 	private int pathIndex ;
 	float distFromPath = 20.0f;
 
-	float maxSteer  = 20.0f;
-	public float maxTorque  = 1200.0f;
+	float maxSteer  = 30.0f;
+	public float maxTorque  = 2100.0f;
 	float currentSpeed  = 0.0f;
-	float topSpeed  = 200.0f;
+	float topSpeed  = 207.0f;
 	private bool isBreaking = false;
 	public float breakForce = 500.0f;
 
@@ -31,7 +31,6 @@ class AIPlayer : Player{
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.autoBraking = false;
-		GetPath ();
     }
 
     void FixedUpdate() {
