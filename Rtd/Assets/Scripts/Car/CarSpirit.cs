@@ -51,7 +51,9 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
     void Update()
     {
-        _powerupSpawnPeriod += Time.deltaTime;
+        //increment powerup time if no powerup present
+        if (_powerUp == null)
+            _powerupSpawnPeriod += Time.deltaTime;
 
         if (_powerupSpawnPeriod > NumberConstants.PowerUpSpawn)
         {
@@ -164,5 +166,14 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             if (isLocalPlayer)
                 SoundMechanics.SpawnSound("error_sound");
         }
+    }
+
+    /// <summary>
+    /// When hit by surge - your powerup will be removed and you need to wait for another one
+    /// </summary>
+    public void SilencePowerup()
+    {
+        _powerUp = null;
+        _powerupSpawnPeriod = 0;
     }
 }

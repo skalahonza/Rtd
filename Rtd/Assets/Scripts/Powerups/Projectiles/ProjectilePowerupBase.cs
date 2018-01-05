@@ -111,7 +111,8 @@ namespace Assets.Scripts.Powerups.Projectiles
 
                     if (previouslyEmptyTarget)
                     {
-                        SoundMechanics.SpawnSound("radar_sound");
+                        if(isLocalPlayer)
+                            SoundMechanics.SpawnSound("radar_sound");
                     }
                 }
             }
