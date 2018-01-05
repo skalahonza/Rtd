@@ -17,7 +17,6 @@ namespace Assets.Scripts.Powerups
 
         [Command]
         public void CmdServerSpawn(Vector3 pos, Vector3 forward){
-            MineBase Mine = new CarMine();
             var postion = pos + forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
             postion = NumberConstants.MineSpawnHeight(postion);
             var sound = SoundMechanics.SpawnSound("car_mine_sound");
