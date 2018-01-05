@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Assets.Mechanics;
 using Assets.Scripts.Car;
 using UnityEngine;
@@ -44,7 +45,10 @@ public class LocalPlayer : Player
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            spirit.CmdUsePowerUp();
+            if (Network.isServer || Network.isClient)
+                spirit.CmdUsePowerUp();
+            else
+                spirit.UsePowerUp();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -79,7 +83,7 @@ public class LocalPlayer : Player
         {
             control.brakeTorque = 0;
         }
-
+        
         foreach (var wheelPair in control.wheelPairs)
         {
             //steering wheels
