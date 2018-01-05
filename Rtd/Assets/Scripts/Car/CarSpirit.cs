@@ -9,7 +9,7 @@ using Assets.Scripts.Powerups.Shields;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CarSpirit : MonoBehaviour, IDamagable
+public class CarSpirit : NetworkBehaviour, IDamagable
 {
     public float MaxHp;
     public float Hp;
@@ -47,10 +47,8 @@ public class CarSpirit : MonoBehaviour, IDamagable
             //Do Stuff
             if (_powerUp == null)
             {
-                gameObject.AddComponent(_powerupGenerator.GetPowerUpType());
-                _powerUp = gameObject.GetComponent<PowerUpBase>();
-                
-                Debug.Log("Power up spawned " + _powerUp);
+                //TODO HANDLE SINGLEPLAYER
+                CmdSpawnPwrUp();
             }
 
             _powerupSpawnPeriod = 0;
@@ -83,6 +81,20 @@ public class CarSpirit : MonoBehaviour, IDamagable
         // update powerup, retarget cars etc
         if (_powerUp != null)
             _powerUp.UpdatePowerup(this);
+    }
+
+    private void SpawnPowerup()
+    {
+        gameObject.AddComponent(_powerupGenerator.GetPowerUpType());
+        _powerUp = gameObject.GetComponent<PowerUpBase>();
+
+        Debug.Log("Power up spawned " + _powerUp);
+    }
+
+    [Command]
+    public void CmdSpawnPwrUp()
+    {
+        SpawnPowerup();
     }
 
     /// <summary>

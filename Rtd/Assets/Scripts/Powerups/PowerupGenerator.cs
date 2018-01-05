@@ -13,8 +13,8 @@ namespace Assets.Scripts.Powerups
 
         public PowerupGenerator():this(new List<Type>
         {
-            //typeof(MissilePowerup),
-            //typeof(ReverseMissilePowerup),
+            typeof(MissilePowerup),
+            typeof(ReverseMissilePowerup),
             typeof(MinePowerup),
             typeof(SurgePowerUp),
             typeof(NormalShieldPowerUp),
