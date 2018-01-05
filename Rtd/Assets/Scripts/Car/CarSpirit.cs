@@ -93,12 +93,12 @@ public class CarSpirit : MonoBehaviour, IDamagable
     }
 
     
-    public void UsePowerUp(bool net = false)
+    public void UsePowerUp()
     {
         if (_powerUp != null)
         {
             Debug.Log("Using powerup: " + _powerUp);
-            if (net ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
+            if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
             {                
                 //Clear powerup upon successfull action
                 _powerUp = null;

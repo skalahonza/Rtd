@@ -26,7 +26,6 @@ namespace Assets.Scripts.Powerups
             NetworkServer.Spawn(sound);
             var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
             NetworkServer.Spawn(mine);
-
         }
 
         public bool Spawnable(){
