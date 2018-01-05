@@ -40,10 +40,10 @@ namespace Assets.Scripts.Powerups
             }
         }
 
-        private IEnumerable<GameObject> SpawnEffects()
+        private void SpawnEffects()
         {
             var car = gameObject.GetComponent<CarSpirit>();
-            yield return AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
+            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
         }
 
         public override Sprite GetPowerupIcon()
