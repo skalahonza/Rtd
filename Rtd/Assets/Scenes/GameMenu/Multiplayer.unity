@@ -1074,8 +1074,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1663651944}
   m_HandleRect: {fileID: 1663651943}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999833
+  m_Value: 1
+  m_Size: 0.9999988
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1930,7 +1930,6 @@ GameObject:
   - component: {fileID: 582244095}
   - component: {fileID: 582244094}
   - component: {fileID: 582244093}
-  - component: {fileID: 582244097}
   m_Layer: 5
   m_Name: mmaker
   m_TagString: Untagged
@@ -2018,38 +2017,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &582244097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 582244092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &653621831
 Prefab:
   m_ObjectHideFlags: 0
@@ -3427,7 +3394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0042768456, y: -0.00004104487}
+  m_AnchoredPosition: {x: 0.0042768456, y: -0.00007674378}
   m_SizeDelta: {x: 0, y: 5}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1029047143
@@ -5228,7 +5195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e71a9db01d7498ca45a25a5c797b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 0}
+  mmaker: {fileID: 582244092}
 --- !u!114 &1590316204
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -106,6 +106,7 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	void InitializeNetworkClient(NetworkClient nc){
+		GameObject.Find("ConnectForm").GetComponent<NetwokResolution>().Open();
 		nc.RegisterHandler(SetMapMsg, SetMap);
 		nc.RegisterHandler(AddPlayerMsg, AddPlayer);
 		nc.RegisterHandler(UpdatePlayerMsg, UpdatePlayer);
