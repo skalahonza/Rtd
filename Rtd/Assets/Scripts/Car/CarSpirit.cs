@@ -18,9 +18,14 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     public float maxSpeed = 207;
     public float maxReverseSpeed = 75;
 
-    public IPowerup _powerUp;
+    public PowerUpBase _powerUp;
 
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>(){typeof(MissilePowerup)});
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(new List<Type>()
+    {
+        typeof(MissilePowerup),
+        typeof(MinePowerup),
+        typeof(SurgePowerUp),
+    });
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
@@ -107,6 +112,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             if (_powerUp.Use(this))
             {                
                 //TODO Clear powerup upon successfull action
+                Destroy(_powerUp);
                 _powerUp = null;
                 _powerupSpawnPeriod = 0;
             }
