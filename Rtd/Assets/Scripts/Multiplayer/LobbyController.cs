@@ -41,7 +41,6 @@ public class KickData : MessageBase {
 [RequireComponent(typeof(Lobby))]
 public class LobbyController : NetworkBehaviour {
 	public GameObject spawn;
-	public GameObject projectileSpawner;
     public GameObject spawnObject;	
 	public GameObject hostSpawnObject;	
 	public GameObject mmaker;
@@ -53,8 +52,8 @@ public class LobbyController : NetworkBehaviour {
 	GameObject[] playerSetupObj = new GameObject[5];
 
 	bool bug1 = false;
-	bool bug2 = false;
-	Lobby lobby;
+	bool bug712042 = false;
+	public Lobby lobby;
 	short SetMapMsg = 1024;
 	short UpdatePlayerMsg = 1025;
 	short AddPlayerMsg = 1027;
@@ -68,17 +67,19 @@ public class LobbyController : NetworkBehaviour {
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	public void Start(){
-		if(bug2){
+		mmaker = GameObject.Find("mmaker");
+		if(mmaker == null){
 			return;
 		}
+		spawn = GameObject.Find("player_setup");
 		gameObject.SetActive(true);
 		lobby = GetComponent<Lobby>();
+		DontDestroyOnLoad(gameObject);
 		mmaker.SetActive(false);
-		projectileSpawner.SetActive(true);
-		DontDestroyOnLoad(projectileSpawner);
 	}
 
 	public void Host () {
+		bug712042 = true;
 		spawnObject = hostSpawnObject;
 		nc = lobby.StartHost();
 		InitializeNetworkClient(nc);
@@ -194,6 +195,10 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Back(){
+		lobby.dontDestroyOnLoad = false;
+		DestroyImmediate(GameObject.Find("network"));
+		Destroy(GameObject.Find("GameObject"));
+		NetworkManager.Shutdown();
 		SceneManager.LoadScene("Menu");
 	}
 
@@ -224,11 +229,12 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Kicked(NetworkMessage netMsg){
-		bug2 = true;
-		lobby.dontDestroyOnLoad = false;
-		Destroy(GameObject.Find("network"));
+		if(bug712042){
+			lobby.StopHost();
+		}else{
+			lobby.StopClient();
+		}
 		Destroy(GameObject.Find("GameObject"));
-		NetworkManager.Shutdown();
 		SceneManager.LoadScene("Menu");
 	}
 }
