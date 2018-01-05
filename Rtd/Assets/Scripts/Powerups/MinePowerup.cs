@@ -2,28 +2,34 @@
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
     public class MinePowerup: PowerUpBase
     {
         private  MineBase Mine = new CarMine();
-        public List<GameObject> ObjectsToSynchronize { get; private set; }
-
-        public MinePowerup()
-        {
-            ObjectsToSynchronize = new List<GameObject>();
-        }
 
         public override bool Use(CarSpirit car)
         {
-            var postion = car.gameObject.transform.position + car.gameObject.transform.forward*-1 * NumberConstants.SpawningDiretionMultiplier*5;
-            postion = NumberConstants.MineSpawnHeight(postion);
-            var sound = SoundMechanics.SpawnSound("car_mine_sound");
-            ObjectsToSynchronize.Add(sound);
-            var mine = Instantiate(Mine.GetPrefab(), postion, new Quaternion());
-            ObjectsToSynchronize.Add(mine);
+            // SpawnMine();
+            CmdFire();
             return true;
+        }
+
+        private GameObject SpawnMine()
+        {
+            CarSpirit car = gameObject.GetComponent<CarSpirit>();
+            var postion = car.gameObject.transform.position + car.gameObject.transform.forward * -1 * NumberConstants.SpawningDiretionMultiplier * 5;
+            postion = NumberConstants.MineSpawnHeight(postion);
+            return Instantiate(Mine.GetPrefab(), postion, new Quaternion());
+        }
+
+        [Command]
+        void CmdFire()
+        {
+            var mine = SpawnMine();
+            NetworkServer.Spawn(mine);
         }
 
         public override void UpdatePowerup(CarSpirit car)

@@ -1,4 +1,6 @@
-﻿using Assets.Mechanics;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
@@ -18,7 +20,12 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
     public PowerUpBase _powerUp;
 
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(
+        new List<Type>()
+        {
+            typeof(MinePowerup)
+        }
+        );
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
