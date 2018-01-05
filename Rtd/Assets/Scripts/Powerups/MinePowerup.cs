@@ -24,8 +24,7 @@ namespace Assets.Scripts.Powerups
             postion = NumberConstants.MineSpawnHeight(postion);
             var sound = SoundMechanics.SpawnSound("car_mine_sound");
             NetworkServer.Spawn(sound);
-            var mine = GameObject.Instantiate(Mine.GetPrefab(), postion, new Quaternion());
-            NetworkServer.Spawn(mine);
+            Network.Instantiate((Object)Mine.GetPrefab(), postion, new Quaternion(),0);
         }
 
         public bool Spawnable(){
