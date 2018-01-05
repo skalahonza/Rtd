@@ -14,7 +14,7 @@ namespace Assets.Scripts.Powerups.Nitros
 
         public void Clean(CarSpirit car)
         {
-            GameObject.Destroy(nitroSoundPlayer);
+            Object.Destroy(nitroSoundPlayer);
             car.MaxMotorTorque = OriginalMaxMotorTorque;
         }
 

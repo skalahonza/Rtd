@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Powerups.Shields
 {
     public abstract class ShieldBase
     {
-        public GameObject ShieldSoundPlayer { get; protected set; }
-        public GameObject ShieldVisualization { get; protected set; }
+        public GameObject ShieldVisualization { get; set; }
 
         /// <summary>
         /// Resolve hit upon the shield
@@ -25,16 +25,15 @@ namespace Assets.Scripts.Powerups.Shields
         public virtual void Apply(CarSpirit car)
         {
             var prefab = GetPrefab();
-            ShieldVisualization = GameObject.Instantiate(prefab, car.transform);
+            ShieldVisualization = Object.Instantiate(prefab, car.transform);
         }
 
         public void Clean(CarSpirit car)
         {
-            GameObject.Destroy(ShieldVisualization);
-            GameObject.Destroy(ShieldSoundPlayer);
+            Object.Destroy(ShieldVisualization);
         }
 
-        protected abstract GameObject GetPrefab();
+        public abstract GameObject GetPrefab();
 
         public abstract Sprite GetPowerupIcon();
     }

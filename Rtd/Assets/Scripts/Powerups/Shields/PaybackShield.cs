@@ -2,6 +2,7 @@
 using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Powerups.Shields
 {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Powerups.Shields
                         car.gameObject.transform.position, projectile.Speed);
                     var position = projectile.transform.position;
                     var prefab = projectile.GetPrefab();
-                    var newProjectile = GameObject.Instantiate(prefab,
+                    var newProjectile = Object.Instantiate(prefab,
                         position,
                         TargetingMechanis.CalculateAimRotation(target.transform.position, car.transform.position)
                     );
@@ -37,15 +38,7 @@ namespace Assets.Scripts.Powerups.Shields
             get { return TimeSpan.FromSeconds(NumberConstants.PaybackShieldSeconds); }
         }
 
-        public override void Apply(CarSpirit car)
-        {
-            var sound = SoundMechanics.SpawnSound("short_shield_sound");
-            sound.transform.parent = car.transform;
-            ShieldSoundPlayer = sound;
-            base.Apply(car);
-        }
-
-        protected override GameObject GetPrefab()
+        public override GameObject GetPrefab()
         {
             return Resources.Load<GameObject>("Shields\\shield_emerald");
         }

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Networking;
 
-namespace Assets.Scripts.Powerups
+namespace Assets.Scripts.Powerups.Projectiles
 {
-    public abstract class ProjectilePowerupBase : IPowerup
+    public abstract class ProjectilePowerupBase : PowerUpBase
     {
         protected GameObject Target;
 
@@ -18,31 +16,45 @@ namespace Assets.Scripts.Powerups
 
         protected abstract GameObject GetProjectilePrefab();
 
-        public List<GameObject> ObjectsToSynchronize { get; private set; }
-
-        protected ProjectilePowerupBase()
-        {
-            ObjectsToSynchronize = new List<GameObject>();
-        }
-
         /// <inheritdoc />
         /// <summary>
         /// Use the powerup and apply it's damage or debuff upon target/s
         /// </summary>
         /// <param name="car">Owner of the powerup</param>
         /// <returns>True if action performed successfully</returns>
-        public bool Use(CarSpirit car)
+        public override bool Use(CarSpirit car)
         {
-            if (Target == null) return false;
+            if (Target == null) return false;     
+
+            //single player
+            if(false)
+                SpawnProjectile();
             
+            //TODO multi kulti player
+            else
+                CmdFire();
+            return true;
+        }
+
+        /// <summary>
+        /// Fire projectile and instantize it over network
+        /// </summary>
+        [Command]
+        void CmdFire()
+        {
+            GameObject projectile = SpawnProjectile();
+            NetworkServer.Spawn(projectile);
+        }
+
+        private GameObject SpawnProjectile()
+        {
+            var car = gameObject.GetComponent<CarSpirit>();
             // create projectile instance
             //spawn and fire projectile
             var prefab = GetProjectilePrefab();
             var position = NumberConstants.MineSpawnHeight(car.transform.position);
-            var projectile = GameObject.Instantiate(prefab, position,
+            var projectile = Instantiate(prefab, position,
                 TargetingMechanis.CalculateAimRotation(Target.transform.position, car.transform.position));
-
-            ObjectsToSynchronize.Add(projectile);
 
             var projBase = projectile.GetComponent<ProjectileBase>();
             projBase.Owner = car.gameObject;
@@ -51,7 +63,7 @@ namespace Assets.Scripts.Powerups
             if (car.gameObject.GetComponent<AIPlayer>() != null)
             {
                 var emulatedVeloity = car.gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                emulatedVeloity *= car.maxSpeed/3.6f;
+                emulatedVeloity *= car.maxSpeed / 3.6f;
                 velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, emulatedVeloity,
                     car.transform.position, projBase.Speed);
             }
@@ -59,11 +71,7 @@ namespace Assets.Scripts.Powerups
                 velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
 
             projectile.GetComponent<Rigidbody>().velocity = velocity;
-            return true;
-        }
-
-        public bool UseNetwork(CarSpirit car){
-            return PowerupNetworkSpawner.spawn(this, car);
+            return projectile;
         }
 
         public bool Spawnable(){
@@ -74,12 +82,12 @@ namespace Assets.Scripts.Powerups
         /// Updates powerup targets and other properties if required
         /// </summary>
         /// <param name="car">Powerup owner</param>
-        public void UpdatePowerup(CarSpirit car)
+        public override void UpdatePowerup(CarSpirit car)
         {
             LockTarget(car.gameObject.transform.position, car.transform.rotation);
         }
 
-        public abstract Sprite GetPowerupIcon();
+        public abstract override Sprite GetPowerupIcon();
 
         /// <summary>
         /// Lock on target from current position and rotation
