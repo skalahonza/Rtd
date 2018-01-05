@@ -9,14 +9,14 @@ namespace Assets.Scripts.Powerups
             PowerupNetworkSpawner inst = new PowerupNetworkSpawner();
             bool ret = pwup.Spawnable();
             if(ret){
-                inst.CmdServerSpawn((MinePowerup)pwup, car.gameObject.transform);
+                inst.CmdServerSpawn((MinePowerup)pwup, car.gameObject.transform.position, car.gameObject.transform.forward);
             }
             return ret;
         }
 
         [Command]
-        public void CmdServerSpawn(MinePowerup pwup, Transform car){
-            pwup.Use(car);
+        public void CmdServerSpawn(MinePowerup pwup, Vector3 pos, Vector3 forward){
+            pwup.Use(pos, forward);
         }
 
     }
