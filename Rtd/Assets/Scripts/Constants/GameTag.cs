@@ -10,5 +10,6 @@
         GameController,
         Muzzle,
         Tower,
+        Barrier
     }
 }
