@@ -28,6 +28,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	public override void OnClientReady(bool readyState){
 		LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
+		Debug.Log(string.Format("My ID: {0}", lc.myID));
 		GameObject setup = lc.playerSetupObj[lc.myID];
 		setup.transform.GetChild(0).gameObject.GetComponent<Text>().fontStyle = readyState ?  FontStyle.BoldAndItalic : FontStyle.Normal;
 	}

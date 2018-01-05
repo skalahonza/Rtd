@@ -234,8 +234,16 @@ public class LobbyController : NetworkBehaviour {
 	}
 
 	public void Kick(Button btt){
+		GameObject par = btt.transform.parent.gameObject;
 		KickData msg = new KickData();
-		msg.id = 1;
+		int id = 0;
+		foreach(var pld in playerSetupObj){
+			if(pld == par){
+				break;
+			}
+			id++;
+		}
+		msg.id = id;
 		nc.Send(KickPlayerMsg, msg);
 	}
 
