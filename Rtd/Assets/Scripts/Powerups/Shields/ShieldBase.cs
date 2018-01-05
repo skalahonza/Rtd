@@ -6,8 +6,7 @@ namespace Assets.Scripts.Powerups.Shields
 {
     public abstract class ShieldBase
     {
-        public GameObject ShieldSoundPlayer { get; protected set; }
-        public GameObject ShieldVisualization { get; protected set; }
+        public GameObject ShieldVisualization { get; set; }
 
         /// <summary>
         /// Resolve hit upon the shield
@@ -32,10 +31,9 @@ namespace Assets.Scripts.Powerups.Shields
         public void Clean(CarSpirit car)
         {
             Object.Destroy(ShieldVisualization);
-            Object.Destroy(ShieldSoundPlayer);
         }
 
-        protected abstract GameObject GetPrefab();
+        public abstract GameObject GetPrefab();
 
         public abstract Sprite GetPowerupIcon();
     }
