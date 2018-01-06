@@ -43,7 +43,7 @@ namespace Assets.Scripts.Powerups.Projectiles
             projBase.Owner = car.gameObject;
 
             Vector3 velocity;
-            if (car.gameObject.GetComponent<AIPlayer>() != null)
+            if (car.gameObject.GetComponent<AIPlayer>() != null && false)
             {
                 var emulatedVeloity = car.gameObject.GetComponent<Rigidbody>().velocity.normalized;
                 emulatedVeloity *= car.maxSpeed / 3.6f;
@@ -111,8 +111,9 @@ namespace Assets.Scripts.Powerups.Projectiles
 
                     if (previouslyEmptyTarget)
                     {
-                        if(isLocalPlayer)
-                            SoundMechanics.SpawnSound("radar_sound");
+                        if (isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                            if (gameObject.GetComponent<AIPlayer>() == null)
+                                SoundMechanics.SpawnSound("radar_sound");
                     }
                 }
             }

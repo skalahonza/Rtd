@@ -123,7 +123,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         if (Hp <= 0)
         {
             //TODO VISUALIZE DESTROYING waint and respawn
-            if(isLocalPlayer)
+            if(isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
                 gameObject.GetComponent<Player>().Respawn();
         }
     }
@@ -175,14 +175,16 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             }
             else
             {
-                if (isLocalPlayer)
-                    SoundMechanics.SpawnSound("error_sound");
+                if (isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                    if (gameObject.GetComponent<AIPlayer>() == null)
+                        SoundMechanics.SpawnSound("error_sound");
             }
         }
         else
         {
-            if (isLocalPlayer)
-                SoundMechanics.SpawnSound("error_sound");
+            if (isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                if(gameObject.GetComponent<AIPlayer>() == null)
+                    SoundMechanics.SpawnSound("error_sound");
         }
     }
 

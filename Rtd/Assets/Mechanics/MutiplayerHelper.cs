@@ -7,7 +7,6 @@ namespace Assets.Mechanics
     {
         public static bool IsMultiplayer()
         {
-            //TODO SLAMAAAA FIX IT
             bool multi = Network.isClient || Network.isServer || NetworkServer.active;
             return multi;
         }
