@@ -5,7 +5,7 @@
         public static bool IsMultiplayer()
         {
             //TODO SLAMAAAA FIX IT
-            return true;
+            return false;
         }
     }
 }
