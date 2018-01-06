@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - network
   - Barrier
+  - notAvoid
   layers:
   - Default
   - TransparentFX
