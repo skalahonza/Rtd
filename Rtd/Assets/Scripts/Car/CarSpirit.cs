@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using Random = System.Random;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -59,9 +60,26 @@ public class Game : MonoBehaviour {
             cars[i++].transform.GetChild(4).GetComponent<Renderer>().material = material;
         }
         i = 0;
-        foreach(var driver in players){
-            UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(cars[i++], "Assets/Scripts/Game/Game.cs (46,13)", driver); 
+        foreach(var driver in players)
+        {
+            cars[i++].AddComponent(GetTypeFromName(driver));
         }
         SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
+    }
+
+    private Type GetTypeFromName(string typeName)
+    {
+        if (typeof(LocalPlayer).Name.Contains(typeName))
+        {
+            return typeof(LocalPlayer);
+        }
+        if (typeof(AIPlayer).Name.Contains(typeName))
+        {
+            return typeof(AIPlayer);
+        }
+        else
+        {
+            throw new TypeLoadException("No such type of player exists: " + typeName);
+        }
     }
 }
