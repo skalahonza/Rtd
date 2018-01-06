@@ -76,7 +76,12 @@ public class LocalPlayer : Player
         //car control mechanique
         if (control.brakeTorque > 0.001)
         {
-            control.brakeTorque = spirit.MaxMotorTorque;
+            control.brakeTorque = spirit.MaxMotorTorque*2;
+            control.motorTorque = 0;
+        }
+        else if (IsBreaking())
+        {
+            control.brakeTorque = Math.Abs(control.motorTorque);
             control.motorTorque = 0;
         }
         else
@@ -172,5 +177,33 @@ public class LocalPlayer : Player
         WheelR.GetWorldPose(out pos, out rot);
         wheelPair.rightWheelMesh.transform.position = pos;
         wheelPair.rightWheelMesh.transform.rotation = rot;
+    }
+
+    private bool IsBreaking()
+    {
+        if (control.Speed < 5)
+            return false;
+
+        var fw = gameObject.transform.forward.normalized;
+        var bw = -fw;
+        var v = GetComponent<Rigidbody>().velocity.normalized;
+
+        var fwProduct = Vector3.Angle(fw, v);
+        var bwProduct = Vector3.Angle(bw, v);
+
+        //going forward
+        if (fwProduct < bwProduct)
+        {
+            if (control.motorTorque < 0) // wanna go backward
+                return true;
+        }
+
+        //going backward
+        else
+        {
+            if (control.motorTorque > 0) // wanna go forward
+                return true;
+        }
+        return false;
     }
 }
