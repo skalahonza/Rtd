@@ -1,213 +1,261 @@
+using System;
+using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
-using System.Collections.Generic;
-using System;
-using Random = System.Random;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-class AIPlayer : Player
-{
-    CarControl control;
-    List<Vector3> path = new List<Vector3>();
-    private int pathIndex;
-    float distFromPath = 20.0f;
+[RequireComponent (typeof (UnityEngine.AI.NavMeshAgent))]
+class AIPlayer : Player {
+	CarControl control;
+	public List<Vector3> path = new List<Vector3> ();
+	private int pathIndex;
+	float distFromPath = 20.0f;
+	bool reversing = false;
+	public bool inSector;
+	float elapsed = 0;
+	float sensorLength = 65.0f;
+	float frontSensorStartPoint = 4.0f;
+	float frontSensorSideDist = 2.0f;
+	float frontSensorsAngle = 30.0f;
+	float sidewaySensorLength = 5.0f;
+	private static System.Random rand = new System.Random ();
+	private int flag = 0;
+	float reverCounter = 0.0f;
+	float currentSpeed;
+	bool recountPath = false;
+	float waitToReverse = 1.0f;
+	float reverFor = 1.5f;
+	CarInfo frontWheelpair;
+	CarInfo backWheelPair;
+	CarSpirit spirit;
+	UnityEngine.AI.NavMeshAgent agent;
 
-    float currentSpeed = 0.0f;
-    private bool isBreaking = false;
-    public float breakForce = 500.0f;
+	void Start () {
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
+		spirit = GetComponent<CarSpirit> ();
+		control = GetComponent<CarControl> ();
+		agent.updatePosition = false;
+		agent.updateRotation = false;
+		agent.autoBraking = false;
+		agent.radius = 8.0f;
+		agent.speed = 20.0f;
+		agent.acceleration = 0.5f;
+		if (control.wheelPairs[1].steering) {
+			frontWheelpair = control.wheelPairs[1];
+			backWheelPair = control.wheelPairs[0];
+		} else {
+			frontWheelpair = control.wheelPairs[0];
+			backWheelPair = control.wheelPairs[1];
+		}
+	}
 
-    private bool isRunning = true;
-    float timer = 1.5f;
-    float resetTimer = 500.0f;
-    float m_Downforce = 100.0f;
-    CarSpirit spirit;
-    UnityEngine.AI.NavMeshAgent agent;
-    private static Random rand = new Random();
+	void Sensors () {
+		flag = 0;
+		float avoidSenstivity = 0.0f;
+		Vector3 pos;
+		RaycastHit hit;
+		var rightAngle = Quaternion.AngleAxis (frontSensorsAngle, transform.up) * transform.forward;
+		var leftAngle = Quaternion.AngleAxis (-frontSensorsAngle, transform.up) * transform.forward;
 
-    void Start()
-    {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        spirit = GetComponent<CarSpirit>();
-        control = GetComponent<CarControl>();
-        agent.updatePosition = false;
-        agent.updateRotation = false;
-        agent.autoBraking = false;
-        agent.radius = 8.0f;
-        agent.speed = 20.0f;
-        agent.acceleration = 0.5f;
-        if (control.wheelPairs[1].steering)
-        {
-            frontWheelpair = control.wheelPairs[1];
-            backWheelPair = control.wheelPairs[0];
-        }
-        else
-        {
-            frontWheelpair = control.wheelPairs[0];
-            backWheelPair = control.wheelPairs[1];
-        }
-    }
+		pos = transform.position;
+		pos.y += 0.8f;
+		pos += transform.forward * frontSensorStartPoint;
 
-    void FixedUpdate()
-    {
-        if (!startRace)
-            return;
-        GetSteer();
-        Move();
-        Breaking();
-        control.VisualizeWheel(control.wheelPairs[1]);
-        control.VisualizeWheel(control.wheelPairs[0]);
-        if (!agent.isOnNavMesh)
-        {
-            Respawn(false);
-        }
+		//BRAKING SENSOR
 
-        if (spirit._powerUp != null)
-            if (rand.Next() % 5 == 0)
-                spirit.UsePowerUp();
-    }
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength + 50.0f)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
+				backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
+				Debug.DrawLine (pos, hit.point, Color.red);
+			}
+		} else {
+			backWheelPair.leftWheelColider.brakeTorque = 0.0f;
+			backWheelPair.rightWheelColider.brakeTorque = 0.0f;
+		}
 
-    void GetSteer()
-    {
-        if (pathIndex >= path.Count)
-        {
-            pathIndex = 0;
-            GetPath();
-        }
-        Vector3 steerVector = transform.InverseTransformPoint(new Vector3(
-        path[pathIndex].x,
-        transform.position.y,
-        path[pathIndex].z)
-        );
-        float newSteer = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
-        if (control.wheelPairs[0].steering)
-        {
-            control.wheelPairs[0].rightWheelColider.steerAngle = control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
-        }
-        else
-        {
-            control.wheelPairs[1].rightWheelColider.steerAngle = control.wheelPairs[1].leftWheelColider.steerAngle = newSteer;
-        }
-        if (steerVector.magnitude <= distFromPath)
-        {
-            pathIndex++;
-            if (pathIndex >= path.Count)
-            {
-                pathIndex = 0;
-                GetPath();
-            }
-        }
+		//Front Straight Right Sensor
+		pos += transform.right * frontSensorSideDist;
 
-        if (Math.Abs(newSteer) >= 8 && GetComponent<Rigidbody>().velocity.magnitude >= 15)
-        {
-            if (distFromPath != 0.0f)
-            {
-                isBreaking = true;
-            }
-        }
-        else
-        {
-            isBreaking = false;
-        }
-    }
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				avoidSenstivity -= 1.0f;
+				Debug.Log ("Avoiding");
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		} else if (Physics.Raycast (pos, rightAngle, out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				avoidSenstivity -= 0.5f;
+				flag++;
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		}
 
-    void GetPath()
-    {
-        path.Clear();
-        if (map.checkpoints.Length != checkpointOffest + 1)
-        {
-            agent.destination = map.checkpoints[checkpointOffest + 1].transform.position;
-        }
-        foreach (var point in agent.path.corners)
-        {
-            path.Add(point);
-        }
-    }
+		//Front Straight left Sensor
+		pos = transform.position;
+		pos += transform.forward * frontSensorStartPoint;
+		pos -= transform.right * frontSensorSideDist;
 
-    void Move()
-    {
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				avoidSenstivity += 1.0f;
+				Debug.Log ("Avoiding");
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		} else if (Physics.Raycast (pos, leftAngle, out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				avoidSenstivity += 0.5f;
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		}
 
-        if (isRunning)
-        {
-            WheelCollider wheelsCollider;
-            foreach (var col in control.wheelPairs)
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    wheelsCollider = (i == 1 ? col.leftWheelColider : col.rightWheelColider);
-                    currentSpeed = 2 * 22 / 7 * wheelsCollider.radius * wheelsCollider.rpm * 60 / 1000;
-                    currentSpeed = Mathf.Round(currentSpeed);
+		//Right SideWay Sensor
+		if (Physics.Raycast (transform.position, transform.right, out hit, sidewaySensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				avoidSenstivity -= 0.5f;
+				Debug.DrawLine (transform.position, hit.point, Color.white);
+			}
+		}
 
-                    if (currentSpeed < spirit.maxSpeed && !isBreaking)
-                    {
-                        //accelarate the car
-                        wheelsCollider.motorTorque = spirit.MaxMotorTorque;
-                        wheelsCollider.motorTorque = Mathf.Lerp(wheelsCollider.motorTorque, 0, wheelsCollider.rpm / spirit.maxRPM);
-                    }
-                    else
-                    {
-                        wheelsCollider.motorTorque = 0;
-                    }
-                    AddDownForce();
-                }
-            }
+		//Left SideWay Sensor
+		if (Physics.Raycast (transform.position, -transform.right, out hit, sidewaySensorLength)) {
+			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+				flag++;
+				avoidSenstivity += 0.5f;
+				Debug.DrawLine (transform.position, hit.point, Color.white);
+			}
+		}
 
-        }
-        else if (isRunning == false)
-        {
-            driveBackwards();
-        }
-    }
+		pos = transform.position;
+		pos += transform.forward * frontSensorStartPoint;
+		//Front Mid Sensor
+		if (avoidSenstivity == 0.0f) {
 
-    private void AddDownForce()
-    {
-        //wheelsCollider[2].attachedRigidbody.AddForce(-transform.up*m_Downforce * wheelsCollider[3].attachedRigidbody.velocity.magnitude);
-        GetComponent<Rigidbody>().AddRelativeForce(-transform.up * m_Downforce * GetComponent<Rigidbody>().velocity.magnitude);
-    }
+			if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
+				if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
+					if (hit.normal.x < 0)
+						avoidSenstivity = -1.0f;
+					else
+						avoidSenstivity = 1.0f;
+					Debug.DrawLine (pos, hit.point, Color.white);
+				}
+			}
+		}
 
-    void Breaking()
-    {
+		if (GetComponent<Rigidbody> ().velocity.magnitude < 2.0f && !reversing) {
+			reverCounter += Time.deltaTime;
+			if (reverCounter >= waitToReverse) {
+				reverCounter = 0.0f;
+				reversing = true;
+			}
+		} else if (!reversing) {
+			reverCounter = 0.0f;
+		}
 
-        if (isBreaking)
-        {
-            control.wheelPairs[1].leftWheelColider.brakeTorque = breakForce;
-            control.wheelPairs[1].rightWheelColider.brakeTorque = breakForce;
-            control.wheelPairs[0].leftWheelColider.brakeTorque = breakForce;
-            control.wheelPairs[0].rightWheelColider.brakeTorque = breakForce;
+		if (reversing) {
+			avoidSenstivity *= -1;
+			reverCounter += Time.deltaTime;
+			if (reverCounter >= reverFor) {
+				reverCounter = 0.0f;
+				reversing = false;
+			}
+		}
 
-            control.wheelPairs[1].leftWheelColider.motorTorque = 0.0f;
-            control.wheelPairs[1].rightWheelColider.motorTorque = 0.0f;
-            control.wheelPairs[0].leftWheelColider.motorTorque = 0.0f;
-            control.wheelPairs[0].rightWheelColider.motorTorque = 0.0f;
-        }
-        else
-        {
-            control.wheelPairs[1].leftWheelColider.brakeTorque = 0.0f;
-            control.wheelPairs[1].rightWheelColider.brakeTorque = 0.0f;
-            control.wheelPairs[0].leftWheelColider.brakeTorque = 0.0f;
-            control.wheelPairs[0].rightWheelColider.brakeTorque = 0.0f;
-        }
-    }
-    void driveBackwards()
-    {
-        WheelCollider wheelsCollider;
-        foreach (var col in control.wheelPairs)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                wheelsCollider = (i == 1 ? col.leftWheelColider : col.rightWheelColider);
-                wheelsCollider.motorTorque = -spirit.MaxMotorTorque;
-                wheelsCollider.motorTorque = Mathf.Lerp(wheelsCollider.motorTorque, 0, wheelsCollider.rpm / spirit.maxRPM);
+		if (flag != 0)
+			AvoidSteer (avoidSenstivity);
 
-                timer -= Time.deltaTime;
+	}
 
-                if (timer <= 0)
-                {
-                    timer = 0;
-                    isRunning = true;
-                    timer = resetTimer;
-                    wheelsCollider.motorTorque = 0;
-                }
-            }
-        }
-    }
+	void FixedUpdate () {
+		if (!startRace)
+			return;
+		Sensors ();
+		GetSteer ();
+		Move ();
+		agent.velocity = GetComponent<Rigidbody> ().velocity;
+		control.VisualizeWheel (control.wheelPairs[1]);
+		control.VisualizeWheel (control.wheelPairs[0]);
+		if (spirit._powerUp != null)
+			if (rand.Next () % 5 == 0)
+				spirit.UsePowerUp ();
+		if (!agent.isOnNavMesh) {
+			Respawn (false);
+		}
+	}
+
+	void GetPath () {
+		if (elapsed == 0) {
+			agent.Warp (transform.position);
+			agent.SetDestination (map.checkpoints[checkpointOffest + 1].transform.position);
+			path.Clear ();
+			elapsed = 1.0f;
+		}
+		if (!agent.pathPending) {
+			elapsed = 0;
+			foreach (var point in agent.path.corners) {
+				path.Add (point);
+			}
+			Debug.Log (string.Format ("PATHING: {0}/ {1}", path.Count, agent.path.corners.Length));
+		}
+	}
+
+	void GetSteer () {
+		if (pathIndex + 1 >= path.Count) {
+			GetPath ();
+			pathIndex = 0;
+		}
+
+		if (pathIndex + 1 >= path.Count)
+			return;
+		Vector3 steerVector = transform.InverseTransformPoint (new Vector3 (
+			path[pathIndex].x,
+			transform.position.y,
+			path[pathIndex].z
+		));
+		float newSteer = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
+		frontWheelpair.leftWheelColider.steerAngle = newSteer;
+		frontWheelpair.rightWheelColider.steerAngle = newSteer;
+
+		if (Vector3.Distance (transform.position, path[pathIndex]) <= distFromPath) {
+			pathIndex++;
+		}
+	}
+
+	void Move () {
+		currentSpeed = 2 * (22 / 7) * backWheelPair.rightWheelColider.radius * backWheelPair.rightWheelColider.rpm * 60 / 1000;
+		currentSpeed = Mathf.Round (currentSpeed);
+		if (currentSpeed <= spirit.maxSpeed && !inSector) {
+			if (!reversing) {
+				float mt = Mathf.Lerp (spirit.MaxMotorTorque, 0, backWheelPair.leftWheelColider.rpm / spirit.maxRPM);
+				backWheelPair.leftWheelColider.motorTorque = mt;
+				backWheelPair.rightWheelColider.motorTorque = mt;
+			} else {
+				float mt = Mathf.Lerp (spirit.MaxMotorTorque, 0, backWheelPair.leftWheelColider.rpm / spirit.maxRPM);
+				backWheelPair.leftWheelColider.motorTorque = -mt;
+				backWheelPair.rightWheelColider.motorTorque = -mt;
+			}
+			backWheelPair.leftWheelColider.brakeTorque = 0;
+			backWheelPair.rightWheelColider.brakeTorque = 0;
+		} else if (!inSector) {
+			backWheelPair.leftWheelColider.motorTorque = 0;
+			backWheelPair.rightWheelColider.motorTorque = 0;
+			backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
+			backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
+		}
+	}
+
+	void AvoidSteer (float senstivity) {
+		float newSteer = spirit.MaxSteeringAngle * senstivity;
+
+		if (control.wheelPairs[0].steering) {
+			control.wheelPairs[0].rightWheelColider.steerAngle = control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
+		} else {
+			control.wheelPairs[1].rightWheelColider.steerAngle = control.wheelPairs[1].leftWheelColider.steerAngle = newSteer;
+		}
+	}
+
 }
