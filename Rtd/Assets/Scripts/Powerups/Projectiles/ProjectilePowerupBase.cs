@@ -1,7 +1,6 @@
 ﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups.Projectiles
 {
@@ -42,16 +41,7 @@ namespace Assets.Scripts.Powerups.Projectiles
             var projBase = projectile.GetComponent<ProjectileBase>();
             projBase.Owner = car.gameObject;
 
-            Vector3 velocity;
-            if (car.gameObject.GetComponent<AIPlayer>() != null && false)
-            {
-                var emulatedVeloity = car.gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                emulatedVeloity *= car.maxSpeed / 3.6f;
-                velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, emulatedVeloity,
-                    car.transform.position, projBase.Speed);
-            }
-            else
-                velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
+            var velocity = TargetingMechanis.CalculateAimVelocityVector(Target.transform, car.transform.position, projBase.Speed);
 
             projectile.GetComponent<Rigidbody>().velocity = velocity;
             return projectile;
