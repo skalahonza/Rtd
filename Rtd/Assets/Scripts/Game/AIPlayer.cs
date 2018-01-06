@@ -66,8 +66,8 @@ pos += transform.forward*frontSensorStartPoint;
 if (Physics.Raycast(pos,transform.forward,out hit,sensorLength+20.0f)){
 if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid"){
 flag++;
-backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque;
-backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque;
+backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque*2;
+backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque*2;
 Debug.DrawLine(pos,hit.point,Color.red);
 }
 }
@@ -260,8 +260,8 @@ backWheelPair.rightWheelColider.brakeTorque = 0;
 else if (!inSector){
 backWheelPair.leftWheelColider.motorTorque = 0;
 backWheelPair.rightWheelColider.motorTorque = 0;
-backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque;
-backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque;
+backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque*2;
+backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque*2;
 }
 }
 
