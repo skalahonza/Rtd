@@ -74,7 +74,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             _shieldDisablePeriod += Time.deltaTime;
             if (_shieldDisablePeriod > Shield.Duration.TotalSeconds)
             {
-                Debug.Log("Turning off shield" + Shield);
                 Shield.Clean(this);
                 Shield = null;
                 _shieldDisablePeriod = 0;
@@ -87,7 +86,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             _nitroDisablePeriod += Time.deltaTime;
             if (_nitroDisablePeriod > Nitro.Time)
             {
-                Debug.Log("Turning off nitro " + Nitro);
                 _nitroDisablePeriod = 0;
                 Nitro.Clean(this);
                 Nitro = null;
@@ -102,7 +100,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     private void SpawnPowerup()
     {
         _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
-        Debug.Log("Power up spawned " + _powerUp);
     }
 
     /// <summary>
@@ -152,7 +149,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     private void SpawnPowerup(int rand)
     {
         _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
-        Debug.Log("Power up spawned " + _powerUp);
     }
 
     [ClientRpc]
@@ -165,7 +161,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     {
         if (_powerUp != null)
         {
-            Debug.Log("Using powerup: " + _powerUp);
             //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
             if (_powerUp.Use(this))
             {

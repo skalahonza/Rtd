@@ -127,6 +127,8 @@ public class Lobby : NetworkLobbyManager {
         go.transform.position = stp.transform.position;
         go.transform.rotation = stp.transform.rotation;
         go.GetComponent<NetworkPlayer>().pid = pid;
+        go.GetComponent<NetworkPlayer>().cid = pid;
+        go.GetComponent<NetworkPlayer>().cname = data.cname;
         return go;
     }
     

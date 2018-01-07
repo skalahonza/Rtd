@@ -3,38 +3,49 @@ using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
 
-[RequireComponent (typeof (UnityEngine.AI.NavMeshAgent))]
 class AIPlayer : Player {
 	CarControl control;
 	public List<Vector3> path = new List<Vector3> ();
 	private int pathIndex;
-	float distFromPath = 20.0f;
+	float distFromPath = 50.0f;
 	bool reversing = false;
 	public bool inSector;
-	float elapsed = 0;
-	float sensorLength = 65.0f;
+	float sensorLength = 50.0f;
 	float frontSensorStartPoint = 4.0f;
 	float frontSensorSideDist = 2.0f;
 	float frontSensorsAngle = 30.0f;
-	float sidewaySensorLength = 5.0f;
+	float sidewaySensorLength = 35.0f;
 	private static System.Random rand = new System.Random ();
 	private int flag = 0;
 	float reverCounter = 0.0f;
 	float currentSpeed;
-	bool recountPath = false;
-	float waitToReverse = 1.0f;
-	float reverFor = 1.5f;
+	float waitToReverse = 2.0f;
+	float reverFor = 2.5f;
 	CarInfo frontWheelpair;
 	CarInfo backWheelPair;
 	CarSpirit spirit;
-	UnityEngine.AI.NavMeshAgent agent;
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = new Color(1, 0, 0, 0.75F);
+		Vector3 prev = new Vector3();
+		int i =0;
+		foreach(var pt in path){
+				Gizmos.DrawLine(prev, pt);
+			if(pathIndex == i)
+				 Gizmos.color = new Color(1, 1, 0, 0.80F);
+        	Gizmos.DrawSphere(pt, 3.0f);
+			Gizmos.color = new Color(1, 0, 0, 0.75F);
+			prev= pt;
+			i++;
+		}
+    }
 
 	void Start () {
-		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
+        base.Start();
 		spirit = GetComponent<CarSpirit> ();
 		control = GetComponent<CarControl> ();
-		agent.updatePosition = false;
-		agent.updateRotation = false;
 		agent.autoBraking = false;
 		agent.radius = 8.0f;
 		agent.speed = 20.0f;
@@ -46,6 +57,7 @@ class AIPlayer : Player {
 			frontWheelpair = control.wheelPairs[0];
 			backWheelPair = control.wheelPairs[1];
 		}
+		spirit.MaxSteeringAngle = 15.0f;
 	}
 
 	void Sensors () {
@@ -57,16 +69,16 @@ class AIPlayer : Player {
 		var leftAngle = Quaternion.AngleAxis (-frontSensorsAngle, transform.up) * transform.forward;
 
 		pos = transform.position;
-		pos.y += 0.8f;
+		pos.y += UnityEngine.Random.Range(0.2f, 1.2f);
 		pos += transform.forward * frontSensorStartPoint;
 
 		//BRAKING SENSOR
 
-		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength + 50.0f)) {
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
-				backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque * 5;
+				backWheelPair.leftWheelColider.brakeTorque = spirit.MaxMotorTorque * 0.05f;
+				backWheelPair.rightWheelColider.brakeTorque = spirit.MaxMotorTorque * 0.05f;
 				Debug.DrawLine (pos, hit.point, Color.red);
 			}
 		} else {
@@ -80,13 +92,12 @@ class AIPlayer : Player {
 		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				avoidSenstivity -= 1.0f;
-				Debug.Log ("Avoiding");
+				avoidSenstivity -= Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
 		} else if (Physics.Raycast (pos, rightAngle, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
-				avoidSenstivity -= 0.5f;
+				avoidSenstivity -= Mathf.Lerp(0.0f, 0.5f, hit.distance/sensorLength);
 				flag++;
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
@@ -100,14 +111,13 @@ class AIPlayer : Player {
 		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				avoidSenstivity += 1.0f;
-				Debug.Log ("Avoiding");
+				avoidSenstivity += Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
 		} else if (Physics.Raycast (pos, leftAngle, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				avoidSenstivity += 0.5f;
+				avoidSenstivity += Mathf.Lerp(0.0f, 0.5f, hit.distance/sensorLength);
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
 		}
@@ -116,7 +126,7 @@ class AIPlayer : Player {
 		if (Physics.Raycast (transform.position, transform.right, out hit, sidewaySensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				avoidSenstivity -= 0.5f;
+				avoidSenstivity -= Mathf.Lerp(0.0f, 0.5f, hit.distance/sensorLength);
 				Debug.DrawLine (transform.position, hit.point, Color.white);
 			}
 		}
@@ -125,7 +135,7 @@ class AIPlayer : Player {
 		if (Physics.Raycast (transform.position, -transform.right, out hit, sidewaySensorLength)) {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
-				avoidSenstivity += 0.5f;
+				avoidSenstivity += Mathf.Lerp(0.0f, 0.5f, hit.distance/sensorLength);
 				Debug.DrawLine (transform.position, hit.point, Color.white);
 			}
 		}
@@ -138,9 +148,9 @@ class AIPlayer : Player {
 			if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 				if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 					if (hit.normal.x < 0)
-						avoidSenstivity = -1.0f;
+						avoidSenstivity = -Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
 					else
-						avoidSenstivity = 1.0f;
+						avoidSenstivity = Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
 					Debug.DrawLine (pos, hit.point, Color.white);
 				}
 			}
@@ -171,11 +181,11 @@ class AIPlayer : Player {
 	}
 
 	void FixedUpdate () {
-		if (!startRace)
+		if (!startRace || finished)
 			return;
-		Sensors ();
 		GetSteer ();
 		Move ();
+		Sensors ();
 		agent.velocity = GetComponent<Rigidbody> ().velocity;
 		control.VisualizeWheel (control.wheelPairs[1]);
 		control.VisualizeWheel (control.wheelPairs[0]);
@@ -188,18 +198,10 @@ class AIPlayer : Player {
 	}
 
 	void GetPath () {
-		if (elapsed == 0) {
-			agent.Warp (transform.position);
-			agent.SetDestination (map.checkpoints[checkpointOffest + 1].transform.position);
-			path.Clear ();
-			elapsed = 1.0f;
-		}
 		if (!agent.pathPending) {
-			elapsed = 0;
 			foreach (var point in agent.path.corners) {
 				path.Add (point);
 			}
-			Debug.Log (string.Format ("PATHING: {0}/ {1}", path.Count, agent.path.corners.Length));
 		}
 	}
 
@@ -216,17 +218,17 @@ class AIPlayer : Player {
 			transform.position.y,
 			path[pathIndex].z
 		));
-		float newSteer = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
+		float newSteer =  (steerVector.x / steerVector.magnitude);
+		newSteer = Mathf.Lerp(0.0f, spirit.MaxSteeringAngle * newSteer,  currentSpeed/spirit.maxSpeed);
 		frontWheelpair.leftWheelColider.steerAngle = newSteer;
 		frontWheelpair.rightWheelColider.steerAngle = newSteer;
-
 		if (Vector3.Distance (transform.position, path[pathIndex]) <= distFromPath) {
 			pathIndex++;
 		}
 	}
 
 	void Move () {
-		currentSpeed = 2 * (22 / 7) * backWheelPair.rightWheelColider.radius * backWheelPair.rightWheelColider.rpm * 60 / 1000;
+		currentSpeed = control.Speed;
 		currentSpeed = Mathf.Round (currentSpeed);
 		if (currentSpeed <= spirit.maxSpeed && !inSector) {
 			if (!reversing) {
@@ -249,7 +251,7 @@ class AIPlayer : Player {
 	}
 
 	void AvoidSteer (float senstivity) {
-		float newSteer = spirit.MaxSteeringAngle * senstivity;
+		float newSteer = Mathf.Lerp(0.0f, spirit.MaxSteeringAngle * senstivity, currentSpeed/spirit.maxSpeed);
 
 		if (control.wheelPairs[0].steering) {
 			control.wheelPairs[0].rightWheelColider.steerAngle = control.wheelPairs[0].leftWheelColider.steerAngle = newSteer;
