@@ -17,7 +17,7 @@ namespace Assets.Scripts.Constants
         /// <summary>
         /// Multiply direction vector of moving cars and spawn mine on this position
         /// </summary>
-        public const float SpawningDiretionMultiplier = 2.5f;
+        public const float SpawningDiretionMultiplier = 1.75f;
 
         /// <summary>
         /// Tower mine will vanish after this time pass
@@ -26,7 +26,12 @@ namespace Assets.Scripts.Constants
 
         public static Vector3 MineSpawnHeight(Vector3 spawnPosition)
         {
-            spawnPosition.y += 1;
+            // callibrate position to the ground
+            RaycastHit info;
+            if (Physics.Raycast(spawnPosition, Vector3.down, out info))
+            {
+                spawnPosition.y = info.transform.position.y + 1.75f;
+            }
             return spawnPosition;
         }
 
