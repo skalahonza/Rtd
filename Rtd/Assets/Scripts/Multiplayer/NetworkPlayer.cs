@@ -57,4 +57,23 @@ public class NetworkPlayer : NetworkBehaviour {
         LobbyController lb = GameObject.FindObjectOfType<LobbyController>();
         lb.Back();
     }
+
+
+	[Command]
+	public void CmdFinished(int plid, string cname)
+    {
+		Debug.Log(string.Format("I have finished {0}", cname));
+        RpcAddFinishedPlayer(plid, cname);   
+    }
+
+	[ClientRpc]
+    private void RpcAddFinishedPlayer(int plid, string cname)
+    {
+        Leaderboards lb = GameObject.FindObjectOfType<Leaderboards>();
+		Debug.Log(string.Format("sse {0} finished", cname));
+		Playerx p = new Playerx();
+		p.cid = plid;
+		p.cname = cname;
+        lb.players.Add(p);
+    }
 }

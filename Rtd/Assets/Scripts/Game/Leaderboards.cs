@@ -8,9 +8,7 @@ public class Playerx {
 	public string cname;
 }
 
-[RequireComponent(typeof(NetworkIdentity))]
-public class Leaderboards : NetworkBehaviour {
-
+public class Leaderboards : MonoBehaviour {
 	public List<Playerx> players = new List<Playerx>(); 
 
 	public void OnTriggerEnter(Collider other) {
@@ -18,7 +16,7 @@ public class Leaderboards : NetworkBehaviour {
 		if(oth != null){
 			if(!oth.finished &&  oth.checkpointOffest != 0){
 				if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
-					CmdFinished(oth.cid, oth.cname);
+					other.gameObject.GetComponent<NetworkPlayer>().CmdFinished(oth.cid, oth.cname);
 					oth.Finish();
 				}else{
 					Playerx p = new Playerx();
@@ -30,21 +28,4 @@ public class Leaderboards : NetworkBehaviour {
 			}
 		}
 	}
-
-	[Command]
-	public void CmdFinished(int plid, string cname)
-    {
-		Debug.Log(string.Format("I have finished {0}", cname));
-        RpcAddFinishedPlayer(plid, cname);   
-    }
-
-	[ClientRpc]
-    private void RpcAddFinishedPlayer(int plid, string cname)
-    {
-		Debug.Log(string.Format("sse {0} finished", cname));
-		Playerx p = new Playerx();
-		p.cid = plid;
-		p.cname = cname;
-        players.Add(p);
-    }
 }
