@@ -10,6 +10,7 @@ public class Game : MonoBehaviour {
     List<GameObject> prefabs = new List<GameObject>();
     List<Material> materials = new List<Material>();
     public List<GameObject> cars = new List<GameObject>();
+    public Leaderboards leaderboards ;
     Map map;
 
 
@@ -44,6 +45,7 @@ public class Game : MonoBehaviour {
         //instantiate them all
         int i = 0;
         //get Map
+        leaderboards = map.leaderboards;
         foreach (var item in prefabs)
         {
             cars.Add(Instantiate(item)); 

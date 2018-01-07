@@ -7546,6 +7546,76 @@ Transform:
   m_PrefabParentObject: {fileID: 4119785666178532, guid: 9b98acc6e75770d4baf1258056cd6507,
     type: 2}
   m_PrefabInternal: {fileID: 764861344}
+--- !u!1 &764938269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 764938271}
+  - component: {fileID: 764938270}
+  - component: {fileID: 764938272}
+  - component: {fileID: 764938273}
+  m_Layer: 2
+  m_Name: lead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &764938270
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764938269}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.090492, y: 9.276897, z: 1}
+  m_Center: {x: 4.5777187, y: 4.1384487, z: -0.000008221575}
+--- !u!4 &764938271
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764938269}
+  m_LocalRotation: {x: 0, y: -0.30586144, z: 0, w: 0.9520761}
+  m_LocalPosition: {x: 95.55, y: 0, z: -31.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 44
+  m_LocalEulerAnglesHint: {x: 0, y: -35.62, z: 0}
+--- !u!114 &764938272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764938269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a7c79b719f0455a944f1eea420cdfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+--- !u!54 &764938273
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 764938269}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &767970564
 GameObject:
   m_ObjectHideFlags: 0
@@ -12019,6 +12089,7 @@ MonoBehaviour:
   - {fileID: 345904034}
   - {fileID: 642596661}
   - {fileID: 25908351}
+  leaderboards: {fileID: 764938272}
   towerPositions:
   - {fileID: 1237819165}
 --- !u!4 &1229570277

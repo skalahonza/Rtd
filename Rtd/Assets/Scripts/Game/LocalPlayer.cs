@@ -20,7 +20,7 @@ public class LocalPlayer : Player
 
     void Start()
     {
-        //attach cam here
+        base.Start();
         smf = GameObject.FindObjectOfType<SmoothFollow>();
         smf.target = this.transform;
         spirit = GetComponent<CarSpirit>();
@@ -29,11 +29,12 @@ public class LocalPlayer : Player
         HUD hud = GameObject.FindObjectOfType<HUD>();
         hud.spirit = spirit;
         hud.control = control;
+        hud.player = this;
     }
 
     private void Update()
     {
-        if (!startRace)
+        if (!startRace || finished)
             return;
 
         var currentPowerup = spirit._powerUp;

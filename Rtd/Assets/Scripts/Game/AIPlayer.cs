@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
 
-[RequireComponent (typeof (UnityEngine.AI.NavMeshAgent))]
 class AIPlayer : Player {
 	CarControl control;
 	public List<Vector3> path = new List<Vector3> ();
@@ -11,7 +10,6 @@ class AIPlayer : Player {
 	float distFromPath = 50.0f;
 	bool reversing = false;
 	public bool inSector;
-	float elapsed = 0;
 	float sensorLength = 50.0f;
 	float frontSensorStartPoint = 4.0f;
 	float frontSensorSideDist = 2.0f;
@@ -21,13 +19,11 @@ class AIPlayer : Player {
 	private int flag = 0;
 	float reverCounter = 0.0f;
 	float currentSpeed;
-	bool recountPath = false;
 	float waitToReverse = 2.0f;
 	float reverFor = 2.5f;
 	CarInfo frontWheelpair;
 	CarInfo backWheelPair;
 	CarSpirit spirit;
-	UnityEngine.AI.NavMeshAgent agent;
 
     void OnDrawGizmosSelected()
     {
@@ -47,11 +43,9 @@ class AIPlayer : Player {
     }
 
 	void Start () {
-		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
+        base.Start();
 		spirit = GetComponent<CarSpirit> ();
 		control = GetComponent<CarControl> ();
-		agent.updatePosition = false;
-		agent.updateRotation = false;
 		agent.autoBraking = false;
 		agent.radius = 8.0f;
 		agent.speed = 20.0f;
@@ -99,7 +93,6 @@ class AIPlayer : Player {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
 				avoidSenstivity -= Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
-				Debug.Log ("Avoiding");
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
 		} else if (Physics.Raycast (pos, rightAngle, out hit, sensorLength)) {
@@ -119,7 +112,6 @@ class AIPlayer : Player {
 			if (hit.transform.tag != "Terrain" && hit.transform.tag != "notAvoid") {
 				flag++;
 				avoidSenstivity += Mathf.Lerp(0.0f, 1.0f, hit.distance/sensorLength);
-				Debug.Log ("Avoiding");
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
 		} else if (Physics.Raycast (pos, leftAngle, out hit, sensorLength)) {
@@ -189,7 +181,7 @@ class AIPlayer : Player {
 	}
 
 	void FixedUpdate () {
-		if (!startRace)
+		if (!startRace || finished)
 			return;
 		GetSteer ();
 		Move ();
@@ -206,22 +198,10 @@ class AIPlayer : Player {
 	}
 
 	void GetPath () {
-		if (elapsed == 0) {
-			agent.Warp (transform.position);
-			if(agent.remainingDistance <= distFromPath + 10.0f){
-				agent.SetDestination (map.checkpoints[checkpointOffest + 2].transform.position);
-			}else{
-				agent.SetDestination (map.checkpoints[checkpointOffest + 1].transform.position);
-			}
-			path.Clear ();
-			elapsed = 1.0f;
-		}
 		if (!agent.pathPending) {
-			elapsed = 0;
 			foreach (var point in agent.path.corners) {
 				path.Add (point);
 			}
-			Debug.Log (string.Format ("PATHING: {0}/ {1}", path.Count, agent.path.corners.Length));
 		}
 	}
 

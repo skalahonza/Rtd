@@ -10,11 +10,18 @@ public class HUD : MonoBehaviour {
     public GameObject menu;
     public delegate void FinishPressed();
     FinishPressed func;
+    Game go;
     Image pwup;
     Text speed;
     Text hp;
+    public GameObject leaderb;
+    bool mact = false;
     Text pos;
+    int position = 1;
+    public Player player;
+
     private void Start() {
+        go = GameObject.Find("GameObject").GetComponent<Game>();
         hp = GameObject.Find("Hp").GetComponent<Text>();
         speed = GameObject.Find("Speed").GetComponent<Text>();
         pwup = GameObject.Find("Pwup").GetComponent<Image>();
@@ -26,6 +33,10 @@ public class HUD : MonoBehaviour {
     }
 
     void FixedUpdate()  {
+        if(player.finished){
+            RenderLeaderboards();
+            return;
+        }
         //SET hp 
         hp.text = string.Format("{0}/{1}", spirit.Hp, spirit.MaxHp);
         //set spEED
@@ -39,8 +50,53 @@ public class HUD : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
-             menu.SetActive(true);
+            if(mact){
+                menu.SetActive(false);
+            }else{
+                menu.SetActive(true);
+            }
         }
+        UpdatePosition();
+        switch (position)
+        {
+            case 1:
+            pos.text = "1st";
+            break;
+            case 2:
+            pos.text = "2nd";
+            break;
+            case 3:
+            pos.text = "3rd";
+            break;
+            case 4:
+            pos.text = "4th";
+            break;
+            case 5:
+            pos.text = "5th";
+            break;
+            default:
+            pos.text = "WTF";
+            break;
+        }
+    }
+
+    public void UpdatePosition(){
+        float d = player.GetPathLength();
+        int pos = 1;
+        if(d == 0.0f){
+            return;
+        }
+        foreach(var pld in go.cars){
+            Player pl = pld.GetComponent<Player>();
+            if(pl == player)
+                continue;
+            float semi = pl.GetPathLength();
+            if(semi == 0.0f)
+                return;
+            if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
+                pos ++;
+        }
+        position = pos;
     }
 
     public void FinishGame(){
@@ -53,6 +109,11 @@ public class HUD : MonoBehaviour {
     
     public void CloseMenu(){
         menu.SetActive(false);
+    }
+
+    public void RenderLeaderboards(){
+        gameObject.SetActive(false);
+        leaderb.SetActive(true);
     }
 
 }
