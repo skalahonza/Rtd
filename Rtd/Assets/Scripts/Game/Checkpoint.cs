@@ -1,3 +1,4 @@
+using Assets.Mechanics;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour {
@@ -13,5 +14,6 @@ public class Checkpoint : MonoBehaviour {
         //heal the car
          var car = other.gameObject.GetComponent<CarSpirit>();
          car.Hp = car.MaxHp;
+         AnimationMechanics.SpawnParticle("heal_wave", car.gameObject.transform);
      }
 }
