@@ -7,8 +7,7 @@ namespace Assets.Mechanics
     {
         public static bool IsMultiplayer()
         {
-            bool multi = Network.isClient || Network.isServer || NetworkServer.active;
-            return multi;
+            return GameObject.FindObjectOfType<NetworkPlayer>() != null;
         }
     }
 }
