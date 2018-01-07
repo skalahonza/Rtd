@@ -8,7 +8,7 @@ public class Playerx {
 	public string cname;
 }
 
-
+[RequireComponent(typeof(NetworkIdentity))]
 public class Leaderboards : NetworkBehaviour {
 
 	public List<Playerx> players = new List<Playerx>(); 
