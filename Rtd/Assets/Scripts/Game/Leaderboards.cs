@@ -40,6 +40,7 @@ public class Leaderboards : NetworkBehaviour {
 	[ClientRpc]
     private void RpcAddFinishedPlayer(int plid, string cname)
     {
+		Debug.Log(string.Format("sse {0} finished", cname));
 		Playerx p = new Playerx();
 		p.cid = plid;
 		p.cname = cname;
