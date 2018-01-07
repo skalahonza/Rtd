@@ -35,6 +35,7 @@ public class Leaderboards : NetworkBehaviour {
 	[Command]
 	public void CmdFinished(int plid, string cname)
     {
+		Debug.Log(string.Format("I have finished"));
         RpcAddFinishedPlayer(plid, cname);   
     }
 
