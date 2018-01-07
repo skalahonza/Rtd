@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 198542988439343128}
   - component: {fileID: 199767424216596658}
   - component: {fileID: 114195352713985378}
-  - component: {fileID: 114074158167178812}
   m_Layer: 0
   m_Name: shockwave_projectile_effect
   m_TagString: Untagged
@@ -74,38 +73,6 @@ Transform:
   m_Father: {fileID: 4260258163759146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114074158167178812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1540095716426942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 2
-    i1: 97
-    i2: 231
-    i3: 36
-    i4: 76
-    i5: 91
-    i6: 171
-    i7: 100
-    i8: 138
-    i9: 131
-    i10: 24
-    i11: 170
-    i12: 13
-    i13: 94
-    i14: 149
-    i15: 167
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114195352713985378
 MonoBehaviour:
   m_ObjectHideFlags: 1
