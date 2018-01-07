@@ -19,6 +19,7 @@ public class Leaderboards : NetworkBehaviour {
 			if(!oth.finished &&  oth.checkpointOffest != 0){
 				if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
 					CmdFinished(oth.cid, oth.cname);
+					oth.Finish();
 				}else{
 					Playerx p = new Playerx();
 					p.cid = oth.cid;
