@@ -48,13 +48,13 @@ public class NetworkPlayer : NetworkBehaviour {
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
             HUD hud = GameObject.FindObjectOfType<HUD>();
-            hud.SetDelegate(FinishGame);
+            hud.setDelegate(FinishGame);
             return;
         }
     }
 
     public void FinishGame(){
-        Lobby lb = GameObject.FindObjectOfType<Lobby>();
+        LobbyController lb = GameObject.FindObjectOfType<LobbyController>();
         lb.Back();
     }
 }
