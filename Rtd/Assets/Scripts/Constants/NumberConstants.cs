@@ -24,7 +24,7 @@ namespace Assets.Scripts.Constants
         /// </summary>
         public const float TowerMineVanishTime = 7.5f;
 
-        public static Vector3 MineSpawnHeight(Vector3 spawnPosition)
+        public static Vector3 TowerMineSpawnHeight(Vector3 spawnPosition)
         {
             // callibrate position to the ground
             RaycastHit info;
@@ -32,6 +32,12 @@ namespace Assets.Scripts.Constants
             {
                 spawnPosition.y = info.transform.position.y + 1.75f;
             }
+            return spawnPosition;
+        }
+
+        public static Vector3 MineSpawnHeight(Vector3 spawnPosition)
+        {
+            spawnPosition.y += 1;
             return spawnPosition;
         }
 
