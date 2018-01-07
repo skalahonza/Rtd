@@ -16,6 +16,7 @@ public class Leaderboards : NetworkBehaviour {
 	public void OnTriggerEnter(Collider other) {
 		Player oth = other.gameObject.GetComponent<Player>();
 		if(oth != null){
+			Debug.Log(string.Format("sse V1 {0} {1} {2}",oth.finished,oth.checkpointOffest,Assets.Mechanics.MultiplayerHelper.IsMultiplayer()));
 			if(!oth.finished &&  oth.checkpointOffest != 0){
 				if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
 					CmdFinished(oth.cid, oth.cname);
