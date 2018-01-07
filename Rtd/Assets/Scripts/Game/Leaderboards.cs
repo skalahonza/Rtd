@@ -21,6 +21,7 @@ public class Leaderboards : NetworkBehaviour {
 					CmdFinished(oth.cid, oth.cname);
 					oth.Finish();
 				}else{
+					Debug.Log(string.Format("sse SINGLE"));
 					Playerx p = new Playerx();
 					p.cid = oth.cid;
 					p.cname = oth.cname;
