@@ -98,7 +98,7 @@ public class Game : MonoBehaviour {
         }
     }
       private string GetNameFromName(string typeName){
-          if (typeof(LocalPlayer).Name.Contains(typeName))
+        if (typeof(LocalPlayer).Name.Contains(typeName))
         {
             return "Player";
         }
