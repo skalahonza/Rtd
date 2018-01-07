@@ -17,7 +17,7 @@ namespace Assets.Scripts.Powerups
         private GameObject SpawnMine()
         {
             var postion = gameObject.transform.position + gameObject.transform.forward * -1 * NumberConstants.SpawningDiretionMultiplier * 5;
-            postion = NumberConstants.MineSpawnHeight(postion);
+            postion.y += 1;
             return Instantiate(Resources.Load<GameObject>("car_mine"), postion, new Quaternion());
         }
 
