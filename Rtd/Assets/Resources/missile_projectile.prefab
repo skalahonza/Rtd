@@ -25,8 +25,6 @@ GameObject:
   - component: {fileID: 54202198257900832}
   - component: {fileID: 114449734398761208}
   - component: {fileID: 82197031124366972}
-  - component: {fileID: 114009468755973144}
-  - component: {fileID: 114840658562038194}
   m_Layer: 0
   m_Name: missile_projectile
   m_TagString: Untagged
@@ -183,38 +181,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114009468755973144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1515089955954162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 93
-    i1: 55
-    i2: 19
-    i3: 209
-    i4: 200
-    i5: 253
-    i6: 229
-    i7: 148
-    i8: 26
-    i9: 54
-    i10: 29
-    i11: 239
-    i12: 112
-    i13: 226
-    i14: 191
-    i15: 111
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114449734398761208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,27 +195,6 @@ MonoBehaviour:
   Speed: 60
   Damage: 25
   Owner: {fileID: 0}
---- !u!114 &114840658562038194
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1515089955954162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!135 &135703346379865932
 SphereCollider:
   m_ObjectHideFlags: 1
