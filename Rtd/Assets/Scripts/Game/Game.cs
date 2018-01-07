@@ -9,7 +9,7 @@ public class Game : MonoBehaviour {
     List<string> players = new List<string>();
     List<GameObject> prefabs = new List<GameObject>();
     List<Material> materials = new List<Material>();
-    List<GameObject> cars = new List<GameObject>();
+    public List<GameObject> cars = new List<GameObject>();
     Map map;
 
 
