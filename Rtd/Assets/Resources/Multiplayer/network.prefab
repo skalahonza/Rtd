@@ -58,14 +58,6 @@ MonoBehaviour:
   - {fileID: 1791092459031418, guid: 5c8e851dd22b37a4d8ee01b287ee9ced, type: 2}
   - {fileID: 1750864972512678, guid: ab4bf9ee1a799914abd29ac58668f1f2, type: 2}
   - {fileID: 1056444904812556, guid: f199836f9f4439e4cba8faad40e86e55, type: 2}
-  - {fileID: 1056966752839254, guid: 421691368471fab44a696e75701d31bc, type: 2}
-  - {fileID: 1479726337392158, guid: b777b54bfc4a2eb4b8d13bf8cf4b89bb, type: 2}
-  - {fileID: 1976259511280868, guid: b409a3714a0f84d4c9ddf3a994a9dc80, type: 2}
-  - {fileID: 1042804733819322, guid: bc94beea1ad68a54090e94395bb67d27, type: 2}
-  - {fileID: 1366249188717210, guid: 013313be893200240b44f85fbb0fedd1, type: 2}
-  - {fileID: 1826083555660136, guid: 17df0b5e5f2adff4e97194730ec11f45, type: 2}
-  - {fileID: 1515089955954162, guid: 98b00ebce15f29949a7cf58aed8f2503, type: 2}
-  - {fileID: 1222550491574178, guid: 803cec5e18a5e9449a7b000319234b10, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -108,7 +100,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
