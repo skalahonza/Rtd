@@ -16,13 +16,11 @@ public class Leaderboards : NetworkBehaviour {
 	public void OnTriggerEnter(Collider other) {
 		Player oth = other.gameObject.GetComponent<Player>();
 		if(oth != null){
-			Debug.Log(string.Format("sse V1 {0} {1} {2}",oth.finished,oth.checkpointOffest,Assets.Mechanics.MultiplayerHelper.IsMultiplayer()));
 			if(!oth.finished &&  oth.checkpointOffest != 0){
 				if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
 					CmdFinished(oth.cid, oth.cname);
 					oth.Finish();
 				}else{
-					Debug.Log(string.Format("sse SINGLE"));
 					Playerx p = new Playerx();
 					p.cid = oth.cid;
 					p.cname = oth.cname;
@@ -36,7 +34,7 @@ public class Leaderboards : NetworkBehaviour {
 	[Command]
 	public void CmdFinished(int plid, string cname)
     {
-		Debug.Log(string.Format("I have finished"));
+		Debug.Log(string.Format("I have finished {0}", cname));
         RpcAddFinishedPlayer(plid, cname);   
     }
 
