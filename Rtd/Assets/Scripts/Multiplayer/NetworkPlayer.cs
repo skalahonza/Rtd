@@ -15,6 +15,10 @@ public class NetworkPlayer : NetworkBehaviour {
     LocalPlayer cc;
     [SyncVar]
     public int pid;
+    [SyncVar]
+    public int cid;
+    [SyncVar]
+    public string cname; 
 
     void Start() 
     {
@@ -39,6 +43,8 @@ public class NetworkPlayer : NetworkBehaviour {
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
             cc = gameObject.AddComponent<LocalPlayer>();
+            cc.cid = cid;
+            cc.cname = cname;
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
             return;

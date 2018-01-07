@@ -32,13 +32,24 @@ public class Game : MonoBehaviour {
         }
     }
 
+    public void finish(){
+        Destroy(gameObject);
+        Destroy(this);
+
+        SceneManager.LoadScene("Menu");
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        if(scene.name == "Menu" || scene.name == "Singleplayer" || scene.name == "Multiplayer")
+            return;
         if(mode == LoadSceneMode.Additive){
             foreach(var car in cars){
                 car.SetActive(true);
             }   
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
+            HUD hud  = GameObject.FindObjectOfType<HUD>();
+            hud.setDelegate(finish);
             return;
         }
         map = GameObject.FindObjectOfType<Map>();
@@ -64,7 +75,9 @@ public class Game : MonoBehaviour {
         i = 0;
         foreach(var driver in players)
         {
-            cars[i++].AddComponent(GetTypeFromName(driver));
+            Player x = (Player) cars[i++].AddComponent(GetTypeFromName(driver));
+            x.cname =  GetNameFromName(driver);
+            x.cid = i-1;
         }
         SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
     }
@@ -84,4 +97,18 @@ public class Game : MonoBehaviour {
             throw new TypeLoadException("No such type of player exists: " + typeName);
         }
     }
+      private string GetNameFromName(string typeName){
+          if (typeof(LocalPlayer).Name.Contains(typeName))
+        {
+            return "Player";
+        }
+        if (typeof(AIPlayer).Name.Contains(typeName))
+        {
+            return "AI";
+        }
+        else
+        {
+            return "unknown";
+        }
+      }
 }

@@ -1,19 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Leaderboards : MonoBehaviour {
+public class Playerx {
+	public int cid;
+	public string cname;
+}
 
-	public List<Player> players = new List<Player>(); 
+
+public class Leaderboards : NetworkBehaviour {
+
+	public List<Playerx> players = new List<Playerx>(); 
 
 	public void OnTriggerEnter(Collider other) {
 		Player oth = other.gameObject.GetComponent<Player>();
 		if(oth != null){
-			Debug.Log(string.Format("finish {0} {1}", players.Contains(oth),oth.checkpointOffest ));
-			if(!players.Contains(oth) &&  oth.checkpointOffest != 0){
-				players.Add(oth);
-				oth.Finish();
+			if(!oth.finished &&  oth.checkpointOffest != 0){
+				if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
+					CmdFinished(oth.cid, oth.cname);
+				}else{
+					Playerx p = new Playerx();
+					p.cid = oth.cid;
+					p.cname = oth.cname;
+       				players.Add(p);
+					oth.Finish();
+				}
 			}
 		}
 	}
+
+	[Command]
+	public void CmdFinished(int plid, string cname)
+    {
+        RpcAddFinishedPlayer(plid, cname);   
+    }
+
+	[ClientRpc]
+    private void RpcAddFinishedPlayer(int plid, string cname)
+    {
+		Playerx p = new Playerx();
+		p.cid = plid;
+		p.cname = cname;
+        players.Add(p);
+    }
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Assets.Scripts.Car;
+using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour {
 
@@ -19,6 +21,7 @@ public class HUD : MonoBehaviour {
     Text pos;
     int position = 1;
     public Player player;
+    bool isInTransition =false;
 
     private void Start() {
         go = GameObject.Find("GameObject").GetComponent<Game>();
@@ -48,13 +51,18 @@ public class HUD : MonoBehaviour {
         }else{
             pwup.enabled = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isInTransition) {
+            isInTransition = true;
             if(mact){
+                gameObject.SetActive(false);
                 menu.SetActive(false);
+                mact = false;
+                gameObject.SetActive(true);
             }else{
                 menu.SetActive(true);
+                mact = true;
             }
+            StartCoroutine(WaitDisableTransition(0.2f));
         }
         UpdatePosition();
         switch (position)
@@ -93,7 +101,7 @@ public class HUD : MonoBehaviour {
             float semi = pl.GetPathLength();
             if(semi == 0.0f)
                 return;
-            if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
+            if((semi < d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;
         }
         position = pos;
@@ -108,12 +116,32 @@ public class HUD : MonoBehaviour {
     }
     
     public void CloseMenu(){
+        gameObject.SetActive(false);
         menu.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     public void RenderLeaderboards(){
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); //disable all children instead and activate return button
         leaderb.SetActive(true);
     }
+
+    public void ReturnBtt(){
+        if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
+            
+        }else{
+            SceneManager.LoadScene(4);
+        }
+    }
+
+    IEnumerator WaitDisableTransition(float waitTime)
+    {
+     yield return new WaitForSeconds(waitTime);
+     DisableTransition();
+    }
+ public void DisableTransition()
+ {
+     isInTransition = false;
+ }
 
 }

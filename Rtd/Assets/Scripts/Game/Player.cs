@@ -64,6 +64,7 @@ public abstract class Player : MonoBehaviour
 		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
         agent.updatePosition = false;
 		agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     public void Finish(){
