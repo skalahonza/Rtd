@@ -9,7 +9,7 @@ public class Leaderboard : MonoBehaviour {
     public GameObject go;
 
 	private void Update() {
-        Leaderboards ld = GameObject.Find("lead").GetComponent<Leaderboards>();
+        Leaderboards ld = GameObject.FindObjectOfType<Leaderboards>();
         if(ld.players.Count != go.transform.childCount){
             Render(ld);
         }
