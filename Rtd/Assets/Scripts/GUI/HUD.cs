@@ -132,14 +132,6 @@ public class HUD : MonoBehaviour {
         leaderb.GetComponent<Image>().enabled = true;
     }
 
-    public void ReturnBtt(){
-        if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
-            GameObject.FindObjectOfType<Lobby>().SendReturnToLobby();
-        }else{
-            SceneManager.LoadScene(4);
-        }
-    }
-
     IEnumerator WaitDisableTransition(float waitTime)
     {
      yield return new WaitForSeconds(waitTime);

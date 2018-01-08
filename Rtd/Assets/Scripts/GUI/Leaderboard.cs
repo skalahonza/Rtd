@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Leaderboard : MonoBehaviour {
     public GameObject prefab;
@@ -34,6 +35,15 @@ public class Leaderboard : MonoBehaviour {
             Text x = Instantiate(prefab, go.transform).GetComponent<Text>();
             x.text = d +": <color=#" + ColorUtility.ToHtmlStringRGBA (colors[item.cid]) + ">" + item.cname + "</color>";
             d++;
+        }
+    }
+
+    public void ReturnBtt(){
+        Debug.Log(string.Format("Game finished MP{0}",Assets.Mechanics.MultiplayerHelper.IsMultiplayer()));
+        if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
+            GameObject.FindObjectOfType<Lobby>().ServerReturnToLobby();
+        }else{
+            SceneManager.LoadScene(4);
         }
     }
 

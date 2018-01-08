@@ -837,6 +837,7 @@ GameObject:
   - component: {fileID: 1079776115}
   - component: {fileID: 1079776116}
   - component: {fileID: 1079776111}
+  - component: {fileID: 1079776113}
   m_Layer: 5
   m_Name: leaderboard
   m_TagString: Untagged
@@ -854,8 +855,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1095023125}
   - {fileID: 1863195926}
+  - {fileID: 1095023125}
   - {fileID: 1986756468}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -912,6 +913,22 @@ MonoBehaviour:
   - {r: 0.8620689, g: 1, b: 0, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
   go: {fileID: 1095023124}
+--- !u!114 &1079776113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079776109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!222 &1079776114
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1060,12 +1077,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1079776110}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 438, y: -161.5}
-  m_SizeDelta: {x: 876, y: 323}
+  m_AnchoredPosition: {x: 433, y: -144}
+  m_SizeDelta: {x: 876, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1095023126
 MonoBehaviour:
@@ -1502,11 +1519,11 @@ RectTransform:
   m_Children:
   - {fileID: 583241021}
   m_Father: {fileID: 1079776110}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 423, y: -289}
+  m_AnchoredPosition: {x: 424, y: -300}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1863195927
@@ -1548,7 +1565,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1746592476}
+      - m_Target: {fileID: 1079776112}
         m_MethodName: ReturnBtt
         m_Mode: 1
         m_Arguments:
