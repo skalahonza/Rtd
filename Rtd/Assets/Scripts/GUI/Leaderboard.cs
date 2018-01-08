@@ -39,7 +39,7 @@ public class Leaderboard : MonoBehaviour {
 
     private void CheckButton(){
         Debug.Log(string.Format("Finished {0} of {1}", fin,GameObject.FindObjectsOfType<CarSpirit>().Length ));
-        if(GameObject.FindObjectsOfType<CarSpirit>().Length == go.transform.childCount)
+        if(GameObject.FindObjectsOfType<CarSpirit>().Length == fin)
             button.SetActive(true);
     }
     
