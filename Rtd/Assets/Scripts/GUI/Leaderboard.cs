@@ -34,7 +34,7 @@ public class Leaderboard : MonoBehaviour {
     }
 
     private void CheckButton(){
-        if(GameObject.FindObjectsOfType<NetworkPlayer>().Length == go.transform.childCount)
+        if(GameObject.FindObjectsOfType<CarSpirit>().Length == go.transform.childCount)
             button.SetActive(true);
     }
     
