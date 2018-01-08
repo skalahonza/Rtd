@@ -27,7 +27,7 @@ class AIPlayer : Player {
 	}
 
     override protected void OnRaceStart(){
-        agent.updatePosition = true;
+        //agent.updatePosition = true;
     }
 
 	void FixedUpdate () {
