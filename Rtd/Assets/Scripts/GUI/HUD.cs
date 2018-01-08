@@ -107,7 +107,6 @@ public class HUD : MonoBehaviour {
         float d = player.GetPathLength();
         int pos = 1;
         if(d == 0.0f){
-            Debug.Log("M zero");
             return;
         }
         foreach(var pld in go.cars){
@@ -116,10 +115,8 @@ public class HUD : MonoBehaviour {
                 continue;
             float semi = pl.GetPathLength();
             if(semi == 0.0f){
-                Debug.Log("O zero");
                 return;
             }
-            Debug.Log(string.Format("mine / other {0} / {1}", d, semi));
             if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;
         }
@@ -130,14 +127,17 @@ public class HUD : MonoBehaviour {
         float d = player.GetPathLength();
         int pos = 1;
         if(d == 0.0f){
+            Debug.Log("M zero");
             return;
         }
         foreach(var pl in nps){
             if(pl == mynp)
                 continue;
             float semi = pl.GetPathLength();
-            if(semi == 0.0f)
+            if(semi == 0.0f){
+                Debug.Log("O zero");
                 return;
+            }
             Debug.Log(string.Format("mine / other {0} / {1}", d, semi));
             if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;

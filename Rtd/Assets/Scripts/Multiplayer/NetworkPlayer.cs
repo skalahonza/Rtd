@@ -87,9 +87,20 @@ public class NetworkPlayer : NetworkBehaviour {
 
     public void Update(){
         if(isLocalPlayer && cc != null) {
-            checkpointOffest =  cc.checkpointOffest;
-            dist = cc.GetPathLength();
-            Debug.Log(string.Format("xx {0}", dist));
+            CmdSyncLen(cc.checkpointOffest, cc.GetPathLength());
         }
+    }
+
+    [Command]
+	public void CmdSyncLen(int chk, float dest)
+    {
+        RpcSyncLen(chk, dest);   
+    }
+
+	[ClientRpc]
+    private void RpcSyncLen(int chk, float dest)
+    {
+      checkpointOffest = chk;
+      dist = dest
     }
 }
