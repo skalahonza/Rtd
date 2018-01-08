@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
 
-class AIPlayerOld
- : Player {
+class AIPlayer : Player {
 	CarControl control;
 	public List<Vector3> path = new List<Vector3> ();
 	private int pathIndex;
