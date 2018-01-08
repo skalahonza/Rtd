@@ -27,6 +27,15 @@ public abstract class Player : MonoBehaviour
         control.setUpdate(0, Vector3.zero);
         gameObject.transform.position = latest.positions[0].transform.position;
         gameObject.transform.rotation = latest.positions[0].transform.rotation;
+
+        // removep ossible flash respawn
+        var cgr = spirit.gameObject.GetComponent<CarGhostRespawn>();
+        if (cgr != null)
+            Destroy(cgr);
+
+        //flash respawn
+        spirit.gameObject.AddComponent<CarGhostRespawn>();
+
         //agent.Warp (transform.position);
         if (restore)
         {
