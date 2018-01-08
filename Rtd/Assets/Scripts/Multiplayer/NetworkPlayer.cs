@@ -89,6 +89,7 @@ public class NetworkPlayer : NetworkBehaviour {
         if(isLocalPlayer && cc != null) {
             checkpointOffest =  cc.checkpointOffest;
             dist = cc.GetPathLength();
+            Debug.Log(string.Format("xx {0}", dist));
         }
     }
 }

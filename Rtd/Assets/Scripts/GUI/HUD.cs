@@ -30,7 +30,7 @@ public class HUD : MonoBehaviour {
     public NetworkPlayer mynp;
 
     private void Start() {
-        go = GameObject.Find("GameObject").GetComponent<Game>();
+        go = GameObject.FindObjectOfType<Game>();
         hp = GameObject.Find("Hp").GetComponent<Text>();
         speed = GameObject.Find("Speed").GetComponent<Text>();
         pwup = GameObject.Find("Pwup").GetComponent<Image>();
@@ -46,6 +46,7 @@ public class HUD : MonoBehaviour {
     }
 
     void FixedUpdate()  {
+        ismp = Assets.Mechanics.MultiplayerHelper.IsMultiplayer();
         if(player.finished){
             RenderLeaderboards();
             return;
@@ -106,6 +107,7 @@ public class HUD : MonoBehaviour {
         float d = player.GetPathLength();
         int pos = 1;
         if(d == 0.0f){
+            Debug.Log("M zero");
             return;
         }
         foreach(var pld in go.cars){
@@ -113,10 +115,12 @@ public class HUD : MonoBehaviour {
             if(pl == player)
                 continue;
             float semi = pl.GetPathLength();
-            if(semi == 0.0f)
+            if(semi == 0.0f){
+                Debug.Log("O zero");
                 return;
+            }
             Debug.Log(string.Format("mine / other {0} / {1}", d, semi));
-            if((semi < d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
+            if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;
         }
         position = pos;
@@ -134,7 +138,8 @@ public class HUD : MonoBehaviour {
             float semi = pl.GetPathLength();
             if(semi == 0.0f)
                 return;
-            if((semi < d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
+            Debug.Log(string.Format("mine / other {0} / {1}", d, semi));
+            if((semi > d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;
         }
         position = pos;
