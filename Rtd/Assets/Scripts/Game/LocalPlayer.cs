@@ -18,7 +18,7 @@ public class LocalPlayer : Player
     private CameraState cameraState = new MediumView();
     private PowerUpBase previousPowerup;
 
-    void Start()
+    public override void GameStart()
     {
         base.Start();
         smf = GameObject.FindObjectOfType<SmoothFollow>();

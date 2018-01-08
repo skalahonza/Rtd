@@ -50,6 +50,10 @@ public abstract class Player : MonoBehaviour
             agent.SetDestination(latest.positions[0].transform.position);
         }
     }
+
+    virtual protected void OnRaceStart(){
+
+    }
        
     public float GetPathLength( )
     {			
@@ -67,6 +71,7 @@ public abstract class Player : MonoBehaviour
         latest = map.checkpoints[0];
         this.map = map;
         startRace = true;
+        OnRaceStart();
     }
 
     public void Start(){
@@ -74,6 +79,11 @@ public abstract class Player : MonoBehaviour
         agent.updatePosition = false;
 		agent.updateRotation = false;
         agent.updateUpAxis = false;
+        GameStart();
+    }
+
+    public virtual void GameStart(){
+        
     }
 
     public void Finish(){
