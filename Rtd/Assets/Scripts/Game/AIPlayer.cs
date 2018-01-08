@@ -33,7 +33,9 @@ class AIPlayer : Player {
 	void FixedUpdate () {
 		if (!startRace || finished)
 			return;
-		agent.velocity = GetComponent<Rigidbody> ().velocity;
+		Vector3 velocity = agent.desiredVelocity;
+		velocity.y = 0;
+		GetComponent<Rigidbody> ().velocity = velocity;
 		control.VisualizeWheel (control.wheelPairs[1]);
 		control.VisualizeWheel (control.wheelPairs[0]);
 		if (spirit._powerUp != null)
