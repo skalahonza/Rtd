@@ -101,6 +101,6 @@ public class NetworkPlayer : NetworkBehaviour {
     private void RpcSyncLen(int chk, float dest)
     {
       checkpointOffest = chk;
-      dist = dest
+      dist = dest;
     }
 }
