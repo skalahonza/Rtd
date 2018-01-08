@@ -46,6 +46,7 @@ public abstract class Player : MonoBehaviour
     private void CalculatePath( )
     {
         if(latest != null){
+            agent.Warp(transform.position);
             agent.SetDestination(latest.positions[0].transform.position);
         }
     }
@@ -66,7 +67,6 @@ public abstract class Player : MonoBehaviour
         latest = map.checkpoints[0];
         this.map = map;
         startRace = true;
-        CalculatePath();
     }
 
     public void Start(){

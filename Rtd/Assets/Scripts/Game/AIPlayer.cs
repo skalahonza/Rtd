@@ -177,7 +177,6 @@ class AIPlayer : Player {
 
 		if (flag != 0)
 			AvoidSteer (avoidSenstivity);
-
 	}
 
 	void FixedUpdate () {
