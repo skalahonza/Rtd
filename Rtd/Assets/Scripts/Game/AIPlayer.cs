@@ -11,7 +11,6 @@ class AIPlayer : Player {
 	private static System.Random rand = new System.Random ();
 
 	public override void GameStart () {
-        base.Start();
 		spirit = GetComponent<CarSpirit> ();
 		control = GetComponent<CarControl> ();
 		agent.autoBraking = false;

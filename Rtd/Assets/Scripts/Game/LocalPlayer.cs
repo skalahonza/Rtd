@@ -20,7 +20,6 @@ public class LocalPlayer : Player
 
     public override void GameStart()
     {
-        base.Start();
         smf = GameObject.FindObjectOfType<SmoothFollow>();
         smf.target = this.transform;
         spirit = GetComponent<CarSpirit>();
