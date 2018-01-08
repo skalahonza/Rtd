@@ -10,6 +10,8 @@ public class Leaderboard : MonoBehaviour {
     public Color[] colors = new Color[5];
     public GameObject go;
 
+    private int fin =0;
+
 	private void Update() {
         Leaderboards ld = GameObject.FindObjectOfType<Leaderboards>();
         if(ld.players.Count != go.transform.childCount){
@@ -24,9 +26,11 @@ public class Leaderboard : MonoBehaviour {
         {
             Destroy(go.transform.GetChild(i).gameObject);
         }
+        fin = 0;
         int d =1;
         foreach (var item in ld.players)
         {
+            fin++;
             Text x = Instantiate(prefab, go.transform).GetComponent<Text>();
             x.text = d +": <color=#" + ColorUtility.ToHtmlStringRGBA (colors[item.cid]) + ">" + item.cname + "</color>";
             d++;
@@ -34,7 +38,7 @@ public class Leaderboard : MonoBehaviour {
     }
 
     private void CheckButton(){
-        Debug.Log(string.Format("Finished {0} of {1}", go.transform.childCount,GameObject.FindObjectsOfType<CarSpirit>().Length ));
+        Debug.Log(string.Format("Finished {0} of {1}", fin,GameObject.FindObjectsOfType<CarSpirit>().Length ));
         if(GameObject.FindObjectsOfType<CarSpirit>().Length == go.transform.childCount)
             button.SetActive(true);
     }
