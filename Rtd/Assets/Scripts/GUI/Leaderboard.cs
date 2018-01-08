@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Leaderboard : MonoBehaviour {
     public GameObject prefab;
+    public GameObject button;
+
     public Color[] colors = new Color[5];
     public GameObject go;
 
@@ -12,6 +14,8 @@ public class Leaderboard : MonoBehaviour {
         Leaderboards ld = GameObject.FindObjectOfType<Leaderboards>();
         if(ld.players.Count != go.transform.childCount){
             Render(ld);
+            if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer())
+            CheckButton();
         }
     }
 
@@ -28,4 +32,10 @@ public class Leaderboard : MonoBehaviour {
             d++;
         }
     }
+
+    private void CheckButton(){
+        if(GameObject.FindObjectsOfType<NetworkPlayer>().Length == go.transform.childCount)
+            button.SetActive(true);
+    }
+    
 }

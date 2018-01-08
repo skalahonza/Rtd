@@ -123,12 +123,18 @@ public class HUD : MonoBehaviour {
 
     public void RenderLeaderboards(){
         gameObject.SetActive(false); //disable all children instead and activate return button
-        leaderb.SetActive(true);
+        leaderb.transform.GetChild(0).gameObject.SetActive(true);
+
+        if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
+            leaderb.transform.GetChild(1).gameObject.SetActive(true);
+        }else{
+            leaderb.transform.GetChild(2).gameObject.SetActive(true);
+        }
     }
 
     public void ReturnBtt(){
         if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
-            
+            GameObject.FindObjectOfType<Lobby>().SendReturnToLobby();
         }else{
             SceneManager.LoadScene(4);
         }
