@@ -115,6 +115,7 @@ public class HUD : MonoBehaviour {
             float semi = pl.GetPathLength();
             if(semi == 0.0f)
                 return;
+            Debug.Log(string.Format("mine / other {0} / {1}", d, semi));
             if((semi < d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
                 pos ++;
         }
