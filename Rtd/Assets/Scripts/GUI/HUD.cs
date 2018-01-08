@@ -16,6 +16,9 @@ public class HUD : MonoBehaviour {
     Image pwup;
     Text speed;
     Text hp;
+    public GameObject lbdesk;
+    public GameObject retbt;
+    public GameObject wtxt;
     public GameObject leaderb;
     bool mact = false;
     Text pos;
@@ -123,11 +126,11 @@ public class HUD : MonoBehaviour {
 
     public void RenderLeaderboards(){
         gameObject.SetActive(false); //disable all children instead and activate return button
-        leaderb.transform.GetChild(0).gameObject.SetActive(true);
+        lbdesk.SetActive(true);
         if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
-            leaderb.transform.GetChild(2).gameObject.SetActive(true);
+            wtxt.SetActive(true);
         }else{
-            leaderb.transform.GetChild(1).gameObject.SetActive(true);
+            retbt.SetActive(true);
         }
         leaderb.GetComponent<Image>().enabled = true;
     }

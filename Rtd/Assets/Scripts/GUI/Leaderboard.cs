@@ -41,7 +41,7 @@ public class Leaderboard : MonoBehaviour {
     public void ReturnBtt(){
         Debug.Log(string.Format("Game finished MP{0}",Assets.Mechanics.MultiplayerHelper.IsMultiplayer()));
         if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
-            GameObject.FindObjectOfType<Lobby>().ServerReturnToLobby();
+            GameObject.FindObjectOfType<Lobby>().SendReturnToLobby();
         }else{
             SceneManager.LoadScene(4);
         }

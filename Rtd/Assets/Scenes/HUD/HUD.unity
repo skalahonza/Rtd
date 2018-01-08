@@ -1487,6 +1487,9 @@ MonoBehaviour:
   spirit: {fileID: 0}
   control: {fileID: 0}
   menu: {fileID: 682838165}
+  lbdesk: {fileID: 1095023124}
+  retbt: {fileID: 1863195925}
+  wtxt: {fileID: 1986756467}
   leaderb: {fileID: 1079776109}
   player: {fileID: 0}
 --- !u!1 &1863195925
