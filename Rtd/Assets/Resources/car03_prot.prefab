@@ -51,6 +51,10 @@ GameObject:
   - component: {fileID: 114724183744380436}
   - component: {fileID: 114009566855146068}
   - component: {fileID: 114921752870355728}
+  - component: {fileID: 114774800760632148}
+  - component: {fileID: 114955187592170918}
+  - component: {fileID: 114534336424137468}
+  - component: {fileID: 114250447353212332}
   m_Layer: 0
   m_Name: car03_prot
   m_TagString: Player
@@ -682,6 +686,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8c854506a9c4b42a0df12a99a84613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114250447353212332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4799360022029004}
+  m_ChildIndex: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114291612777492272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -752,6 +775,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dccf49286f4392a4481cbcc9143e03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114534336424137468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4509803142773706}
+  m_ChildIndex: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114551586168610152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -775,7 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.06666667
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -834,6 +876,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b30304b761721542859129ff0cfe31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114774800760632148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4390519915566648}
+  m_ChildIndex: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114802454836284358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -876,6 +937,25 @@ MonoBehaviour:
   maxSpeed: 250
   maxReverseSpeed: 75
   _powerUp: {fileID: 0}
+--- !u!114 &114955187592170918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056444904812556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4601166223023094}
+  m_ChildIndex: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!146 &146002045346198414
 WheelCollider:
   m_ObjectHideFlags: 1
