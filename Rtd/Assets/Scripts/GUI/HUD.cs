@@ -25,6 +25,9 @@ public class HUD : MonoBehaviour {
     int position = 1;
     public Player player;
     bool isInTransition =false;
+    bool ismp;
+    NetworkPlayer[] nps;
+    public NetworkPlayer mynp;
 
     private void Start() {
         go = GameObject.Find("GameObject").GetComponent<Game>();
@@ -32,6 +35,10 @@ public class HUD : MonoBehaviour {
         speed = GameObject.Find("Speed").GetComponent<Text>();
         pwup = GameObject.Find("Pwup").GetComponent<Image>();
         pos = GameObject.Find("position").GetComponent<Text>();
+        ismp = Assets.Mechanics.MultiplayerHelper.IsMultiplayer();
+        if(ismp){
+            nps = GameObject.FindObjectsOfType<NetworkPlayer>();
+        }
     }
 
     public void setDelegate(FinishPressed finish){
@@ -67,7 +74,11 @@ public class HUD : MonoBehaviour {
             }
             StartCoroutine(WaitDisableTransition(0.2f));
         }
-        UpdatePosition();
+        if(ismp){
+            UpdatePositionMP() ;
+        }else{
+            UpdatePosition();
+        }
         switch (position)
         {
             case 1:
@@ -110,6 +121,24 @@ public class HUD : MonoBehaviour {
         position = pos;
     }
 
+    public void UpdatePositionMP(){
+        float d = player.GetPathLength();
+        int pos = 1;
+        if(d == 0.0f){
+            return;
+        }
+        foreach(var pl in nps){
+            if(pl == mynp)
+                continue;
+            float semi = pl.GetPathLength();
+            if(semi == 0.0f)
+                return;
+            if((semi < d && pl.checkpointOffest == player.checkpointOffest) || pl.checkpointOffest > player.checkpointOffest )
+                pos ++;
+        }
+        position = pos;
+    }
+
     public void FinishGame(){
         func();
     }
@@ -127,7 +156,7 @@ public class HUD : MonoBehaviour {
     public void RenderLeaderboards(){
         gameObject.SetActive(false); //disable all children instead and activate return button
         lbdesk.SetActive(true);
-        if(Assets.Mechanics.MultiplayerHelper.IsMultiplayer()){
+        if(ismp){
             wtxt.SetActive(true);
         }else{
             retbt.SetActive(true);

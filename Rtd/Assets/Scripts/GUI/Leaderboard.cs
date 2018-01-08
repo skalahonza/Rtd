@@ -51,6 +51,5 @@ public class Leaderboard : MonoBehaviour {
         Debug.Log(string.Format("Finished {0} of {1}", fin,GameObject.FindObjectsOfType<CarSpirit>().Length ));
         if(GameObject.FindObjectsOfType<CarSpirit>().Length == fin)
             button.SetActive(true);
-    }
-    
+    }    
 }
