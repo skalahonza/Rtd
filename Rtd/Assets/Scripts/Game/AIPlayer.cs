@@ -10,14 +10,14 @@ class AIPlayer : Player {
 	CarSpirit spirit;
 	private static System.Random rand = new System.Random ();
 
-	float distFromPath = 25.0f;
-	float decellarationSpeed = 1000.0f;
+	float distFromPath = 35.0f;
+	float decellarationSpeed = 50.0f;
 	bool isBreaking;
-	float sensorLength = 25.0f;
-	float frontSensorStartPoint = 2.0f;
-	float frontSensorSideDist = 2.0f;
+	float sensorLength = 40.0f;
+	float frontSensorStartPoint = 0.8f;
+	float frontSensorSideDist = 0.9f;
 	float frontSensorsAngle = 30.0f;
-	float sidewaySensorLength = 15.0f;
+	float sidewaySensorLength = 20.0f;
 	float avoidSpeed = 9.0f;
 	private int flag = 0;
 
@@ -105,6 +105,7 @@ class AIPlayer : Player {
 		var leftAngle = Quaternion.AngleAxis (-frontSensorsAngle, transform.up) * transform.forward;
 
 		pos = transform.position;
+		pos.y += 0.8f;
 		pos += transform.forward * frontSensorStartPoint;
 
 		//BRAKING SENSOR
