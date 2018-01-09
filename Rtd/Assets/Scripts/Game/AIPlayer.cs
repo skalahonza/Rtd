@@ -78,13 +78,21 @@ class AIPlayer : Player {
 		if (control.Speed <= spirit.maxSpeed ) {
 			backWheelPair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
 			backWheelPair.rightWheelColider.motorTorque = spirit.MaxMotorTorque;
+			frontWheelpair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
+			frontWheelpair.rightWheelColider.motorTorque = spirit.MaxMotorTorque;
 			backWheelPair.leftWheelColider.brakeTorque = 0;
 			backWheelPair.rightWheelColider.brakeTorque = 0;
+			frontWheelpair.leftWheelColider.brakeTorque = 0;
+			frontWheelpair.rightWheelColider.brakeTorque = 0;
 		} else {
 			backWheelPair.leftWheelColider.motorTorque = 0;
 			backWheelPair.rightWheelColider.motorTorque = 0;
+			frontWheelpair.leftWheelColider.motorTorque = 0;
+			frontWheelpair.rightWheelColider.motorTorque = 0;
 			backWheelPair.leftWheelColider.brakeTorque = decellarationSpeed;
 			backWheelPair.rightWheelColider.brakeTorque = decellarationSpeed;
+			frontWheelpair.leftWheelColider.brakeTorque = decellarationSpeed;
+			frontWheelpair.rightWheelColider.brakeTorque = decellarationSpeed;
 		}
 	}
 
@@ -106,11 +114,15 @@ class AIPlayer : Player {
 				flag++;
 				backWheelPair.leftWheelColider.brakeTorque = decellarationSpeed;
 				backWheelPair.rightWheelColider.brakeTorque = decellarationSpeed;
+				frontWheelpair.leftWheelColider.brakeTorque = decellarationSpeed;
+				frontWheelpair.rightWheelColider.brakeTorque = decellarationSpeed;
 				Debug.DrawLine (pos, hit.point, Color.red);
 			}
 		} else {
 			backWheelPair.leftWheelColider.brakeTorque = 0;
 			backWheelPair.rightWheelColider.brakeTorque = 0;
+			frontWheelpair.leftWheelColider.brakeTorque = 0;
+			frontWheelpair.rightWheelColider.brakeTorque = 0;
 		}
 
 		//Front Straight Right Sensor
