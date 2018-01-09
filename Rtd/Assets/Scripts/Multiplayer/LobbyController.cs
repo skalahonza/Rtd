@@ -77,6 +77,10 @@ public class LobbyController : NetworkBehaviour {
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	public void Start () {
+		if(nc != null){
+			GameObject.Find ("ConnectForm").SetActive (false);
+			return;
+		}
 		playerSetupObj = new GameObject[5];
 		playerSetupObj = new GameObject[5];
 		spawn = GameObject.Find ("player_setup");
