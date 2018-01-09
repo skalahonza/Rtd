@@ -10,8 +10,8 @@ class AIPlayer : Player {
 	CarSpirit spirit;
 	private static System.Random rand = new System.Random ();
 
-	float distFromPath = 35.0f;
-	float decellarationSpeed = 50.0f;
+	float distFromPath = 15.0f;
+	float decellarationSpeed = 100.0f;
 	bool isBreaking;
 	float sensorLength = 40.0f;
 	float frontSensorStartPoint = 0.8f;
@@ -31,6 +31,7 @@ class AIPlayer : Player {
 			frontWheelpair = control.wheelPairs[0];
 			backWheelPair = control.wheelPairs[1];
 		}
+		decellarationSpeed = spirit.MaxMotorTorque;
 	}
 
 	override protected void OnRaceStart () {
@@ -40,8 +41,7 @@ class AIPlayer : Player {
 	void FixedUpdate () {
 		if (!startRace || finished)
 			return;
-		if (flag == 0)
-			GetSteer();
+		GetSteer();
 		Move();
 		Sensors();
 		control.VisualizeWheel (control.wheelPairs[1]);
@@ -203,6 +203,11 @@ class AIPlayer : Player {
 	void AvoidSteer (float senstivity) {
 		frontWheelpair.rightWheelColider.steerAngle = avoidSpeed * senstivity;
 		frontWheelpair.leftWheelColider.steerAngle = avoidSpeed * senstivity;
-
+		if(control.Speed > spirit.maxSpeed /0.5f){
+			backWheelPair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			backWheelPair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			frontWheelpair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			frontWheelpair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
+		}
 	}
 }

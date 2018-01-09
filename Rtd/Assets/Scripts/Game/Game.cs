@@ -39,9 +39,11 @@ public class Game : MonoBehaviour {
         SceneManager.LoadScene("Menu");
     }
 
+    public void OnDestroy(){
+         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
-        if(scene.name == "Menu" || scene.name == "Singleplayer" || scene.name == "Multiplayer")
-            return;
         if(mode == LoadSceneMode.Additive){
             foreach(var car in cars){
                 car.SetActive(true);
