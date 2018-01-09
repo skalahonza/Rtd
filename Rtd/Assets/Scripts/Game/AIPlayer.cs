@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
 
+/// <summary>
+/// Class reprezenting AI player - driving
+/// </summary>
 class AIPlayer : Player {
 	CarControl control;
 	CarInfo frontWheelpair;
@@ -21,6 +24,10 @@ class AIPlayer : Player {
 	float avoidSpeed = 5.0f;
 	private int flag = 0;
 
+	/// <summary>
+	/// called when game start from Payler.Start
+	/// initialization
+	/// </summary>
 	public override void GameStart () {
 		spirit = GetComponent<CarSpirit> ();
 		control = GetComponent<CarControl> ();
@@ -33,7 +40,9 @@ class AIPlayer : Player {
 		}
 		decellarationSpeed = spirit.MaxMotorTorque;
 	}
-
+	/// <summary>
+	/// called when race start - after countdown
+	/// </summary>
 	override protected void OnRaceStart () {
 
 	}
@@ -41,10 +50,10 @@ class AIPlayer : Player {
 	void FixedUpdate () {
 		if (!startRace || finished)
 			return;
-		if(flag == 0)
-			GetSteer();
-		Move();
-		Sensors();
+		if (flag == 0)
+			GetSteer ();
+		Move ();
+		Sensors ();
 		control.VisualizeWheel (control.wheelPairs[1]);
 		control.VisualizeWheel (control.wheelPairs[0]);
 		if (spirit._powerUp != null)
@@ -55,13 +64,16 @@ class AIPlayer : Player {
 		}
 	}
 
+	/// <summary>
+	/// check for steering by path
+	/// </summary>
 	void GetSteer () {
-		if(path == null || path.corners.Length == 0)
+		if (path == null || path.corners.Length == 0)
 			return;
 		Vector3 steerVector = transform.InverseTransformPoint (
-			new Vector3 (path.corners[pathIndex].x, 
-			transform.position.y, 
-			path.corners[pathIndex].z)
+			new Vector3 (path.corners[pathIndex].x,
+				transform.position.y,
+				path.corners[pathIndex].z)
 		);
 		float newSteer = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
 		frontWheelpair.rightWheelColider.steerAngle = newSteer;
@@ -75,8 +87,11 @@ class AIPlayer : Player {
 
 	}
 
+	/// <summary>
+	/// move forward or backwards
+	/// </summary>
 	void Move () {
-		if (control.Speed <= spirit.maxSpeed ) {
+		if (control.Speed <= spirit.maxSpeed) {
 			backWheelPair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
 			backWheelPair.rightWheelColider.motorTorque = spirit.MaxMotorTorque;
 			frontWheelpair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
@@ -96,7 +111,9 @@ class AIPlayer : Player {
 			frontWheelpair.rightWheelColider.brakeTorque = decellarationSpeed;
 		}
 	}
-
+	/// <summary>
+	/// check for obstacle avoidance
+	/// </summary>
 	void Sensors () {
 		flag = 0;
 		float avoidSenstivity = 0;
@@ -111,7 +128,7 @@ class AIPlayer : Player {
 
 		//BRAKING SENSOR
 
-		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				backWheelPair.leftWheelColider.brakeTorque = decellarationSpeed;
@@ -130,14 +147,14 @@ class AIPlayer : Player {
 		//Front Straight Right Sensor
 		pos += transform.right * frontSensorSideDist;
 
-		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				avoidSenstivity -= 1;
 				Debug.Log ("Avoiding");
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
-		} else if (Physics.Raycast (pos, rightAngle,out hit, sensorLength)) {
+		} else if (Physics.Raycast (pos, rightAngle, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				avoidSenstivity -= 0.5f;
 				flag++;
@@ -150,14 +167,14 @@ class AIPlayer : Player {
 		pos += transform.forward * frontSensorStartPoint;
 		pos -= transform.right * frontSensorSideDist;
 
-		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+		if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				avoidSenstivity += 1;
 				Debug.Log ("Avoiding");
 				Debug.DrawLine (pos, hit.point, Color.white);
 			}
-		} else if (Physics.Raycast (pos, leftAngle,out hit, sensorLength)) {
+		} else if (Physics.Raycast (pos, leftAngle, out hit, sensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				avoidSenstivity += 0.5f;
@@ -166,7 +183,7 @@ class AIPlayer : Player {
 		}
 
 		//Right SideWay Sensor
-		if (Physics.Raycast (transform.position, transform.right,out hit, sidewaySensorLength)) {
+		if (Physics.Raycast (transform.position, transform.right, out hit, sidewaySensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				avoidSenstivity -= 0.5f;
@@ -175,7 +192,7 @@ class AIPlayer : Player {
 		}
 
 		//Left SideWay Sensor
-		if (Physics.Raycast (transform.position, -transform.right,out hit, sidewaySensorLength)) {
+		if (Physics.Raycast (transform.position, -transform.right, out hit, sidewaySensorLength)) {
 			if (hit.transform.tag != "Terrain") {
 				flag++;
 				avoidSenstivity += 0.5f;
@@ -186,7 +203,7 @@ class AIPlayer : Player {
 		//Front Mid Sensor
 		if (avoidSenstivity == 0) {
 
-			if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+			if (Physics.Raycast (pos, transform.forward, out hit, sensorLength)) {
 				if (hit.transform.tag != "Terrain") {
 					if (hit.normal.x < 0)
 						avoidSenstivity = 1;
@@ -204,11 +221,11 @@ class AIPlayer : Player {
 	void AvoidSteer (float senstivity) {
 		frontWheelpair.rightWheelColider.steerAngle = avoidSpeed * senstivity;
 		frontWheelpair.leftWheelColider.steerAngle = avoidSpeed * senstivity;
-		if(control.Speed > spirit.maxSpeed /0.5f){
-			backWheelPair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
-			backWheelPair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
-			frontWheelpair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
-			frontWheelpair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
+		if (control.Speed > spirit.maxSpeed / 0.5f) {
+			backWheelPair.leftWheelColider.brakeTorque += decellarationSpeed / 10.0f;
+			backWheelPair.rightWheelColider.brakeTorque += decellarationSpeed / 10.0f;
+			frontWheelpair.leftWheelColider.brakeTorque += decellarationSpeed / 10.0f;
+			frontWheelpair.rightWheelColider.brakeTorque += decellarationSpeed / 10.0f;
 		}
 	}
 }

@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//passing around bug 712042
+/// <summary>
+/// passing around bug 712042
+/// networklobbymanager can be instantiated only once
+/// </summary>
 public class NetwokResolution : MonoBehaviour {
 
 	public GameObject mmaker;
