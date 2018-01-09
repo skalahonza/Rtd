@@ -59,6 +59,10 @@ public class NetworkPlayer : NetworkBehaviour {
         }
     }
 
+    public void OnDestroy(){
+         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     public void FinishGame(){
         LobbyController lb = GameObject.FindObjectOfType<LobbyController>();
         lb.Back();

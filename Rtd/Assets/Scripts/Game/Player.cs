@@ -13,6 +13,8 @@ public abstract class Player : MonoBehaviour
     public bool finished = false;
     public string cname = "playername";
     public int cid = 1;
+    protected UnityEngine.AI.NavMeshPath path;
+    protected int pathIndex = 0;
 
     /// <summary>
     /// Respawns the car on the latest checpoint position
@@ -36,7 +38,6 @@ public abstract class Player : MonoBehaviour
         //flash respawn
         spirit.gameObject.AddComponent<CarGhostRespawn>();
 
-        //agent.Warp (transform.position);
         if (restore)
         {
             spirit.Hp = spirit.MaxHp;
@@ -46,6 +47,8 @@ public abstract class Player : MonoBehaviour
     private void CalculatePath( )
     {
         if(latest != null){
+            path = agent.path;
+            pathIndex = 0;
             agent.Warp(transform.position);
             agent.SetDestination(latest.positions[0].transform.position);
         }
