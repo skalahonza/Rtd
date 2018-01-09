@@ -1,3 +1,6 @@
+/// <summary>
+/// player data for mutiplayer lobby 
+/// </summary>
 [System.Serializable]
 public class LobbyPlayerData {
     public string cname;
