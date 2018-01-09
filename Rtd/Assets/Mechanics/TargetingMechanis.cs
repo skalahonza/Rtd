@@ -10,7 +10,7 @@ namespace Assets.Mechanics
         /// <param name="enemy">Enemy transform</param>
         /// <param name="shooterPosition">Shooter position, the projectile muzzle</param>
         /// <param name="projectileSpeed">Projectile speed</param>
-        /// <returns></returns>
+        /// <returns>Calculated vector</returns>
         public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 shooterPosition, float projectileSpeed)
         {
             var targetVelocity = new Vector3(0, 0, 0);
@@ -22,12 +22,29 @@ namespace Assets.Mechanics
             return CalculateAimVelocityVector(enemy.rotation, enemy.position, targetVelocity, shooterPosition, projectileSpeed);
         }
 
+        /// <summary>
+        /// Calculates aim velocity vector from shooter position to moving target, counts with target speed
+        /// </summary>
+        /// <param name="enemy">Enemy transform</param>
+        /// <param name="targetVelocity">Velocity of the moving target</param>
+        /// <param name="shooterPosition">Shooter position, the projectile muzzle</param>
+        /// <param name="projectileSpeed">Projectile speed</param>
+        /// <returns>Calculated vector</returns>
         public static Vector3 CalculateAimVelocityVector(Transform enemy, Vector3 targetVelocity,
             Vector3 shooterPosition, float projectileSpeed)
         {
             return CalculateAimVelocityVector(enemy.rotation, enemy.position, targetVelocity, shooterPosition, projectileSpeed);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetRot"></param>
+        /// <param name="aTargetPos"></param>
+        /// <param name="aTargetSpeed"></param>
+        /// <param name="projectilePosition"></param>
+        /// <param name="projectileSpeed"></param>
+        /// <returns></returns>
         private static Vector3 CalculateAimVelocityVector(Quaternion targetRot, Vector3 aTargetPos, Vector3 aTargetSpeed, Vector3 projectilePosition, float projectileSpeed)
         {
             var targetDir = aTargetPos - projectilePosition;
