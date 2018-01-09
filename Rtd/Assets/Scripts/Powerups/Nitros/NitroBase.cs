@@ -20,8 +20,7 @@ namespace Assets.Scripts.Powerups.Nitros
 
         public void PlaySound(CarSpirit car)
         {
-            var sound = SoundMechanics.SpawnSound("nitro_sound");
-            sound.transform.parent = car.transform;
+            var sound = SoundMechanics.SpawnSound("nitro_sound", car.transform);
             nitroSoundPlayer = sound;
         }
     }

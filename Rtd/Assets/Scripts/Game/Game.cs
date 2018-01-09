@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,8 @@ public class Game : MonoBehaviour {
     List<string> players = new List<string>();
     List<GameObject> prefabs = new List<GameObject>();
     List<Material> materials = new List<Material>();
-    List<GameObject> cars = new List<GameObject>();
+    public List<GameObject> cars = new List<GameObject>();
+    public Leaderboards leaderboards ;
     Map map;
 
 
@@ -30,6 +32,17 @@ public class Game : MonoBehaviour {
         }
     }
 
+    public void finish(){
+        Destroy(gameObject);
+        Destroy(this);
+
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void OnDestroy(){
+         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
             foreach(var car in cars){
@@ -37,12 +50,15 @@ public class Game : MonoBehaviour {
             }   
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
+            HUD hud  = GameObject.FindObjectOfType<HUD>();
+            hud.setDelegate(finish);
             return;
         }
         map = GameObject.FindObjectOfType<Map>();
         //instantiate them all
         int i = 0;
         //get Map
+        leaderboards = map.leaderboards;
         foreach (var item in prefabs)
         {
             cars.Add(Instantiate(item)); 
@@ -59,9 +75,42 @@ public class Game : MonoBehaviour {
             cars[i++].transform.GetChild(4).GetComponent<Renderer>().material = material;
         }
         i = 0;
-        foreach(var driver in players){
-            UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(cars[i++], "Assets/Scripts/Game/Game.cs (46,13)", driver); 
+        foreach(var driver in players)
+        {
+            Player x = (Player) cars[i++].AddComponent(GetTypeFromName(driver));
+            x.cname =  GetNameFromName(driver);
+            x.cid = i-1;
         }
         SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
     }
+
+    private Type GetTypeFromName(string typeName)
+    {
+        if (typeof(LocalPlayer).Name.Contains(typeName))
+        {
+            return typeof(LocalPlayer);
+        }
+        if (typeof(AIPlayer).Name.Contains(typeName))
+        {
+            return typeof(AIPlayer);
+        }
+        else
+        {
+            throw new TypeLoadException("No such type of player exists: " + typeName);
+        }
+    }
+      private string GetNameFromName(string typeName){
+        if (typeof(LocalPlayer).Name.Contains(typeName))
+        {
+            return "Player";
+        }
+        if (typeof(AIPlayer).Name.Contains(typeName))
+        {
+            return "AI";
+        }
+        else
+        {
+            return "unknown";
+        }
+      }
 }

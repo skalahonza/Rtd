@@ -42,6 +42,7 @@ public abstract class ProjectileBase : MonoBehaviour, IDamageDealer,IPrefable
         // ignore tower and muzzle, and projectile owner, hit other stuff
         if (!other.CompareTag(GameTag.Tower.ToString()) 
             && !other.CompareTag(GameTag.Muzzle.ToString())
+            && !other.CompareTag(GameTag.Barrier.ToString())
             && other.gameObject != Owner
             && other.gameObject.GetComponent<ProjectileTower>() == null
             )

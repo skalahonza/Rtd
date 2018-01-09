@@ -1,150 +1,214 @@
+using System;
+using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-class AIPlayer : Player{
+class AIPlayer : Player {
+	CarControl control;
+	CarInfo frontWheelpair;
+	CarInfo backWheelPair;
+	CarSpirit spirit;
+	private static System.Random rand = new System.Random ();
 
-    CarControl control;
-    CarSpirit spirit;
-    UnityEngine.AI.NavMeshAgent agent   ;
-    void Start(){
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        spirit = GetComponent<CarSpirit>();
-        control = GetComponent<CarControl>();
+	float distFromPath = 60.0f;
+	float decellarationSpeed = 50.0f;
+	bool isBreaking;
+	float sensorLength = 50.0f;
+	float frontSensorStartPoint = 0.8f;
+	float frontSensorSideDist = 0.9f;
+	float frontSensorsAngle = 30.0f;
+	float sidewaySensorLength = 30.0f;
+	float avoidSpeed = 5.0f;
+	private int flag = 0;
 
-        //set info from car
-        agent.updatePosition = false;
-        agent.updateRotation = false;
-        agent.autoBraking = false;
-        //agent.acceleration = spirit.MaxMotorTorque;
-        agent.speed = /*spirit.maxSpeed/2*/30;
-        agent.angularSpeed = 30;
-        agent.height = 5.5f;
-        agent.radius = 8.0f;
-        //set offset
-        agent.baseOffset = 1.2f;
-    }
+	public override void GameStart () {
+		spirit = GetComponent<CarSpirit> ();
+		control = GetComponent<CarControl> ();
+		if (control.wheelPairs[1].steering) {
+			frontWheelpair = control.wheelPairs[1];
+			backWheelPair = control.wheelPairs[0];
+		} else {
+			frontWheelpair = control.wheelPairs[0];
+			backWheelPair = control.wheelPairs[1];
+		}
+		decellarationSpeed = spirit.MaxMotorTorque;
+	}
 
-    void FixedUpdate() {
-        if(!startRace)
-            return;
-        if(map.checkpoints.Length != checkpointOffest+1){
-            agent.destination = map.checkpoints[checkpointOffest+1].transform.position;
-        }
-        
-	    //GetSteer ();
-	    //Move ();
-	    //Breaking ();	
-        if(!agent.isOnNavMesh){
-            Respawn(false);
-        }
-    }
-/*
-    void GetSteer () {
+	override protected void OnRaceStart () {
 
-	Vector3 steerVector  = transform.InverseTransformPoint(Vector3(path[currentPathObj].position.x,
-								transform.position.y,path[currentPathObj].position.z));
-	float newSteer  = maxSteer * (steerVector.x / steerVector.magnitude);
-	
-	wheelsCollider [0].steerAngle = newSteer;
-	wheelsCollider [1].steerAngle = newSteer;	
-	
-	if (steerVector.magnitude <= distFromPath)
-	{	
-		currentPathObj++;
-		
-		if (currentPathObj >= path.length)
-		{
-			currentPathObj = 0;			
-			
-			var randomValue  = Random.Range(0,2);
-		
-			if (randomValue == 0)
-			{
-				GetPath ();
-			    //Debug.Log("Im in path 1");
-			}		
-			
-			if (randomValue == 1)
-			{			
-				GetPath2 ();
-				//Debug.Log("Im in path 2");
-			}		
-		}		
-	}	
-		
-	if (Math.Abs (newSteer) >= 8 && GetComponent<Rigidbody>().velocity.magnitude >= 15)
-	{					
-		if (distFromPath)
-		{
-			isBreaking = true;
+	}
+
+	void FixedUpdate () {
+		if (!startRace || finished)
+			return;
+		if(flag == 0)
+			GetSteer();
+		Move();
+		Sensors();
+		control.VisualizeWheel (control.wheelPairs[1]);
+		control.VisualizeWheel (control.wheelPairs[0]);
+		if (spirit._powerUp != null)
+			if (rand.Next () % 5 == 0)
+				spirit.UsePowerUp ();
+		if (!agent.isOnNavMesh) {
+			Respawn (false);
 		}
 	}
-	else
-	{
-		isBreaking = false;
-	}																																																																							
-}
 
-void Move () {
-	
-	if (isRunning)
-	{		
-		for (int i= 0; i < 4; i++)
-		{	
-			currentSpeed = 2*22 /7 * wheelsCollider[i].radius * wheelsCollider[i].rpm * 60/1000;
-			currentSpeed = Mathf.Round(currentSpeed);
-						
-			if (currentSpeed < topSpeed && !isBreaking)
-			{
-				//accelarate the car
-				float accelarate  = 1.0f;
-				wheelsCollider[i].motorTorque = accelarate * maxTorque;
-			}
-			else
-			{			
-				wheelsCollider[i].motorTorque = 0;
-			}
-			AddDownForce();	
+	void GetSteer () {
+		if(path == null || path.corners.Length == 0)
+			return;
+		Vector3 steerVector = transform.InverseTransformPoint (
+			new Vector3 (path.corners[pathIndex].x, 
+			transform.position.y, 
+			path.corners[pathIndex].z)
+		);
+		float newSteer = spirit.MaxSteeringAngle * (steerVector.x / steerVector.magnitude);
+		frontWheelpair.rightWheelColider.steerAngle = newSteer;
+		frontWheelpair.leftWheelColider.steerAngle = newSteer;
+
+		if (steerVector.magnitude <= distFromPath) {
+			pathIndex++;
+			if (pathIndex >= path.corners.Length)
+				pathIndex = 0;
+		}
+
+	}
+
+	void Move () {
+		if (control.Speed <= spirit.maxSpeed ) {
+			backWheelPair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
+			backWheelPair.rightWheelColider.motorTorque = spirit.MaxMotorTorque;
+			frontWheelpair.leftWheelColider.motorTorque = spirit.MaxMotorTorque;
+			frontWheelpair.rightWheelColider.motorTorque = spirit.MaxMotorTorque;
+			backWheelPair.leftWheelColider.brakeTorque = 0;
+			backWheelPair.rightWheelColider.brakeTorque = 0;
+			frontWheelpair.leftWheelColider.brakeTorque = 0;
+			frontWheelpair.rightWheelColider.brakeTorque = 0;
+		} else {
+			backWheelPair.leftWheelColider.motorTorque = 0;
+			backWheelPair.rightWheelColider.motorTorque = 0;
+			frontWheelpair.leftWheelColider.motorTorque = 0;
+			frontWheelpair.rightWheelColider.motorTorque = 0;
+			backWheelPair.leftWheelColider.brakeTorque = decellarationSpeed;
+			backWheelPair.rightWheelColider.brakeTorque = decellarationSpeed;
+			frontWheelpair.leftWheelColider.brakeTorque = decellarationSpeed;
+			frontWheelpair.rightWheelColider.brakeTorque = decellarationSpeed;
 		}
 	}
-	else if (isRunning == false)
-	{
-		driveBackwards();
-	}	
-}
 
-private void AddDownForce()
-{
-	//wheelsCollider[2].attachedRigidbody.AddForce(-transform.up*m_Downforce * wheelsCollider[3].attachedRigidbody.velocity.magnitude);
-	this.GetComponent<Rigidbody>().AddRelativeForce(-transform.up * m_Downforce * GetComponent<Rigidbody>().velocity.magnitude);
-}
+	void Sensors () {
+		flag = 0;
+		float avoidSenstivity = 0;
+		Vector3 pos;
+		RaycastHit hit;
+		var rightAngle = Quaternion.AngleAxis (frontSensorsAngle, transform.up) * transform.forward;
+		var leftAngle = Quaternion.AngleAxis (-frontSensorsAngle, transform.up) * transform.forward;
 
-void Breaking () {
+		pos = transform.position;
+		pos.y += 0.8f;
+		pos += transform.forward * frontSensorStartPoint;
 
-	if (isBreaking)
-	{	
-		breakLights.SetActive(true);
-		
-		wheelsCollider[0].brakeTorque = breakForce;	
-		wheelsCollider[1].brakeTorque = breakForce;	
-		wheelsCollider[2].brakeTorque = breakForce;	
-		wheelsCollider[3].brakeTorque = breakForce;
-		
-		wheelsCollider[0].motorTorque = 0.0;	
-		wheelsCollider[1].motorTorque = 0.0;	
-		wheelsCollider[2].motorTorque = 0.0;	
-		wheelsCollider[3].motorTorque = 0.0;
+		//BRAKING SENSOR
+
+		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				backWheelPair.leftWheelColider.brakeTorque = decellarationSpeed;
+				backWheelPair.rightWheelColider.brakeTorque = decellarationSpeed;
+				frontWheelpair.leftWheelColider.brakeTorque = decellarationSpeed;
+				frontWheelpair.rightWheelColider.brakeTorque = decellarationSpeed;
+				Debug.DrawLine (pos, hit.point, Color.red);
+			}
+		} else {
+			backWheelPair.leftWheelColider.brakeTorque = 0;
+			backWheelPair.rightWheelColider.brakeTorque = 0;
+			frontWheelpair.leftWheelColider.brakeTorque = 0;
+			frontWheelpair.rightWheelColider.brakeTorque = 0;
+		}
+
+		//Front Straight Right Sensor
+		pos += transform.right * frontSensorSideDist;
+
+		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				avoidSenstivity -= 1;
+				Debug.Log ("Avoiding");
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		} else if (Physics.Raycast (pos, rightAngle,out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				avoidSenstivity -= 0.5f;
+				flag++;
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		}
+
+		//Front Straight left Sensor
+		pos = transform.position;
+		pos += transform.forward * frontSensorStartPoint;
+		pos -= transform.right * frontSensorSideDist;
+
+		if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				avoidSenstivity += 1;
+				Debug.Log ("Avoiding");
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		} else if (Physics.Raycast (pos, leftAngle,out hit, sensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				avoidSenstivity += 0.5f;
+				Debug.DrawLine (pos, hit.point, Color.white);
+			}
+		}
+
+		//Right SideWay Sensor
+		if (Physics.Raycast (transform.position, transform.right,out hit, sidewaySensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				avoidSenstivity -= 0.5f;
+				Debug.DrawLine (transform.position, hit.point, Color.white);
+			}
+		}
+
+		//Left SideWay Sensor
+		if (Physics.Raycast (transform.position, -transform.right,out hit, sidewaySensorLength)) {
+			if (hit.transform.tag != "Terrain") {
+				flag++;
+				avoidSenstivity += 0.5f;
+				Debug.DrawLine (transform.position, hit.point, Color.white);
+			}
+		}
+
+		//Front Mid Sensor
+		if (avoidSenstivity == 0) {
+
+			if (Physics.Raycast (pos, transform.forward,out hit, sensorLength)) {
+				if (hit.transform.tag != "Terrain") {
+					if (hit.normal.x < 0)
+						avoidSenstivity = 1;
+					else
+						avoidSenstivity = -1;
+					Debug.DrawLine (pos, hit.point, Color.white);
+				}
+			}
+		}
+		if (flag != 0)
+			AvoidSteer (avoidSenstivity);
+
 	}
-	else
-	{				
-		breakLights.SetActive(false);
-		
-		wheelsCollider[0].brakeTorque = 0;	
-		wheelsCollider[1].brakeTorque = 0;	
-		wheelsCollider[2].brakeTorque = 0;	
-		wheelsCollider[3].brakeTorque = 0;	
+
+	void AvoidSteer (float senstivity) {
+		frontWheelpair.rightWheelColider.steerAngle = avoidSpeed * senstivity;
+		frontWheelpair.leftWheelColider.steerAngle = avoidSpeed * senstivity;
+		if(control.Speed > spirit.maxSpeed /0.5f){
+			backWheelPair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			backWheelPair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			frontWheelpair.leftWheelColider.brakeTorque += decellarationSpeed/10.0f;
+			frontWheelpair.rightWheelColider.brakeTorque += decellarationSpeed/10.0f;
+		}
 	}
-}
-*/
 }

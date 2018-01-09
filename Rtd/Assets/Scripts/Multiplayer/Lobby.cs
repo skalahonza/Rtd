@@ -122,8 +122,13 @@ public class Lobby : NetworkLobbyManager {
         LobbyController lc = GameObject.FindGameObjectsWithTag("network")[0].GetComponent<LobbyController>();
         int pid = cid[conn.connectionId];
         LobbyPlayerData data = players[pid];
-        GameObject go =  Instantiate(lc.cars[data.cartype].car,GetStartPosition(), true);
+        Transform stp = GetStartPosition();
+        GameObject go =  Instantiate(lc.cars[data.cartype].car,stp, true);
+        go.transform.position = stp.transform.position;
+        go.transform.rotation = stp.transform.rotation;
         go.GetComponent<NetworkPlayer>().pid = pid;
+        go.GetComponent<NetworkPlayer>().cid = pid;
+        go.GetComponent<NetworkPlayer>().cname = data.cname;
         return go;
     }
     

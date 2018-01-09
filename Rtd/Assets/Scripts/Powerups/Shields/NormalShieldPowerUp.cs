@@ -14,7 +14,7 @@ namespace Assets.Scripts.Powerups.Shields
             return true;
         }
 
-        private IEnumerable<GameObject> SpawnEffects()
+        private void SpawnEffects()
         {
             var car = gameObject.GetComponent<CarSpirit>();
 
@@ -25,8 +25,7 @@ namespace Assets.Scripts.Powerups.Shields
 
             car.Shield = new NormalShield();
             var prefab = car.Shield.GetPrefab();
-            var vizualization = car.Shield.ShieldVisualization = Object.Instantiate(prefab, car.transform);
-            yield return vizualization;
+            car.Shield.ShieldVisualization = Instantiate(prefab, car.transform);
         }
 
         public override void UpdatePowerup(CarSpirit car)

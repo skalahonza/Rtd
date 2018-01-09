@@ -15,7 +15,7 @@ namespace Assets.Scripts.Powerups
         public override bool Use(CarSpirit car)
         {
             if (!targets.Any()) return false;
-            CmdFire();
+            SpawnEffects();
 
             foreach (var target in targets)
             {
@@ -40,19 +40,10 @@ namespace Assets.Scripts.Powerups
             }
         }
 
-        private IEnumerable<GameObject> SpawnEffects()
+        private void SpawnEffects()
         {
             var car = gameObject.GetComponent<CarSpirit>();
-            yield return AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
-        }
-
-        [Command]
-        void CmdFire()
-        {
-            foreach (var effect in SpawnEffects())
-            {
-                NetworkServer.Spawn(effect);
-            }
+            AnimationMechanics.SpawnParticle("shockwave", car.gameObject.transform);
         }
 
         public override Sprite GetPowerupIcon()
@@ -63,7 +54,7 @@ namespace Assets.Scripts.Powerups
         public void DealDamage(CarSpirit car)
         {
             car.Hp -= damage;
-            //TODO DISABLE HUD AND POWERUPS
+            car.SilencePowerup();
         }
     }
 }

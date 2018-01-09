@@ -1,13 +1,20 @@
 using UnityEngine;
 using Assets.Scripts.Car;
 
+[RequireComponent (typeof (UnityEngine.AI.NavMeshAgent))]
 public abstract class Player : MonoBehaviour
 {
     public Checkpoint latest;
     public bool startRace = false;
     protected Map map;
     public int checkpointOffest = 0;
-
+    protected UnityEngine.AI.NavMeshAgent agent;
+    float lastlen =0.0f;
+    public bool finished = false;
+    public string cname = "playername";
+    public int cid = 1;
+    protected UnityEngine.AI.NavMeshPath path;
+    protected int pathIndex = 0;
 
     /// <summary>
     /// Respawns the car on the latest checpoint position
@@ -21,7 +28,15 @@ public abstract class Player : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         control.setUpdate(0, Vector3.zero);
         gameObject.transform.position = latest.positions[0].transform.position;
-        gameObject.transform.rotation = Quaternion.identity;
+        gameObject.transform.rotation = latest.positions[0].transform.rotation;
+
+        // removep ossible flash respawn
+        var cgr = spirit.gameObject.GetComponent<CarGhostRespawn>();
+        if (cgr != null)
+            Destroy(cgr);
+
+        //flash respawn
+        spirit.gameObject.AddComponent<CarGhostRespawn>();
 
         if (restore)
         {
@@ -29,10 +44,52 @@ public abstract class Player : MonoBehaviour
         }
     }
 
+    private void CalculatePath( )
+    {
+        if(latest != null){
+            path = agent.path;
+            pathIndex = 0;
+            agent.Warp(transform.position);
+            agent.SetDestination(latest.positions[0].transform.position);
+        }
+    }
+
+    virtual protected void OnRaceStart(){
+
+    }
+       
+    public float GetPathLength( )
+    {			
+        if (agent.pathPending || agent.remainingDistance == int.MaxValue )
+        {
+            return lastlen;
+        }
+        lastlen = agent.remainingDistance;
+        CalculatePath();
+        return lastlen;
+    }
+
     public void StartRace(Map map)
     {
         latest = map.checkpoints[0];
         this.map = map;
         startRace = true;
+        OnRaceStart();
+    }
+
+    public void Start(){
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
+        agent.updatePosition = false;
+		agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        GameStart();
+    }
+
+    public virtual void GameStart(){
+        
+    }
+
+    public void Finish(){
+        finished = true;
     }
 }

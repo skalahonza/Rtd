@@ -15,6 +15,15 @@ public class NetworkPlayer : NetworkBehaviour {
     LocalPlayer cc;
     [SyncVar]
     public int pid;
+    [SyncVar]
+    public int cid;
+    [SyncVar]
+    public string cname; 
+    [SyncVar] 
+    public float dist;
+    [SyncVar]
+    public int checkpointOffest=0;
+
 
     void Start() 
     {
@@ -39,9 +48,63 @@ public class NetworkPlayer : NetworkBehaviour {
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if(mode == LoadSceneMode.Additive){
             cc = gameObject.AddComponent<LocalPlayer>();
+            cc.cid = cid;
+            cc.cname = cname;
             Counter counter = GameObject.FindObjectOfType<Counter>();
             counter.setDelegate(startRace);
+            HUD hud = GameObject.FindObjectOfType<HUD>();
+            hud.setDelegate(FinishGame);
+            hud.mynp = this;
             return;
         }
+    }
+
+    public void OnDestroy(){
+         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void FinishGame(){
+        LobbyController lb = GameObject.FindObjectOfType<LobbyController>();
+        lb.Back();
+    }
+
+
+	[Command]
+	public void CmdFinished(int plid, string cname)
+    {
+        RpcAddFinishedPlayer(plid, cname);   
+    }
+
+	[ClientRpc]
+    private void RpcAddFinishedPlayer(int plid, string cname)
+    {
+        Leaderboards lb = GameObject.FindObjectOfType<Leaderboards>();
+		Playerx p = new Playerx();
+		p.cid = plid;
+		p.cname = cname;
+        lb.players.Add(p);
+    }
+
+    public float GetPathLength(){
+        return dist;
+    }
+
+    public void Update(){
+        if(isLocalPlayer && cc != null) {
+            CmdSyncLen(cc.checkpointOffest, cc.GetPathLength());
+        }
+    }
+
+    [Command]
+	public void CmdSyncLen(int chk, float dest)
+    {
+        RpcSyncLen(chk, dest);   
+    }
+
+	[ClientRpc]
+    private void RpcSyncLen(int chk, float dest)
+    {
+      checkpointOffest = chk;
+      dist = dest;
     }
 }

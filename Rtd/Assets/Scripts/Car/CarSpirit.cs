@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Powerups.Nitros;
 using Assets.Scripts.Powerups.Projectiles;
 using Assets.Scripts.Powerups.Shields;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using Random = System.Random;
@@ -51,15 +48,21 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
     void Update()
     {
-        _powerupSpawnPeriod += Time.deltaTime;
+        //increment powerup time if no powerup present
+        if (_powerUp == null)
+            _powerupSpawnPeriod += Time.deltaTime;
 
         if (_powerupSpawnPeriod > NumberConstants.PowerUpSpawn)
         {
             //Spawn powerup after time limit
             if (_powerUp == null)
             {
-                //TODO HANDLE SINGLEPLAYER
-                CmdSpawnPowerup();
+                if (MultiplayerHelper.IsMultiplayer())
+                    CmdSpawnPowerup();
+                else
+                {
+                    SpawnPowerup();
+                }
             }
 
             _powerupSpawnPeriod = 0;
@@ -71,7 +74,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             _shieldDisablePeriod += Time.deltaTime;
             if (_shieldDisablePeriod > Shield.Duration.TotalSeconds)
             {
-                Debug.Log("Turning off shield" + Shield);
                 Shield.Clean(this);
                 Shield = null;
                 _shieldDisablePeriod = 0;
@@ -84,7 +86,6 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             _nitroDisablePeriod += Time.deltaTime;
             if (_nitroDisablePeriod > Nitro.Time)
             {
-                Debug.Log("Turning off nitro " + Nitro);
                 _nitroDisablePeriod = 0;
                 Nitro.Clean(this);
                 Nitro = null;
@@ -94,7 +95,12 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         // update powerup, retarget cars etc
         if (_powerUp != null)
             _powerUp.UpdatePowerup(this);
-    }    
+    }
+
+    private void SpawnPowerup()
+    {
+        _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType()) as PowerUpBase;
+    }
 
     /// <summary>
     /// When hit by projectile or another damage dealer
@@ -114,7 +120,8 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         if (Hp <= 0)
         {
             //TODO VISUALIZE DESTROYING waint and respawn
-            gameObject.GetComponent<Player>().Respawn();
+            if(isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                gameObject.GetComponent<Player>().Respawn();
         }
     }
 
@@ -136,16 +143,24 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     [ClientRpc]
     private void RpcSpawnPowerup(int rand)
     {
+        SpawnPowerup(rand);
+    }
+
+    private void SpawnPowerup(int rand)
+    {
         _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
-        Debug.Log("Power up spawned " + _powerUp);
     }
 
     [ClientRpc]
     public void RpcUsePowerUp()
     {
+        UsePowerUp();
+    }
+
+    public void UsePowerUp()
+    {
         if (_powerUp != null)
         {
-            Debug.Log("Using powerup: " + _powerUp);
             //if (gameObject.GetComponent<NetworkPlayer>() != null ? _powerUp.UseNetwork(this) : _powerUp.Use(this))
             if (_powerUp.Use(this))
             {
@@ -155,14 +170,25 @@ public class CarSpirit : NetworkBehaviour, IDamagable
             }
             else
             {
-                if(isLocalPlayer)
-                    SoundMechanics.SpawnSound("error_sound");
+                if (isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                    if (gameObject.GetComponent<AIPlayer>() == null)
+                        SoundMechanics.SpawnSound("error_sound");
             }
         }
         else
         {
-            if (isLocalPlayer)
-                SoundMechanics.SpawnSound("error_sound");
+            if (isLocalPlayer || !MultiplayerHelper.IsMultiplayer())
+                if(gameObject.GetComponent<AIPlayer>() == null)
+                    SoundMechanics.SpawnSound("error_sound");
         }
+    }
+
+    /// <summary>
+    /// When hit by surge - your powerup will be removed and you need to wait for another one
+    /// </summary>
+    public void SilencePowerup()
+    {
+        _powerUp = null;
+        _powerupSpawnPeriod = 0;
     }
 }
