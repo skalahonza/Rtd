@@ -1,3 +1,5 @@
+using UnityEngine.Networking;
+
 /// <summary>
 /// Player disconnection packet
 /// </summary>

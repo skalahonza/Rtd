@@ -1,3 +1,5 @@
+using UnityEngine.Networking;
+
 /// <summary>
 /// Player option change packet
 /// </summary>
