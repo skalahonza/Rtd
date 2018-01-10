@@ -24,12 +24,12 @@ public class LocalPlayer : Player {
     /// initialization
     /// </summary>
     public override void GameStart () {
-        smf = GameObject.FindObjectOfType<SmoothFollow> ();
-        smf.target = this.transform;
+        smf = FindObjectOfType<SmoothFollow> ();
+        smf.target = transform;
         spirit = GetComponent<CarSpirit> ();
         control = GetComponent<CarControl> ();
         cameraState.SetUp (smf);
-        HUD hud = GameObject.FindObjectOfType<HUD> ();
+        HUD hud = FindObjectOfType<HUD> ();
         hud.spirit = spirit;
         hud.control = control;
         hud.player = this;

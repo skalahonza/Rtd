@@ -9,18 +9,18 @@ class AIPlayer : Player {
 	CarInfo frontWheelpair;
 	CarInfo backWheelPair;
 	CarSpirit spirit;
-	private static System.Random rand = new System.Random ();
+	private static readonly System.Random rand = new System.Random ();
 
-	float distFromPath = 60.0f;
+    readonly float distFromPath = 60.0f;
 	float decellarationSpeed = 50.0f;
 	bool isBreaking;
-	float sensorLength = 50.0f;
-	float frontSensorStartPoint = 0.8f;
-	float frontSensorSideDist = 0.9f;
-	float frontSensorsAngle = 30.0f;
-	float sidewaySensorLength = 30.0f;
-	float avoidSpeed = 5.0f;
-	private int flag = 0;
+    readonly float sensorLength = 50.0f;
+    readonly float frontSensorStartPoint = 0.8f;
+    readonly float frontSensorSideDist = 0.9f;
+    readonly float frontSensorsAngle = 30.0f;
+    readonly float sidewaySensorLength = 30.0f;
+    readonly float avoidSpeed = 5.0f;
+	private int flag;
 
 	/// <summary>
 	/// called when game start from Payler.Start

@@ -20,7 +20,7 @@ public class NetworkPlayer : NetworkBehaviour {
     [SyncVar]
     public float dist;
     [SyncVar]
-    public int checkpointOffest = 0;
+    public int checkpointOffest;
 
     /// <summary>
     /// start game and setup materials
@@ -57,9 +57,9 @@ public class NetworkPlayer : NetworkBehaviour {
             cc = gameObject.AddComponent<LocalPlayer> ();
             cc.cid = cid;
             cc.cname = cname;
-            Counter counter = GameObject.FindObjectOfType<Counter> ();
+            Counter counter = FindObjectOfType<Counter> ();
             counter.setDelegate (startRace);
-            HUD hud = GameObject.FindObjectOfType<HUD> ();
+            HUD hud = FindObjectOfType<HUD> ();
             hud.setDelegate (FinishGame);
             hud.mynp = this;
             return;
@@ -77,7 +77,7 @@ public class NetworkPlayer : NetworkBehaviour {
     /// handle finishing game
     /// </summary>
     public void FinishGame () {
-        LobbyController lb = GameObject.FindObjectOfType<LobbyController> ();
+        LobbyController lb = FindObjectOfType<LobbyController> ();
         lb.Back ();
     }
 
@@ -106,7 +106,7 @@ public class NetworkPlayer : NetworkBehaviour {
     /// </param>
     [ClientRpc]
     private void RpcAddFinishedPlayer (int plid, string cname) {
-        Leaderboards lb = GameObject.FindObjectOfType<Leaderboards> ();
+        Leaderboards lb = FindObjectOfType<Leaderboards> ();
         Playerx p = new Playerx ();
         p.cid = plid;
         p.cname = cname;

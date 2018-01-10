@@ -12,13 +12,13 @@ public class Leaderboard : MonoBehaviour {
     public Color[] colors = new Color[5];
     public GameObject go;
 
-    private int fin = 0;
+    private int fin;
 
     /// <summary>
     /// check if re-rendering is neccessary
     /// </summary>
     private void Update () {
-        Leaderboards ld = GameObject.FindObjectOfType<Leaderboards> ();
+        Leaderboards ld = FindObjectOfType<Leaderboards> ();
         if (ld.players.Count != go.transform.childCount) {
             Render (ld);
             if (Assets.Mechanics.MultiplayerHelper.IsMultiplayer ())
@@ -52,7 +52,7 @@ public class Leaderboard : MonoBehaviour {
     public void ReturnBtt () {
         Debug.Log (string.Format ("Game finished MP{0}", Assets.Mechanics.MultiplayerHelper.IsMultiplayer ()));
         if (Assets.Mechanics.MultiplayerHelper.IsMultiplayer ()) {
-            GameObject.FindObjectOfType<Lobby> ().SendReturnToLobby ();
+            FindObjectOfType<Lobby> ().SendReturnToLobby ();
         } else {
             SceneManager.LoadScene (4);
         }
@@ -62,8 +62,8 @@ public class Leaderboard : MonoBehaviour {
     /// multiplayer - check and show button when everybody finished track
     /// </summary>
     private void CheckButton () {
-        Debug.Log (string.Format ("Finished {0} of {1}", fin, GameObject.FindObjectsOfType<CarSpirit> ().Length));
-        if (GameObject.FindObjectsOfType<CarSpirit> ().Length == fin)
+        Debug.Log (string.Format ("Finished {0} of {1}", fin, FindObjectsOfType<CarSpirit> ().Length));
+        if (FindObjectsOfType<CarSpirit> ().Length == fin)
             button.SetActive (true);
     }
 }

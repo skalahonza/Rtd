@@ -19,7 +19,7 @@ namespace Assets.Mechanics
         public static GameObject SpawnParticle(string name)
         {
             var prefab = PrepareParticlePrefab(name);
-            var particle = GameObject.Instantiate(prefab);
+            var particle = Object.Instantiate(prefab);
             particle.AddComponent<ParticlePlayer>();
             return particle;
         }
@@ -33,7 +33,7 @@ namespace Assets.Mechanics
         public static GameObject SpawnParticle(string name, Transform parent)
         {
             var prefab = PrepareParticlePrefab(name);
-            var particle = GameObject.Instantiate(prefab,parent);
+            var particle = Object.Instantiate(prefab,parent);
             particle.AddComponent<ParticlePlayer>();
             return particle;
         }

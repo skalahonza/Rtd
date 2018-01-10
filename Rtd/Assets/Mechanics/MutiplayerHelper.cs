@@ -10,7 +10,7 @@ namespace Assets.Mechanics
         /// <returns></returns>
         public static bool IsMultiplayer()
         {
-            return GameObject.FindObjectOfType<NetworkPlayer>() != null;
+            return Object.FindObjectOfType<NetworkPlayer>() != null;
         }
     }
 }

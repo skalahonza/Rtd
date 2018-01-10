@@ -7,16 +7,16 @@ using UnityEngine;
 [RequireComponent (typeof (UnityEngine.AI.NavMeshAgent))]
 public abstract class Player : MonoBehaviour {
     public Checkpoint latest;
-    public bool startRace = false;
+    public bool startRace;
     protected Map map;
     public int checkpointOffest = 0;
     protected UnityEngine.AI.NavMeshAgent agent;
-    float lastlen = 0.0f;
-    public bool finished = false;
+    float lastlen;
+    public bool finished;
     public string cname = "playername";
     public int cid = 1;
     protected UnityEngine.AI.NavMeshPath path;
-    protected int pathIndex = 0;
+    protected int pathIndex;
 
     /// <summary>
     /// Respawns the car on the latest checpoint position
