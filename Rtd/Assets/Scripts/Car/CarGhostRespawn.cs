@@ -12,7 +12,7 @@ namespace Assets.Scripts.Car
     {
         private readonly Renderer[] _renderers = new Renderer[5];
         private readonly List<Collider> colliders = new List<Collider>();
-        bool notend = false;
+        public bool notend = false;
 
         public void Start()
         {
