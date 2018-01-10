@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
 using Assets.Mechanics;
 using Assets.Scripts.Car;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.States.Camera;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityStandardAssets.Utility;
 
 /// <summary>

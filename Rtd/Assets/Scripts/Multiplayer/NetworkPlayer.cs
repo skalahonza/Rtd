@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Car;
-using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Car;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using UnityStandardAssets.Utility;
 
 /// <summary>
 /// network player game data

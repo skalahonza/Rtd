@@ -2,7 +2,6 @@
 using System.Linq;
 using Assets.Mechanics;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
