@@ -20,6 +20,7 @@ public class Leaderboard : MonoBehaviour {
     /// check if re-rendering is neccessary
     /// </summary>
     private void Update () {
+
         Leaderboards ld = GameObject.FindObjectOfType<Leaderboards> ();
         if (ld.players.Count != go.transform.childCount) {
             Render (ld);

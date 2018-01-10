@@ -12,6 +12,8 @@ namespace Assets.Scripts.Car
     {
         private readonly Renderer[] _renderers = new Renderer[5];
         private List<Collider> colliders = new List<Collider>();
+        bool notend = false;
+
         public void Start()
         {
             for (var i = 0; i < 5; i++)
@@ -47,6 +49,10 @@ namespace Assets.Scripts.Car
 
         public void OnDestroy()
         {
+            //if car is destroyed becouse of end of game
+            if(!notend){
+                return;
+            }
             //restore collisions 
             foreach (var carRenderer in _renderers)
                 carRenderer.enabled = true;

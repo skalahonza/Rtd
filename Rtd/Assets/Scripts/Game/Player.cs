@@ -33,6 +33,7 @@ public abstract class Player : MonoBehaviour {
 
         // removep ossible flash respawn
         var cgr = spirit.gameObject.GetComponent<CarGhostRespawn> ();
+        cgr.notend = true;
         if (cgr != null)
             Destroy (cgr);
 

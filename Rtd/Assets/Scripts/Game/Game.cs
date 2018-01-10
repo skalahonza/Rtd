@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// lass reprezenting game data - singleplayer only
 /// </summary>
-[RequireComponent (typeof (Leaderboards))]
 public class Game : MonoBehaviour {
 
     List<string> players = new List<string> ();
@@ -76,6 +75,8 @@ public class Game : MonoBehaviour {
     /// loading mode
     /// </param>
     private void OnSceneLoaded (Scene scene, LoadSceneMode mode) {
+        if(scene.name == "Singleplayer")
+        return;
         if (mode == LoadSceneMode.Additive) {
             foreach (var car in cars) {
                 car.SetActive (true);
