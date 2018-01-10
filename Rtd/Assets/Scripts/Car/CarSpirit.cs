@@ -32,9 +32,9 @@ public class CarSpirit : NetworkBehaviour, IDamagable
     public PowerUpBase _powerUp;
 
     private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
-    private float _powerupSpawnPeriod = 0.0f;
-    private float _shieldDisablePeriod = 0.0f;
-    private float _nitroDisablePeriod = 0.0f;
+    private float _powerupSpawnPeriod;
+    private float _shieldDisablePeriod;
+    private float _nitroDisablePeriod;
 
     public ShieldBase Shield;
     public NitroBase Nitro;

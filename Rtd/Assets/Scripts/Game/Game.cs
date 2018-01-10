@@ -7,10 +7,9 @@ using UnityEngine.SceneManagement;
 /// lass reprezenting game data - singleplayer only
 /// </summary>
 public class Game : MonoBehaviour {
-
-    List<string> players = new List<string> ();
-    List<GameObject> prefabs = new List<GameObject> ();
-    List<Material> materials = new List<Material> ();
+    readonly List<string> players = new List<string> ();
+    readonly List<GameObject> prefabs = new List<GameObject> ();
+    readonly List<Material> materials = new List<Material> ();
     public List<GameObject> cars = new List<GameObject> ();
     public Leaderboards leaderboards;
     Map map;
@@ -81,13 +80,13 @@ public class Game : MonoBehaviour {
             foreach (var car in cars) {
                 car.SetActive (true);
             }
-            Counter counter = GameObject.FindObjectOfType<Counter> ();
+            Counter counter = FindObjectOfType<Counter> ();
             counter.setDelegate (startRace);
-            HUD hud = GameObject.FindObjectOfType<HUD> ();
+            HUD hud = FindObjectOfType<HUD> ();
             hud.setDelegate (finish);
             return;
         }
-        map = GameObject.FindObjectOfType<Map> ();
+        map = FindObjectOfType<Map> ();
         //instantiate them all
         int i = 0;
         //get Map

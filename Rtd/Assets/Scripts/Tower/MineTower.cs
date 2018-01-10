@@ -2,6 +2,9 @@
 using Assets.Scripts.Constants;
 using UnityEngine;
 
+/// <summary>
+/// Tower spawning mines in front of moving players
+/// </summary>
 public class MineTower : TowerBase
 {
     public MineBase Mine;

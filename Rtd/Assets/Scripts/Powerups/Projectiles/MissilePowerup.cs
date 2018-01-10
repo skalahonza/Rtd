@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Projectiles
 {
+    /// <summary>
+    /// Apply missile powerup to a car
+    /// </summary>
     public class MissilePowerup : ProjectilePowerupBase
     {
         protected override GameObject GetProjectilePrefab()

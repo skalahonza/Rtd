@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Mechanics
 {
@@ -15,7 +14,7 @@ namespace Assets.Mechanics
         public static GameObject SpawnSound(string soundName)
         {            
             var prefab = Resources.Load<GameObject>(dir + "\\" + soundName);
-            return GameObject.Instantiate(prefab);
+            return Object.Instantiate(prefab);
         }
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace Assets.Mechanics
         public static GameObject SpawnSound(string soundName, Transform parent)
         {
             var prefab = Resources.Load<GameObject>(dir + "\\" + soundName);
-            return GameObject.Instantiate(prefab,parent);
+            return Object.Instantiate(prefab,parent);
         }
     }
 }

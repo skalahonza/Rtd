@@ -2,6 +2,9 @@
 
 namespace Assets.Scripts.Powerups.Nitros
 {
+    /// <summary>
+    /// Apply timed nitro on a car
+    /// </summary>
     public class TimedNitroPowerUp : PowerUpBase
     {
         public TimedNitro Nitro { get; private set; }

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Car;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -23,11 +21,11 @@ public class HUD : MonoBehaviour {
     public GameObject retbt;
     public GameObject wtxt;
     public GameObject leaderb;
-    bool mact = false;
+    bool mact;
     Text pos;
     int position = 1;
     public Player player;
-    bool isInTransition = false;
+    bool isInTransition;
     bool ismp;
     NetworkPlayer[] nps;
     public NetworkPlayer mynp;
@@ -36,14 +34,14 @@ public class HUD : MonoBehaviour {
     /// find HUD objects in HUD scene
     /// </summary>
     private void Start () {
-        go = GameObject.FindObjectOfType<Game> ();
+        go = FindObjectOfType<Game> ();
         hp = GameObject.Find ("Hp").GetComponent<Text> ();
         speed = GameObject.Find ("Speed").GetComponent<Text> ();
         pwup = GameObject.Find ("Pwup").GetComponent<Image> ();
         pos = GameObject.Find ("position").GetComponent<Text> ();
         ismp = Assets.Mechanics.MultiplayerHelper.IsMultiplayer ();
         if (ismp) {
-            nps = GameObject.FindObjectsOfType<NetworkPlayer> ();
+            nps = FindObjectsOfType<NetworkPlayer> ();
         }
     }
 

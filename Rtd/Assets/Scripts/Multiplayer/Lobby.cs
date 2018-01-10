@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 /// <summary>
 /// lobby manager server side
@@ -12,17 +8,17 @@ public class Lobby : NetworkLobbyManager {
 
     int MapIndex;
 
-    short SetMapMsg = 1024;
-    short UpdatePlayerMsg = 1025;
-    short InstantiateMsg = 1026;
-    short AddPlayerMsg = 1027;
-    short SendMessageMsg = 1028;
-    short KickPlayerMsg = 1029;
-    short PlayerDisconnectMsg = 1030;
+    readonly short SetMapMsg = 1024;
+    readonly short UpdatePlayerMsg = 1025;
+    readonly short InstantiateMsg = 1026;
+    readonly short AddPlayerMsg = 1027;
+    readonly short SendMessageMsg = 1028;
+    readonly short KickPlayerMsg = 1029;
+    readonly short PlayerDisconnectMsg = 1030;
 
     bool[] usedId = new bool[5];
     int[] cid = new int[5];
-    int tcon = 0;
+    int tcon;
     LobbyPlayerData[] players = new LobbyPlayerData[5];
     NetworkConnection[] connections = new NetworkConnection[5];
 

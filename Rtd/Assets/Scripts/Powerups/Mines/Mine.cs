@@ -1,6 +1,9 @@
 ﻿using Assets.Mechanics;
 using UnityEngine;
 
+/// <summary>
+/// Base class for mines used by mine towers and mine powerups
+/// </summary>
 [RequireComponent(typeof(SphereCollider))]
 public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
 {
@@ -9,11 +12,6 @@ public abstract class MineBase : MonoBehaviour,IDamageDealer,IPrefable
     {
         var sphere = GetComponent<SphereCollider>();
         sphere.isTrigger = true;
-    }
-
-    void Update()
-    {
-
     }
 
     public virtual void OnTriggerEnter(Collider other)

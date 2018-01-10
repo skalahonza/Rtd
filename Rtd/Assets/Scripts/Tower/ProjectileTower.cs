@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Mechanics;
-using Assets.Scripts.Tower.Projectiles;
 
+/// <summary>
+/// Tower with shooting ability
+/// </summary>
 public class ProjectileTower : TowerBase
 {
     public Transform MuzzlePosition;

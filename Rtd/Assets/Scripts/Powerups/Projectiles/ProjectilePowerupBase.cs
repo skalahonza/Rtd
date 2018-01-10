@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Projectiles
 {
+    /// <summary>
+    /// Base calss for all projectile powerups
+    /// </summary>
     public abstract class ProjectilePowerupBase : PowerUpBase
     {
         protected GameObject Target;
@@ -45,10 +48,6 @@ namespace Assets.Scripts.Powerups.Projectiles
 
             projectile.GetComponent<Rigidbody>().velocity = velocity;
             return projectile;
-        }
-
-        public bool Spawnable(){
-            return true;
         }
         
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,7 +14,7 @@ public class Singleplayer : MonoBehaviour {
 	public Button prevmap;
 	public Button play;
 	public SpConfig[] maps;
-	public int mapIndex = 0;
+	public int mapIndex;
 	public _car[] cars;
 
 	/// <summary>
@@ -60,7 +58,7 @@ public class Singleplayer : MonoBehaviour {
 	/// click on start game button 
 	/// </summary>
 	public void startGame () {
-		Game game = GameObject.FindObjectOfType<Game> ();
+		Game game = FindObjectOfType<Game> ();
 		game.enabled = true;
 		int i = 0;
 		foreach (var item in dropdown) {

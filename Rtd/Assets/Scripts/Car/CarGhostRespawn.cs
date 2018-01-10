@@ -11,7 +11,7 @@ namespace Assets.Scripts.Car
     public class CarGhostRespawn : MonoBehaviour
     {
         private readonly Renderer[] _renderers = new Renderer[5];
-        private List<Collider> colliders = new List<Collider>();
+        private readonly List<Collider> colliders = new List<Collider>();
         bool notend = false;
 
         public void Start()

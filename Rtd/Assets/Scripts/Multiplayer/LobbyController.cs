@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,26 +13,26 @@ public class LobbyController : NetworkBehaviour {
 	public GameObject hostSpawnObject;
 	public Text chatText;
 	public SpConfig[] maps;
-	public int mapIndex = 0;
+	public int mapIndex;
 	public string cname = "Player";
 	public _car[] cars;
 	public GameObject[] playerSetupObj = new GameObject[5];
 	public Color[] colors = new Color[5];
 
-	bool bug1 = false;
-	bool bug712042 = false;
+	bool bug1;
+	bool bug712042;
 	public Lobby lobby;
-	short SetMapMsg = 1024;
-	short UpdatePlayerMsg = 1025;
-	short AddPlayerMsg = 1027;
-	short InstantiateMsg = 1026;
-	short SendMessageMsg = 1028;
-	short KickPlayerMsg = 1029;
-	short PlayerDisconnectMsg = 1030;
+    readonly short SetMapMsg = 1024;
+    readonly short UpdatePlayerMsg = 1025;
+    readonly short AddPlayerMsg = 1027;
+    readonly short InstantiateMsg = 1026;
+    readonly short SendMessageMsg = 1028;
+    readonly short KickPlayerMsg = 1029;
+    readonly short PlayerDisconnectMsg = 1030;
 
 	NetworkClient nc;
 	public int myID;
-	int msgstotal = 0;
+	int msgstotal;
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
 	/// <summary>

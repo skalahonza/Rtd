@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Mechanics
 {
@@ -11,7 +10,7 @@ namespace Assets.Mechanics
         /// <returns></returns>
         public static bool IsMultiplayer()
         {
-            return GameObject.FindObjectOfType<NetworkPlayer>() != null;
+            return Object.FindObjectOfType<NetworkPlayer>() != null;
         }
     }
 }

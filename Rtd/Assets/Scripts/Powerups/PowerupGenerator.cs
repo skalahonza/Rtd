@@ -6,6 +6,9 @@ using Assets.Scripts.Powerups.Shields;
 
 namespace Assets.Scripts.Powerups
 {
+    /// <summary>
+    /// Used for random generating of powerups
+    /// </summary>
     public class PowerupGenerator
     {
         private readonly List<Type> _allowedPowerups;
@@ -25,6 +28,10 @@ namespace Assets.Scripts.Powerups
         {         
         }
 
+        /// <summary>
+        /// Generator for random powerup generation
+        /// </summary>
+        /// <param name="allowedPowerups">List of types/allowed powerups</param>
         public PowerupGenerator(List<Type> allowedPowerups)
         {
             _allowedPowerups = allowedPowerups;
