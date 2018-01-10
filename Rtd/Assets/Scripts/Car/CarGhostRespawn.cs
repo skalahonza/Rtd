@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Car
 {
+    /// <summary>
+    /// Car starts blinking and it is incollidable for a limited time
+    /// </summary>
     public class CarGhostRespawn : MonoBehaviour
     {
         private readonly Renderer[] _renderers = new Renderer[5];
