@@ -36,15 +36,6 @@ namespace Assets.Mechanics
             return CalculateAimVelocityVector(enemy.rotation, enemy.position, targetVelocity, shooterPosition, projectileSpeed);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="targetRot"></param>
-        /// <param name="aTargetPos"></param>
-        /// <param name="aTargetSpeed"></param>
-        /// <param name="projectilePosition"></param>
-        /// <param name="projectileSpeed"></param>
-        /// <returns></returns>
         private static Vector3 CalculateAimVelocityVector(Quaternion targetRot, Vector3 aTargetPos, Vector3 aTargetSpeed, Vector3 projectilePosition, float projectileSpeed)
         {
             var targetDir = aTargetPos - projectilePosition;

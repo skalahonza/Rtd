@@ -8,6 +8,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Random = System.Random;
 
+/// <summary>
+/// Holds basic information about car
+/// </summary>
 [RequireComponent(typeof(MissilePowerup))]
 [RequireComponent(typeof(ReverseMissilePowerup))]
 [RequireComponent(typeof(MinePowerup))]
@@ -28,17 +31,7 @@ public class CarSpirit : NetworkBehaviour, IDamagable
 
     public PowerUpBase _powerUp;
 
-    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator(
-/*        new List<Type>()
-        {
-            //typeof(MinePowerup),
-            //typeof(SurgePowerUp),
-            //typeof(MissilePowerup),
-            //typeof(ReverseMissilePowerup),
-            typeof(NormalShieldPowerUp),
-            typeof(PaybackShieldPowerUp),
-        }*/
-        );
+    private readonly PowerupGenerator _powerupGenerator = new PowerupGenerator();
     private float _powerupSpawnPeriod = 0.0f;
     private float _shieldDisablePeriod = 0.0f;
     private float _nitroDisablePeriod = 0.0f;
@@ -151,12 +144,18 @@ public class CarSpirit : NetworkBehaviour, IDamagable
         _powerUp = gameObject.GetComponent(_powerupGenerator.GetPowerUpType(rand)) as PowerUpBase;
     }
 
+    /// <summary>
+    /// Send rpc message that this car is using a powerup
+    /// </summary>
     [ClientRpc]
     public void RpcUsePowerUp()
     {
         UsePowerUp();
     }
 
+    /// <summary>
+    /// Use current powerup
+    /// </summary>
     public void UsePowerUp()
     {
         if (_powerUp != null)

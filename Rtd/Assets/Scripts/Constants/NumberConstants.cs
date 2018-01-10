@@ -24,6 +24,11 @@ namespace Assets.Scripts.Constants
         /// </summary>
         public const float TowerMineVanishTime = 7.5f;
 
+        /// <summary>
+        /// Calculate position for mine spawning
+        /// </summary>
+        /// <param name="spawnPosition">Current position of the mine</param>
+        /// <returns>Best mine position above ground</returns>
         public static Vector3 TowerMineSpawnHeight(Vector3 spawnPosition)
         {
             // callibrate position to the ground
@@ -35,6 +40,11 @@ namespace Assets.Scripts.Constants
             return spawnPosition;
         }
 
+        /// <summary>
+        /// Lift mine above ground a little bit
+        /// </summary>
+        /// <param name="spawnPosition">Mine position</param>
+        /// <returns></returns>
         public static Vector3 MineSpawnHeight(Vector3 spawnPosition)
         {
             spawnPosition.y += 1;
