@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+/// <summary>
+/// Destroy gameobject after audio playing is finished
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class SoundPlayer : MonoBehaviour {
 

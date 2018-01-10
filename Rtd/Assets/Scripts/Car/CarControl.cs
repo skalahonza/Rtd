@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Car
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Component is used for applying car physics
+    /// </summary>
     [RequireComponent(typeof(CarSpirit))]
     public class CarControl : MonoBehaviour
     {
@@ -24,6 +25,10 @@ namespace Assets.Scripts.Car
 
         public float Speed { get { return rb.velocity.magnitude *3.6f; } }
 
+        /// <summary>
+        /// Move wheel meshes onto colliders
+        /// </summary>
+        /// <param name="wheelPair">Wheel pair to visualize</param>
         public void VisualizeWheel(CarInfo wheelPair)
         {
             var WheelL = wheelPair.leftWheelColider;

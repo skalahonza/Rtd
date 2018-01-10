@@ -1,52 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SetMap : MessageBase {
-	public int offset;
-}
-
-public class SetName : MessageBase {
-	public string name;
-}
-
-public class InstantiateData : MessageBase {
-	public LobbyPlayerData[] players;
-	public int mapIndex;
-	public int ID;
-}
-
-public class AddPlayerData : MessageBase {
-	public LobbyPlayerData data;
-}
-
-public class UpdatePlayerData : MessageBase {
-	public LobbyPlayerData data;
-}
-
-public class MessageData : MessageBase {
-	public string msg;
-	public int id;
-}
-
-public class KickData : MessageBase {
-	public int id;
-}
-
-public class PlayerDisconnectData : MessageBase {
-	public int id;
-}
-
-public class PlayerReadyStateChangeData : MessageBase {
-	public int id;
-	public bool ready;
-}
-
+/// <summary>
+/// Multiplayer Lobby controller
+/// </summary>
 [RequireComponent (typeof (Lobby))]
 public class LobbyController : NetworkBehaviour {
 	public GameObject spawn;
@@ -54,30 +13,33 @@ public class LobbyController : NetworkBehaviour {
 	public GameObject hostSpawnObject;
 	public Text chatText;
 	public SpConfig[] maps;
-	public int mapIndex = 0;
+	public int mapIndex;
 	public string cname = "Player";
 	public _car[] cars;
 	public GameObject[] playerSetupObj = new GameObject[5];
 	public Color[] colors = new Color[5];
 
-	bool bug1 = false;
-	bool bug712042 = false;
+	bool bug1;
+	bool bug712042;
 	public Lobby lobby;
-	short SetMapMsg = 1024;
-	short UpdatePlayerMsg = 1025;
-	short AddPlayerMsg = 1027;
-	short InstantiateMsg = 1026;
-	short SendMessageMsg = 1028;
-	short KickPlayerMsg = 1029;
-	short PlayerDisconnectMsg = 1030;
+    readonly short SetMapMsg = 1024;
+    readonly short UpdatePlayerMsg = 1025;
+    readonly short AddPlayerMsg = 1027;
+    readonly short InstantiateMsg = 1026;
+    readonly short SendMessageMsg = 1028;
+    readonly short KickPlayerMsg = 1029;
+    readonly short PlayerDisconnectMsg = 1030;
 
 	NetworkClient nc;
 	public int myID;
-	int msgstotal = 0;
+	int msgstotal;
 	public LobbyPlayerData[] myData = new LobbyPlayerData[5];
 
+	/// <summary>
+	/// Set up network
+	/// </summary>
 	public void Start () {
-		if(nc != null){
+		if (nc != null) {
 			GameObject.Find ("ConnectForm").SetActive (false);
 			return;
 		}
@@ -89,6 +51,9 @@ public class LobbyController : NetworkBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
+	/// <summary>
+	/// Handle host button clicking
+	/// </summary>
 	public void Host () {
 		bug712042 = true;
 		spawnObject = hostSpawnObject;
@@ -98,6 +63,9 @@ public class LobbyController : NetworkBehaviour {
 		GameObject.Find ("ConnectForm").SetActive (false);
 	}
 
+	/// <summary>
+	/// handle connect clicking
+	/// </summary>
 	public void Connect () {
 		int port = 7777;
 		cname = GameObject.Find ("plrname").GetComponent<Text> ().text;
@@ -108,6 +76,12 @@ public class LobbyController : NetworkBehaviour {
 		GameObject.Find ("ConnectForm").SetActive (false);
 	}
 
+	/// <summary>
+	/// initialize connections
+	/// </summary>
+	/// <param name="nc">
+	/// network client
+	/// </param>
 	void InitializeNetworkClient (NetworkClient nc) {
 		GameObject.Find ("ConnectForm").GetComponent<NetwokResolution> ().Open ();
 		nc.RegisterHandler (SetMapMsg, SetMap);
@@ -120,6 +94,10 @@ public class LobbyController : NetworkBehaviour {
 		spawn = GameObject.Find ("player_setup");
 	}
 
+	/// <summary>
+	/// handle player disconnection
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void Disconnected (NetworkMessage netMsg) {
 		var msg = netMsg.ReadMessage<PlayerDisconnectData> ();
 		//remove line and data
@@ -127,6 +105,9 @@ public class LobbyController : NetworkBehaviour {
 		Destroy (playerSetupObj[msg.id]);
 	}
 
+	/// <summary>
+	/// handle next map clicking
+	/// </summary>
 	public void nextMap () {
 		if (maps.Length == mapIndex + 1) {
 			return;
@@ -136,6 +117,9 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send (SetMapMsg, map);
 	}
 
+	/// <summary>
+	/// handle prev map clicking
+	/// </summary>
 	public void prevMap () {
 		if (0 == mapIndex) {
 			return;
@@ -145,12 +129,19 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send (SetMapMsg, map);
 	}
 
+	/// <summary>
+	/// handle setMap packet
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void SetMap (NetworkMessage netMsg) {
 		var msg = netMsg.ReadMessage<SetMap> ();
 		mapIndex = msg.offset;
 		ResetMap ();
 	}
 
+	/// <summary>
+	/// Set map by mapIndex
+	/// </summary>
 	void ResetMap () {
 		Debug.Log (string.Format ("mapreset to {0}", mapIndex));
 		foreach (var map in maps) {
@@ -160,6 +151,10 @@ public class LobbyController : NetworkBehaviour {
 		lobby.playScene = maps[mapIndex].scene;
 	}
 
+	/// <summary>
+	/// handle addplayer packet
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void AddPlayer (NetworkMessage netMsg) {
 		var msg = netMsg.ReadMessage<AddPlayerData> ();
 		GameObject go = Instantiate (spawnObject, spawn.transform).gameObject;
@@ -172,6 +167,10 @@ public class LobbyController : NetworkBehaviour {
 		myData[msg.data.ID] = msg.data;
 	}
 
+	/// <summary>
+	/// Handle instantiate packet
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void OnConnected (NetworkMessage netMsg) {
 		InstantiateData inst = netMsg.ReadMessage<InstantiateData> ();
 		mapIndex = inst.mapIndex;
@@ -197,6 +196,10 @@ public class LobbyController : NetworkBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Update palyer properties
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void UpdatePlayer (NetworkMessage netMsg) {
 		var msg = netMsg.ReadMessage<UpdatePlayerData> ();
 		bug1 = true;
@@ -206,6 +209,10 @@ public class LobbyController : NetworkBehaviour {
 		bug1 = false;
 	}
 
+	/// <summary>
+	/// handle dropdown changing value
+	/// </summary>
+	/// <param name="dd"></param>
 	public void PlayerDropdownChange (Dropdown dd) {
 		if (bug1) {
 			return;
@@ -216,6 +223,9 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send (UpdatePlayerMsg, msg);
 	}
 
+	/// <summary>
+	/// handle send clicking orr enter pressing
+	/// </summary>
 	public void SendMessage () {
 		MessageData msg = new MessageData ();
 		msg.msg = GameObject.Find ("InputField").GetComponent<InputField> ().text;
@@ -226,6 +236,10 @@ public class LobbyController : NetworkBehaviour {
 		GameObject.Find ("InputField").GetComponent<InputField> ().text = "";
 	}
 
+	/// <summary>
+	/// handle Receining message packet
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void ReceiveMessage (NetworkMessage netMsg) {
 		msgstotal++;
 		var msg = netMsg.ReadMessage<MessageData> ();
@@ -236,6 +250,10 @@ public class LobbyController : NetworkBehaviour {
 		GameObject.Find ("chatscroll").GetComponent<ScrollRect> ().verticalNormalizedPosition = 0;
 	}
 
+	/// <summary>
+	/// handle clicking on Kick packet
+	/// </summary>
+	/// <param name="btt"></param>
 	public void Kick (Button btt) {
 		GameObject par = btt.transform.parent.gameObject;
 		KickData msg = new KickData ();
@@ -250,10 +268,17 @@ public class LobbyController : NetworkBehaviour {
 		nc.Send (KickPlayerMsg, msg);
 	}
 
+	/// <summary>
+	/// When I have been kicked
+	/// </summary>
+	/// <param name="netMsg"></param>
 	public void Kicked (NetworkMessage netMsg) {
 		Back ();
 	}
 
+	/// <summary>
+	/// Handle Back button clicking
+	/// </summary>
 	public void Back () {
 		Debug.Log ("disconnect");
 		nc.Disconnect ();

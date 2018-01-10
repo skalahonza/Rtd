@@ -554,7 +554,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Light
+  m_Text: Sport
 --- !u!222 &18052607
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Light
+  m_Text: Sport
 --- !u!222 &37568822
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2495,7 +2495,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 305430246}
-  - component: {fileID: 305430245}
   - component: {fileID: 305430244}
   m_Layer: 0
   m_Name: GameObject
@@ -2517,17 +2516,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cars: []
   leaderboards: {fileID: 0}
---- !u!114 &305430245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 305430243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a7c79b719f0455a944f1eea420cdfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &305430246
 Transform:
   m_ObjectHideFlags: 0
@@ -3612,9 +3600,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Classic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}
@@ -7305,9 +7293,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Classic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}
@@ -8889,9 +8877,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Clasic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}
@@ -9286,7 +9274,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Light
+  m_Text: Sport
 --- !u!222 &1156310882
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10924,7 +10912,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Light
+  m_Text: Sport
 --- !u!222 &1427465154
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11117,7 +11105,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Light
+  m_Text: Sport
 --- !u!222 &1438119238
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12929,9 +12917,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Classic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}
@@ -17010,9 +16998,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Classic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}

@@ -12,9 +12,9 @@ namespace UnityStandardAssets.Utility
 		// the height we want the camera to be above the target
 		public float Height = 5.0f;
 
-		private float rotationDamping = 1;
+		private readonly float rotationDamping = 1;
 
-		private float heightDamping = 1;
+		private readonly float heightDamping = 1;
 
 		// Use this for initialization
 		void Start() { }

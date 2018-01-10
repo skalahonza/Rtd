@@ -2,15 +2,17 @@
 using System.Linq;
 using Assets.Mechanics;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
+    /// <summary>
+    /// Apply surge powerup on a car
+    /// </summary>
     public class SurgePowerUp : PowerUpBase, IDamageDealer {  
         
-        private List<IDamagable> targets = new List<IDamagable>();
-        private float radius = 25;
-        private float damage = 15;
+        private readonly List<IDamagable> targets = new List<IDamagable>();
+        private readonly float radius = 25;
+        private readonly float damage = 15;
 
         public override bool Use(CarSpirit car)
         {

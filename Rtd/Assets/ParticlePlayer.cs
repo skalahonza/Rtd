@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Destroy gameobject after partile playing is finished
+/// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 public class ParticlePlayer : MonoBehaviour
 {

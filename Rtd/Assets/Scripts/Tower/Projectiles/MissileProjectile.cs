@@ -2,6 +2,9 @@
 
 namespace Assets.Scripts.Tower.Projectiles
 {
+    /// <summary>
+    /// Missile porjectile for missile towers
+    /// </summary>
     public class MissileProjectile : ProjectileBase
     {
         public override GameObject GetPrefab()

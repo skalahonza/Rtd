@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Assets.Mechanics;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Powerups.Shields
 {
+    /// <summary>
+    /// Apply normal shield powerup on a car
+    /// </summary>
     public class NormalShieldPowerUp : PowerUpBase
     {
         public override bool Use(CarSpirit car)

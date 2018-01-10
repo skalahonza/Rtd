@@ -576,9 +576,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Light
+    - m_Text: Sport
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Classic
       m_Image: {fileID: 0}
     - m_Text: Heavy
       m_Image: {fileID: 0}

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using Assets.Mechanics;
+﻿using Assets.Mechanics;
 using Assets.Scripts.Constants;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
+    /// <summary>
+    /// Apply mine powerup on a car
+    /// </summary>
     public class MinePowerup: PowerUpBase
     {
         public override bool Use(CarSpirit car)
