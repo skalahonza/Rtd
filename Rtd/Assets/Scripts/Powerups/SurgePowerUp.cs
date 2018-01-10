@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
+    /// <summary>
+    /// Apply surge powerup on a car
+    /// </summary>
     public class SurgePowerUp : PowerUpBase, IDamageDealer {  
         
         private List<IDamagable> targets = new List<IDamagable>();

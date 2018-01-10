@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups
 {
+    /// <summary>
+    /// Apply mine powerup on a car
+    /// </summary>
     public class MinePowerup: PowerUpBase
     {
         public override bool Use(CarSpirit car)

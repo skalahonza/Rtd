@@ -4,6 +4,9 @@ using UnityEngine.Networking;
 
 namespace Assets.Scripts.Powerups.Shields
 {
+    /// <summary>
+    /// Apply payback shiled powerup on a car
+    /// </summary>
     public class PaybackShieldPowerUp : PowerUpBase
     {
         public override bool Use(CarSpirit car)
